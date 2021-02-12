@@ -18,7 +18,7 @@ class UPnPServerDevice extends Homey.Device
         //this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
 
         this.IP = this.getSetting('ip');
-        this.server = new UPnPServer({ ip: this.IP });
+        this.server = new UPnPServer({ homey: this.homey, ip: this.IP });
         
     }
 
