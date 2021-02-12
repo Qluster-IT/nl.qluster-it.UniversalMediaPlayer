@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 
-const UPnPServer = require('./../../lib/upnpserver');
+const UPnPServer = require('../../lib/upnpserver');
 
 
 class UPnPServerDevice extends Homey.Device
@@ -19,6 +19,8 @@ class UPnPServerDevice extends Homey.Device
 
         this.IP = this.getSetting('ip');
         this.server = new UPnPServer({ homey: this.homey, ip: this.IP });
+
+        
         
     }
 

@@ -25,13 +25,43 @@
     "email": "arie@qluster-it.nl"
   },
   "flow": {
-    "triggers": [
-      
+    "triggers": [      
+      {
+        "id": "trigger_flow",        
+        "title": {
+          "en": "Triggers get file url"
+        },
+        "titleFormatted": {
+          "en": "Will be triggered by [[trigger]]"
+        },
+        "tokens": [
+          {
+            "name": "url",
+            "type": "string",
+            "title": {
+              "en": "Url"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=upnpserverdriver"
+          },{
+            "type": "text",
+            "name": "trigger",
+            "placeholder": {
+              "en": "Triggername",
+              "nl": "Triggername"
+            }
+          }          
+        ]        
+      }
     ],
     "actions": [
       {
-        "id": "upnpserver_get_file",
-        
+        "id": "upnpserver_get_file",        
         "title": {
           "en": "Get a UPnP file url"
         },
@@ -42,7 +72,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=upnpserver"
+            "filter": "driver_id=upnpserverdriver"
           },
           {
             "type": "autocomplete",
@@ -56,8 +86,8 @@
             "type": "text",
             "name": "trigger",
             "placeholder": {
-              "en": "Set Variable",
-              "nl": "Set variabele"
+              "en": "Trigger",
+              "nl": "Trigger"
             }
           }
         ]        
@@ -66,7 +96,7 @@
   },
   "drivers": [    
     {
-      "id": "upnpserver",
+      "id": "upnpserverdriver",
       "name": {
         "en": "UPnP Server"
       },

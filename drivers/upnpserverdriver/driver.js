@@ -22,6 +22,9 @@ class UPnPServerDriver extends Homey.Driver
     {
         this.log('UPnPServerDriver has been initialized');
         //this.onPairListDevices();
+
+        
+
     }
 
     /**
