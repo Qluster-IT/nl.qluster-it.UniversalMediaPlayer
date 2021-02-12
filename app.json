@@ -60,22 +60,11 @@
               "nl": "Set variabele"
             }
           }
-        ],
-        "tokens": [
-          {
-            "name": "url",
-            "type": "string",
-            "title": {
-              "en": "url"
-            }
-          }
-        ]
+        ]        
       }
     ]
   },
-  "drivers": [
-
-    
+  "drivers": [    
     {
       "id": "upnpserver",
       "name": {

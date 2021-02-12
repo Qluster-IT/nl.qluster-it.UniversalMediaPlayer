@@ -79,7 +79,7 @@ class UPnPServerDriver extends Homey.Driver
                 }
                 defer.resolve(devices);
             });
-        }, 5000);
+        }, 10000);
 
         return defer.promise;
     }

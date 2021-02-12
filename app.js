@@ -20,7 +20,7 @@ class UPnPServerApp extends Homey.App {
         })
         .registerRunListener((( args, state ) => {
             this.log('upnpserver_get_file.registerRunListener(args, state)');
-            this.log(args);
+            //this.log(args);
             if(true) {
                 try {
                     
@@ -38,7 +38,8 @@ class UPnPServerApp extends Homey.App {
             var defer = new Defer();
             try {
                 this.log('upnpserver_get_file.file.registerAutocompleteListener(query, state)');
-                // l(a);
+                console.log(query);
+                console.log(args);
                 
                 //Master.homeyAPI.logic.updateVariable({id:"52c81742-d42a-405e-8d2e-1f9606b03fc8", variable: {"value":6}})
                 args.device.server.browse(query, args.file? args.file.location : '').then(list=>{
