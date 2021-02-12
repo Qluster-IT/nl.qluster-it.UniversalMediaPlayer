@@ -40,7 +40,7 @@ class UPnPServerApp extends Homey.App {
                 this.log('upnpserver_get_file.file.registerAutocompleteListener(query, state)');
                 console.log(query);
                 console.log(args);
-                
+                if((!query||query=='') && args && args.file) query=args.file.name || '';
                 //Master.homeyAPI.logic.updateVariable({id:"52c81742-d42a-405e-8d2e-1f9606b03fc8", variable: {"value":6}})
                 args.device.server.browse(query, args.file? args.file.location : '').then(list=>{
                     //l(list);
@@ -60,9 +60,16 @@ class UPnPServerApp extends Homey.App {
 
         UPnPServerDriver.init();
 
-
+        this.testImage();
 	}
-
+    async testImage() {
+        const targetFile = fs.createWriteStream(path.join(__dirname, 'userdata', 'test.jpg'));
+        const res = await fetch('http://192.168.1.100:50002/transcoder/jpegtnscaler.cgi/folderart/10952.jpg');
+        if (!res.ok) {
+            throw new Error('Invalid Response');
+        }
+        res.body.pipe(targetFile);        
+    }
 
 	
 
