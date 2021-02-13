@@ -1,16 +1,16 @@
 {
-  "id": "nl.qluster-it.UPnPServer",
+  "id": "nl.qluster-it.UPnPPlayer",
   "version": "0.5.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#E8A713",
   "name": {
-    "en": "UPnP Server",
-    "nl": "UPnP Server"
+    "en": "UPnP Player",
+    "nl": "UPnP Player"
   },
   "description": {
-    "en": "Use an UPnP Server to find the URL of files through browsing",
-    "nl": "Gebruik een UPnP Server om de URL van bestanden te vinden via bladeren"
+    "en": "Use an UPnP Player to find the URL of files through browsing",
+    "nl": "Gebruik een UPnP Player om de URL van bestanden te vinden via bladeren"
   },
   "category": [
     "tools"
@@ -32,7 +32,7 @@
           "en": "Playlist trigger"
         },
         "titleFormatted": {
-          "en": "Will be triggered by [[playlist]]"
+          "en": "Trigger for [[playlist]]"
         },
         "tokens": [
           {
@@ -47,32 +47,25 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=upnpserverdriver"
-          },{
-            "type": "text",
-            "name": "playlist",
-            "placeholder": {
-              "en": "Playlist",
-              "nl": "Playlist"
-            }
-          }          
+            "filter": "driver_id=upnpplayer"
+          }        
         ]        
       }
     ],
     "actions": [
       {
-        "id": "upnpserver_get_file",        
+        "id": "upnpplayer_get_file",        
         "title": {
           "en": "Get a UPnP file url"
         },
         "titleFormatted": {
-          "en": "Get the url from UPnP file [[file]] and activate [[playlist]]"
+          "en": "Get [[file]] and start playlist [[playlist]]"
         },
         "args": [
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=upnpserverdriver"
+            "filter": "driver_id=upnpplayer"
           },
           {
             "type": "autocomplete",
@@ -83,7 +76,7 @@
             }
           },
           {
-            "type": "text",
+            "type": "autocomplete",
             "name": "playlist",
             "placeholder": {
               "en": "Playlist",
@@ -91,17 +84,105 @@
             }
           }
         ]        
+      },
+      {
+        "id": "upnpplayer_get_folder",        
+        "title": {
+          "en": "Start a UPnP folder"
+        },
+        "titleFormatted": {
+          "en": "Get [[folder]] and start playlist [[playlist]] mode [[mode]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=upnpplayer"
+          },
+          {
+            "type": "autocomplete",
+            "name": "folder",
+            "placeholder": {
+              "en": "Folder",
+              "nl": "Folder"
+            }
+          },
+          {
+            "type": "autocomplete",
+            "name": "playlist",
+            "placeholder": {
+              "en": "Playlist",
+              "nl": "Playlist"
+            }
+          },
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "placeholder": {
+              "en": "Mode",
+              "nl": "Mode"
+            },
+            "values": [              
+              {
+                "id": "normal",
+                "name": "Normal",
+                "label": {
+                  "en": "Play all items in the folder"
+                }
+              },
+              {
+                "id": "repeat",
+                "name": "Repeat",
+                "label": {
+                  "en": "Play all items in the folder and starts again from the beginning"
+                }
+              },
+              {
+                "id": "random",
+                "name": "Random",
+                "label": {
+                  "en": "Play all items in the folder one time randomly"
+                }
+              },
+              {
+                "id": "randomsingle",
+                "name": "Random Single",
+                "label": {
+                  "en": "Play one random item in the folder"
+                }
+              },
+              {
+                "id": "randomrepeat",
+                "name": "RandomRepeat",
+                "label": {
+                  "en": "Play all items in the folder randomly and keeps playing till stopped"
+                }
+              }
+            ]
+          }
+        ]        
       }
     ]
   },
   "drivers": [    
     {
-      "id": "upnpserverdriver",
+      "id": "upnpplayer",
       "name": {
-        "en": "UPnP Server"
+        "en": "UPnP Player"
       },
-      "class": "other",
-      "capabilities": [],
+      "class": "speaker",
+      "capabilities": [
+        "speaker_playing", 
+        "speaker_next", 
+        "speaker_prev", 
+        "speaker_shuffle", 
+        "speaker_repeat", 
+        "speaker_artist", 
+        "speaker_album", 
+        "speaker_track", 
+        "speaker_duration"
+
+      ],
       "images": {
         "large": "/drivers/watch/assets/images/large.png",
         "small": "/drivers/watch/assets/images/small.png"
@@ -112,6 +193,9 @@
           "template": "list_devices",
           "navigation": {
             "next": "add_my_devices"
+          },
+          "options": {
+            "singular": true
           }
         },
         {
