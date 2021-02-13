@@ -2,6 +2,7 @@
 
 const Homey = require('homey');
 var upnp = require('node-upnp-utils');
+const PlaylistManager = require('../../lib/playlistmanager');
 const { Defer } = require('../../lib/proto');
 
 upnp.on('added', (device) =>
@@ -12,7 +13,7 @@ upnp.on('error', (err) => {
     console.log(err);
 });
 
-class UPnPServerDriver extends Homey.Driver
+class UPnPPlayerDriver extends Homey.Driver
 {
     devices = [];
     /**
@@ -20,7 +21,8 @@ class UPnPServerDriver extends Homey.Driver
      */
     async onInit()
     {
-        this.log('UPnPServerDriver has been initialized');
+        this.log('UPnPPlayerDriver has been initialized');        
+
         //this.onPairListDevices();
 
         
@@ -49,13 +51,17 @@ class UPnPServerDriver extends Homey.Driver
                 console.log('Stopped the discovery process.');
                 var deviceList = upnp.getActiveDeviceList();
                 
+                //console.log(deviceList);
+                
                 deviceList = deviceList.filter(entry => entry && entry.headers
                     && entry.headers['ST'] && entry.headers['ST'].toLowerCase()=='upnp:rootdevice'
                     && entry.description && entry.description.device && entry.description.device.deviceType=='urn:schemas-upnp-org:device:MediaServer:1'
                     && entry.headers['LOCATION'] && entry.headers['LOCATION'].startsWith(`http://${entry.address}:`)
                 );
-
-                console.log(deviceList);
+                // deviceList.forEach(d=> {
+                //     if(d.address.startsWith('192.168.1.100')) console.log(d);
+                // });
+                console.log(deviceList.length);
                 var devices = [];
 
                 for (var id = 0; id < deviceList.length; id++)
@@ -80,6 +86,8 @@ class UPnPServerDriver extends Homey.Driver
                         });
                     }
                 }
+                console.log('defer.resolve(devices);');
+                console.log(devices.length);
                 defer.resolve(devices);
             });
         }, 10000);
@@ -89,4 +97,4 @@ class UPnPServerDriver extends Homey.Driver
 
 }
 
-module.exports = UPnPServerDriver;
+module.exports = UPnPPlayerDriver;

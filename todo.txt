@@ -9,3 +9,17 @@
         ]
 
         
+
+  ,{
+      "type": "autocomplete",
+      "name": "playlist",
+      "placeholder": {
+        "en": "Playlist",
+        "nl": "Playlist"
+      }
+    }  
+
+upnpplayer_get_fileAction.getArgument('playlist').registerAutocompleteListener(returnPlaylistsForAutoComplete.bind(this)) ;
+upnpplayer_get_folderAction.getArgument('playlist').registerAutocompleteListener(returnPlaylistsForAutoComplete.bind(this)) ;
+.getArgument('playlist').registerAutocompleteListener(returnPlaylistsForAutoComplete.bind(this)) ;
+        

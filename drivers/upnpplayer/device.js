@@ -5,14 +5,14 @@ const Homey = require('homey');
 const UPnPServer = require('../../lib/upnpserver');
 
 
-class UPnPServerDevice extends Homey.Device
+class UPnPPlayerDevice extends Homey.Device
 {
     /**
      * onInit is called when the device is initialized.
      */
     async onInit()
     {
-        this.log('UPnPServerDevice has been initialized');
+        this.log('UPnPPlayerDevice has been initialized');
 
         // register a capability listener
         //this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
@@ -66,4 +66,4 @@ class UPnPServerDevice extends Homey.Device
 
 }
 
-module.exports = UPnPServerDevice;
+module.exports = UPnPPlayerDevice;

@@ -1,14 +1,15 @@
 <!doctype html>
-<html ng-app="uPnPServerApp">
+<html ng-app="uPnPPlayerApp">
     <head>                
         <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
         <link rel="stylesheet" type="text/css" href="bootstrap.css" />
         <script type="text/javascript" src="/manager/webserver/assets/js/angular.js"></script>
-        <script type="text/javascript" src="UPnPServerAppController.js"></script>
+        <script type="text/javascript" src="smart-table.min.js"></script>
+        <script type="text/javascript" src="UPnPPlayerAppController.js"></script>
     </head>
 
-    <body ng-controller="UPnPServerAppController as upnp">        
-        <textarea id="debug" type="text" columns="40" rows="5" style="width:100%;"></textarea>
+    <body ng-controller="UPnPPlayerAppController as upnp">        
+        <textarea id="debug" type="text" columns="40" rows="5" style="width:100%;display:none;"></textarea>
 
         <h2>Playlists</h2>
         <p>Be aware that removing playlists could corrupt flows that are using that playlist.</p>
@@ -23,7 +24,7 @@
                         </div>                    
                         
                         <div class="form-group">
-                            <button class="btn btn-default" type="button" ng-disabled="!upnp.newPlaylist.name||!upnp.newPlaylist.type" ng-click="upnp.addPlaylist()">Add playlist</button>                        
+                            <button class="btn btn-default" type="button" ng-disabled="!upnp.newPlaylist.name" ng-click="upnp.addPlaylist()">Add playlist</button>                        
                             <button class="btn btn-default" type="button" ng-click="upnp.deleteAll()">Delete All</button>
                         </div>
                     </form>
@@ -44,32 +45,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <td>{{playlist.name}}</td>
-                    <td><button ng-click="upnp.removePlaylist(playlist)">Delete</button></td>
+                    <tr ng-repeat="playlist in displayedCollection" >
+                        <td>{{playlist.name}}</td>
+                        <td><button ng-click="upnp.removePlaylist(playlist)">Delete</button></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
         <script type="text/javascript">        
-            var debug = document.getElementById('debug');
+            //var debug = document.getElementById('debug');
             function l(s)  {
-                debug.value+='\r\n' + (s!==undefined ? s.toString() : 'undefined');
+                document.getElementById('debug').value+='\r\n' + (s!==undefined ? s.toString() : 'undefined');
             }
 
             function onHomeyReady(Homey) {
                 Homey.ready();
                 var element = document.getElementById('playlistName');
-                l(element==null);
-                l(element);
-                l(JSON.stringify(angular.element(element)));
-                //l(angular.element(element).scope);
-                l(angular.element(element).scope());
-                l(angular.element(element).controller());
-                l(angular.element(element).controller('UPnPServerAppController'));
                 var scope = angular.element(element).scope();
-                l(Object.keys(scope));
                 scope.$apply(function() {
-                    scope.upnp.setHomey(Homey, scope);
+                    scope.upnp.setHomey(Homey, scope, l);
                 });
             }
         </script>
