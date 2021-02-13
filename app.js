@@ -1,7 +1,6 @@
 'use strict';
 
 const Homey = require('homey');
-const { HomeyAPI } = require('athom-api');
 const _ = require('lodash-core');
 
 const { Defer} = require('./lib/proto');
@@ -10,7 +9,7 @@ const UPnPServerDriver = require('./drivers/upnpserverdriver/driver');
 
 class UPnPServerApp extends Homey.App {
 	Triggers ={
-        triggerflow:{List:[], Card:null},
+        playlistTrigger:{List:[], Card:null},
     };
 	onInit() {
 		this.log('UPnPServerApp is running...');
@@ -34,22 +33,17 @@ class UPnPServerApp extends Homey.App {
                 if(!args.file || !args.device || !args.file.location) return false;
                 var locations = args.file.location.split('[/]');
                 var location = {id:0};
-                console.log('location start');
-
                 for (let i = 0; i < locations.length; i++) {
                     const locationName = locations[i];
                     var loc = await args.device.server.find(locationName, location.id);
                     if(!loc) return false;
                     location = loc;
                 }
-                console.log('end');
-                console.log(location);
-
                 return true;
             } catch (error) {
                 console.log('Error: ' + error);
             }
-            
+            return false;
             return args.id && args.id.id && state.id && state.id.id && args.id.id === state.id.id;        
         }).bind(this))
         .getArgument('file')
@@ -66,38 +60,21 @@ class UPnPServerApp extends Homey.App {
           return defer.promise;
         }).bind(this)) ;        
 
-        //refreshUPnPServerActions.call(this);
-
-        // function refreshUPnPServerActions() {
-        //     console.log('refreshUPnPServerActions');
-        //     console.log(this.upnpserver_get_fileAction);
-        //     var upnpserver_get_fileAction = this.homey.flow.getActionCard('upnpserver_get_file');
-        //     console.log(upnpserver_get_fileAction==null);
-            
-        //     upnpserver_get_fileAction.getArgumentValues()
-        //     .then( args => {
-        //         console.log('upnpserver_get_fileAction.args');
-        //         console.log(args);
-        //     }).catch(err=> {
-        //         this.log('err');
-        //         this.log(err);
-        //     })
-        // }
 
 
-        const flowTrigger = this.homey.flow.getDeviceTriggerCard('trigger_flow');
-        this.Triggers.triggerflow.Card = flowTrigger;
-        flowTrigger
+        const playlistTrigger = this.homey.flow.getDeviceTriggerCard('playlist_trigger');
+        this.Triggers.playlistTrigger.Card = playlistTrigger;
+        playlistTrigger
         .on('update', () => {
             //refreshFlowTriggers();
         })
         .registerRunListener(( args, state ) => {  
-            console.log('flowTrigger.registerRunListener (args, state)');         
+            console.log('playlistTrigger.registerRunListener (args, state)');         
             console.log(args);
             console.log(state);
             return Promise.resolve( args.id && args.id.id && state.id && state.id.id && args.id.id === state.id.id );        
         })
-        .getArgument('trigger')
+        .getArgument('playlist')
         .registerAutocompleteListener(async ( query, args, a, b, c,  ) => {            
             //     var array = _.map(Homeyman.Current.Triggers.triggerflow.List, flow=> { return Number.parseInt(flow.trigger.args.id.id) });
             //     var max = _.max(array);
@@ -108,26 +85,6 @@ class UPnPServerApp extends Homey.App {
         ;
         //refreshFlowTriggers();
 
-        function refreshFlowTriggers() {
-            console.log('refreshFlowTriggers');
-            try {
-                
-                var a= flowTrigger.getArgumentValues();
-                console.log('a');
-                console.log(a);
-            } catch (error) {
-                
-                console.log('error');
-                console.log(error);
-            }
-            
-            a.then( args => {
-                console.log('flowTrigger.args');
-                console.log(args);
-            }).catch(err=>{
-                console.log('refreshFlowTriggers err: ' +err );
-            });
-        }
 
         //#endregion
 

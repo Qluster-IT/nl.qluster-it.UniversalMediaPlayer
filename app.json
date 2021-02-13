@@ -27,12 +27,12 @@
   "flow": {
     "triggers": [      
       {
-        "id": "trigger_flow",        
+        "id": "playlist_trigger",        
         "title": {
-          "en": "Triggers get file url"
+          "en": "Playlist trigger"
         },
         "titleFormatted": {
-          "en": "Will be triggered by [[trigger]]"
+          "en": "Will be triggered by [[playlist]]"
         },
         "tokens": [
           {
@@ -50,10 +50,10 @@
             "filter": "driver_id=upnpserverdriver"
           },{
             "type": "text",
-            "name": "trigger",
+            "name": "playlist",
             "placeholder": {
-              "en": "Triggername",
-              "nl": "Triggername"
+              "en": "Playlist",
+              "nl": "Playlist"
             }
           }          
         ]        
@@ -66,7 +66,7 @@
           "en": "Get a UPnP file url"
         },
         "titleFormatted": {
-          "en": "Get the url from UPnP file [[file]] and activate trigger [[trigger]]"
+          "en": "Get the url from UPnP file [[file]] and activate [[playlist]]"
         },
         "args": [
           {
@@ -84,10 +84,10 @@
           },
           {
             "type": "text",
-            "name": "trigger",
+            "name": "playlist",
             "placeholder": {
-              "en": "Trigger",
-              "nl": "Trigger"
+              "en": "Playlist",
+              "nl": "Playlist"
             }
           }
         ]        
