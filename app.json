@@ -213,7 +213,7 @@
           },
           "value": "",
           "hint": {
-            "en": "Specifies the IP address of the UPnP on your network."
+            "en": "Specifies the IP address of the UPnP Server on your network."
           }
         }
       ]
