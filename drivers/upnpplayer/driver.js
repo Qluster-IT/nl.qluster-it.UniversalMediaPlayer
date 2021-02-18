@@ -15,12 +15,46 @@ upnp.on('error', (err) => {
 
 class UPnPPlayerDriver extends Homey.Driver
 {
+    Triggers ={
+        urlTrigger:{List:[], Card:null},
+        stoppedTrigger:{List:[], Card:null}
+    };
+    
     devices = [];
     /**
      * onInit is called when the driver is initialized.
      */
     async onInit()
     {
+        
+        const urlTrigger = this.homey.flow.getDeviceTriggerCard('url_trigger');
+        this.Triggers.urlTrigger.Card = urlTrigger;
+        urlTrigger
+        .on('update', () => {
+            //refreshFlowTriggers();
+        })
+        .registerRunListener(( args, state ) => {  
+            console.log('urlTrigger.registerRunListener (args, state)');         
+            console.log(args);
+            console.log(state);
+            return Promise.resolve( args.id && args.id.id && state.id && state.id.id && args.id.id === state.id.id );        
+        });
+
+
+        const stoppedTrigger = this.homey.flow.getDeviceTriggerCard('stopped_trigger');
+        this.Triggers.stoppedTrigger.Card = stoppedTrigger;
+        stoppedTrigger
+        .on('update', () => {
+            //refreshFlowTriggers();
+        })
+        .registerRunListener(( args, state ) => {
+            console.log('stoppedTrigger.registerRunListener (args, state)');         
+            console.log(args);
+            console.log(state);
+            return Promise.resolve( args.id && args.id.id && state.id && state.id.id && args.id.id === state.id.id );        
+        })
+        
+        
         this.log('UPnPPlayerDriver has been initialized');        
 
         //this.onPairListDevices();
@@ -81,7 +115,8 @@ class UPnPPlayerDriver extends Homey.Driver
                             },
                             settings:
                             {
-                                "ip": ip
+                                "ip": ip,
+                                "delay" : 1000
                             }
                         });
                     }

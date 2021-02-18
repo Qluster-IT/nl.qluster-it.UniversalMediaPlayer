@@ -26,13 +26,14 @@
   },
   "flow": {
     "triggers": [      
+      
       {
-        "id": "playlist_trigger",        
+        "id": "url_trigger",        
         "title": {
-          "en": "Playlist trigger"
+          "en": "Url trigger"
         },
         "titleFormatted": {
-          "en": "Trigger for [[playlist]]"
+          "en": "Url changed"
         },
         "tokens": [
           {
@@ -40,6 +41,13 @@
             "type": "string",
             "title": {
               "en": "Url"
+            }
+          },
+          {
+            "name": "duration",
+            "type": "number",
+            "title": {
+              "en": "Duration"
             }
           }
         ],
@@ -50,16 +58,32 @@
             "filter": "driver_id=upnpplayer"
           }        
         ]        
-      }
+      },
+        {
+          "id": "stopped_trigger",        
+          "title": {
+            "en": "Stopped"
+          },
+          "titleFormatted": {
+            "en": "Stopped"
+          },          
+          "args": [
+            {
+              "name": "device",
+              "type": "device",
+              "filter": "driver_id=upnpplayer"
+            }        
+          ]        
+        }
     ],
     "actions": [
       {
         "id": "upnpplayer_get_file",        
         "title": {
-          "en": "Get a UPnP file url"
+          "en": "Get a UPnP file"
         },
         "titleFormatted": {
-          "en": "Get [[file]] and start playlist [[playlist]]"
+          "en": "Start playing file [[file]]"
         },
         "args": [
           {
@@ -74,14 +98,6 @@
               "en": "File",
               "nl": "File"
             }
-          },
-          {
-            "type": "autocomplete",
-            "name": "playlist",
-            "placeholder": {
-              "en": "Playlist",
-              "nl": "Playlist"
-            }
           }
         ]        
       },
@@ -91,7 +107,7 @@
           "en": "Start a UPnP folder"
         },
         "titleFormatted": {
-          "en": "Get [[folder]] and start playlist [[playlist]] mode [[mode]]"
+          "en": "Start playing folder [[folder]] mode [[mode]]"
         },
         "args": [
           {
@@ -107,14 +123,7 @@
               "nl": "Folder"
             }
           },
-          {
-            "type": "autocomplete",
-            "name": "playlist",
-            "placeholder": {
-              "en": "Playlist",
-              "nl": "Playlist"
-            }
-          },
+          
           {
             "type": "dropdown",
             "name": "mode",
@@ -122,26 +131,12 @@
               "en": "Mode",
               "nl": "Mode"
             },
-            "values": [              
+            "values": [
               {
-                "id": "normal",
-                "name": "Normal",
+                "id": "single",
+                "name": "Single",
                 "label": {
-                  "en": "Play all items in the folder"
-                }
-              },
-              {
-                "id": "repeat",
-                "name": "Repeat",
-                "label": {
-                  "en": "Play all items in the folder and starts again from the beginning"
-                }
-              },
-              {
-                "id": "random",
-                "name": "Random",
-                "label": {
-                  "en": "Play all items in the folder one time randomly"
+                  "en": "Play the first item in the folder"
                 }
               },
               {
@@ -152,10 +147,31 @@
                 }
               },
               {
+                "id": "normal",
+                "name": "Normal",
+                "label": {
+                  "en": "Play all items in the folder (one time)"
+                }
+              },
+              {
+                "id": "repeat",
+                "name": "Repeat",
+                "label": {
+                  "en": "Play all items in the folder (repeat)"
+                }
+              },
+              {
+                "id": "random",
+                "name": "Random",
+                "label": {
+                  "en": "Play all items in the folder randomly (one time)"
+                }
+              },
+              {
                 "id": "randomrepeat",
                 "name": "RandomRepeat",
                 "label": {
-                  "en": "Play all items in the folder randomly and keeps playing till stopped"
+                  "en": "Play all items in the folder randomly (repeat)"
                 }
               }
             ]
@@ -214,6 +230,17 @@
           "value": "",
           "hint": {
             "en": "Specifies the IP address of the UPnP Server on your network."
+          }
+        },
+        {
+          "id": "delay",
+          "type": "number",
+          "label": {
+            "en": "Delay between playing in ms"
+          },
+          "value": 1000,
+          "hint": {
+            "en": "Extra waiting time before playing the next file"
           }
         }
       ]
