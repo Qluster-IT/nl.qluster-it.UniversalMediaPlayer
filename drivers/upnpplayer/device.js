@@ -19,9 +19,8 @@ class UPnPPlayerDevice extends Homey.Device
         this.IP = this.getSetting('ip');
         this.server = new UPnPServer({ homey: this.homey, ip: this.IP });        
         this.playlistManager = new PlaylistManager({homey:this.homey, uPnPPlayer:this});
-        this.registerCapabilityListener('speaker_playing', ( value, opts ) => {
-            this.playlistManager.TogglePlay(value);
-            return Promise.resolve();
+        this.registerCapabilityListener('speaker_playing', ( value, opts ) => {            
+            return Promise.resolve(this.playlistManager.TogglePlay(value));
         });
         
     }

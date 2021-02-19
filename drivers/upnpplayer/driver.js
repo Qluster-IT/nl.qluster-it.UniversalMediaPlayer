@@ -5,6 +5,8 @@ var upnp = require('node-upnp-utils');
 const PlaylistManager = require('../../lib/playlistmanager');
 const { Defer } = require('../../lib/proto');
 
+const { v4: uuidv4 } = require('uuid');
+
 upnp.on('added', (device) =>
 {
 });
@@ -16,8 +18,9 @@ upnp.on('error', (err) => {
 class UPnPPlayerDriver extends Homey.Driver
 {
     Triggers ={
-        urlTrigger:{List:[], Card:null},
-        stoppedTrigger:{List:[], Card:null}
+        url_trigger:{List:[], Card:null},
+        stopped_trigger:{List:[], Card:null},
+        finished_trigger:{List:[], Card:null}
     };
     
     devices = [];
@@ -26,33 +29,78 @@ class UPnPPlayerDriver extends Homey.Driver
      */
     async onInit()
     {
+		
+        var starts = [
+            {id:'url_trigger'},
+            {id:'stopped_trigger'},
+            {id:'finished_trigger'}
+        ];
+        for (let i = 0; i < starts.length; i++) {
+            const start = starts[i];        
+            const trigger = this.homey.flow.getDeviceTriggerCard(start.id);
+            this.Triggers[start.id].Card = trigger;
+            trigger
+            //.on('update', () => {})
+            .registerRunListener(( args, state ) => {  
+                console.log( start.id + '.registerRunListener (args, state)');         
+                console.log(args);
+                console.log(state);
+                return Promise.resolve( args.id && args.id.id && state.id && state.id.id && args.id.id === state.id.id );        
+            });
+        }
+        starts = [
+            {id:'upnpplayer_get_file'},
+            {id:'upnpplayer_get_file_message'}
+        ];
+        for (let i = 0; i < starts.length; i++) {
+            const start = starts[i];            
+            const upnpplayer_get_fileAction = this.homey.flow.getActionCard(start.id);
+            upnpplayer_get_fileAction.registerRunListener(( async( args, state ) => {
+                this.log('upnpplayer_get_file.registerRunListener(args, state)');
+                this.log(args);
+                try {
+                    if(!args.file || !args.device || !args.file.location) return false;
+                    return await args.device.playlistManager.PlayFile({file:args.file, message: args.message});
+                } catch (error) { console.log('Error file: ' + error); }
+                return false;
+            }).bind(this))
+            .getArgument('file').registerAutocompleteListener((( query, args) => {
+                var defer = new Defer();
+                try { this.log('upnpplayer_get_file.file.registerAutocompleteListener(query, state)');
+                    if((!query||query=='') && args && args.file) query=args.file.name || '';
+                    args.device.server.browse({query:query, search:'folders,files'}).then(list=>defer.resolve(list) );    
+                } catch (error) { this.log('upnpplayer_get_file.file.registerAutocompleteListener error: ' + error);
+                    defer.resolve([]);
+                }
+            return defer.promise;
+            }).bind(this)) ;      
+        }
+
+           
         
-        const urlTrigger = this.homey.flow.getDeviceTriggerCard('url_trigger');
-        this.Triggers.urlTrigger.Card = urlTrigger;
-        urlTrigger
-        .on('update', () => {
-            //refreshFlowTriggers();
-        })
-        .registerRunListener(( args, state ) => {  
-            console.log('urlTrigger.registerRunListener (args, state)');         
-            console.log(args);
-            console.log(state);
-            return Promise.resolve( args.id && args.id.id && state.id && state.id.id && args.id.id === state.id.id );        
-        });
 
-
-        const stoppedTrigger = this.homey.flow.getDeviceTriggerCard('stopped_trigger');
-        this.Triggers.stoppedTrigger.Card = stoppedTrigger;
-        stoppedTrigger
-        .on('update', () => {
-            //refreshFlowTriggers();
-        })
-        .registerRunListener(( args, state ) => {
-            console.log('stoppedTrigger.registerRunListener (args, state)');         
-            console.log(args);
-            console.log(state);
-            return Promise.resolve( args.id && args.id.id && state.id && state.id.id && args.id.id === state.id.id );        
-        })
+        const upnpplayer_get_folderAction = this.homey.flow.getActionCard('upnpplayer_get_folder');
+        upnpplayer_get_folderAction.registerRunListener(( async( args, state ) => {
+            this.log('upnpplayer_get_folder.registerRunListener(args, state)');
+            this.log(args);
+            try {
+                if(!args.folder || !args.device || !args.folder.location) return false;
+                return await args.device.playlistManager.PlayFolder({folder:args.folder,mode: args.mode});
+            } catch (error) { console.log('Error folder: ' + error); }
+            return false;
+        }).bind(this))
+        .getArgument('folder').registerAutocompleteListener((( query, args) => {
+            var defer = new Defer();
+            try { this.log('upnpplayer_get_folder.folder.registerAutocompleteListener(query, state)');
+                if((!query||query=='') && args && args.folder) query=args.folder.name || '';
+                args.device.server.browse({query:query, search:'folders'}).then(list=>defer.resolve(list) );    
+            } catch (error) { this.log('upnpplayer_get_folder.folder.registerAutocompleteListener error: ' + error);
+                defer.resolve([]);
+            }
+          return defer.promise;
+        }).bind(this)) ;         
+        
+        
         
         
         this.log('UPnPPlayerDriver has been initialized');        
@@ -111,7 +159,7 @@ class UPnPPlayerDriver extends Homey.Driver
                             "name": 'UPnP ' + name + " (" + ip + ")",
                             data:
                             {
-                                "id": ip
+                                "id": uuidv4()//ip
                             },
                             settings:
                             {

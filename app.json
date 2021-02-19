@@ -59,22 +59,56 @@
           }        
         ]        
       },
-        {
-          "id": "stopped_trigger",        
-          "title": {
-            "en": "Stopped"
+      {
+        "id": "stopped_trigger",        
+        "title": {
+          "en": "Stopped"
+        },
+        "titleFormatted": {
+          "en": "Stopped"
+        },          
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=upnpplayer"
+          }        
+        ]        
+      },
+      {
+        "id": "finished_trigger",        
+        "title": {
+          "en": "Finished"
+        },
+        "titleFormatted": {
+          "en": "Finished: Duration done"
+        },
+        "tokens": [
+          {
+            "type": "boolean",
+            "name": "hasMessage",
+            "title":{
+              "en":"Has message"	,
+              "nl":"Heeft een bericht"
+            }
           },
-          "titleFormatted": {
-            "en": "Stopped"
-          },          
-          "args": [
-            {
-              "name": "device",
-              "type": "device",
-              "filter": "driver_id=upnpplayer"
-            }        
-          ]        
-        }
+          {
+            "type": "string",
+            "name": "message",
+            "title":{
+              "en":"Message"	,
+              "nl":"Bericht"
+            }
+          }        
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=upnpplayer"
+          }        
+        ]        
+      }
     ],
     "actions": [
       {
@@ -97,6 +131,37 @@
             "placeholder": {
               "en": "File",
               "nl": "File"
+            }
+          }
+        ]        
+      },{
+        "id": "upnpplayer_get_file_message",        
+        "title": {
+          "en": "Get a UPnP file "
+        },
+        "titleFormatted": {
+          "en": "Start playing file [[file]] and finish with [[message]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=upnpplayer"
+          },
+          {
+            "type": "autocomplete",
+            "name": "file",
+            "placeholder": {
+              "en": "File",
+              "nl": "File"
+            }
+          },
+          {
+            "type": "text",
+            "name": "message",
+            "placeholder": {
+              "en": "Message on finish",
+              "nl": "Melding na afspelen"
             }
           }
         ]        
