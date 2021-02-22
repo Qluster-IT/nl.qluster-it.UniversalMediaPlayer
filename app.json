@@ -4,7 +4,7 @@
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#E8A713",
-  "name": {
+  "name": { 
     "en": "UPnP Player",
     "nl": "UPnP Player"
   },
