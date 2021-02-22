@@ -228,7 +228,7 @@ class UPnPPlayerDriver extends Homey.Driver
                 console.log(devices.length);
                 defer.resolve(devices);
             });
-        }, 15000);
+        }, 13000);
 
         return defer.promise;
     }
