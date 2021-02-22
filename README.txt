@@ -1,16 +1,13 @@
-# Device Capabilities
+Use an UPnP Player to find the URL of files on a UPnP Server through browsing (with thumbnails).
+When executed it will retrieve the file from de UPnP Server based on the same browsing structure.
+This way you will be able to use a UPnP Server to play sounds on speaker systems like Sonos but also on TV's like Samsung or LG.
 
-Set capabilities of device's per zone, for example open or close all curtains in a certain zone, including (or not) the subzones.
-Also listen for capabilities of which there are no triggers from the app developer.
+The way you can browse depends on how the UPnP Server is configured.
+Example: 
+You can browse to and (it will) save the location to /Music/Artist/Album/B/Bok van Blerk/Afrikanerhart.
+When executing the flow, the current URL will be retrieved based on the same /Music/Artists etc.
 
-Trigger
-* You can listen to capability changes.
-  Add an If card, search the Device in the first field, then enter the same Device name in the second field. Now choose a capability from the list.
-  Example: Capability listener
+This way you can use any UPnPServer (Like Synology or an (Asus/Linksys) Router/Switch/Wifi UPnPServer) and use it as a storage place for your Sounds to be used.
 
 
-Actions
-* You can set any (well almost right now) capability for device's in a zone (and ther subzones if wanted).
-  Add a Then card, choose the capability in the first field followed by the value in the second field. Then choose a zone and if the subzones should be included.
-  Example: Set curtain.windowcoverings_set To 0 in Home including subzones (Yes).
-  This will close all curtains in the Home and subzones. Setting it to 1 will open all curtains.
+Working on playing it on Homey itself.

@@ -3,22 +3,29 @@
 const Homey = require('homey');
 
 const UPnPServer = require('./../../lib/upnpserver');
+const PlaylistManager = require('./../../lib/playlistmanager');
 
-
-class UPnPServerDevice extends Homey.Device
+class UPnPPlayerDevice extends Homey.Device
 {
     /**
      * onInit is called when the device is initialized.
      */
     async onInit()
     {
-        this.log('UPnPServerDevice has been initialized');
+        this.log('UPnPPlayerDevice has been initialized');
 
         // register a capability listener
         //this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
-
         this.IP = this.getSetting('ip');
-        this.server = new UPnPServer({ ip: this.IP });
+        this.server = new UPnPServer({ homey: this.homey, ip: this.IP });        
+        this.playlistManager = new PlaylistManager({homey:this.homey, uPnPPlayer:this});
+        
+        this.registerCapabilityListener('speaker_playing', ( value, opts ) => {            
+            return Promise.resolve(this.playlistManager.TogglePlay(value));
+        });
+        this.registerCapabilityListener('speaker_next', ( value, opts ) => {            
+            return Promise.resolve(this.playlistManager.PlayNext());
+        });
         
     }
 
@@ -40,7 +47,7 @@ class UPnPServerDevice extends Homey.Device
      */
     async onSettings({ oldSettings, newSettings, changedKeys })
     {
-        this.log('MyDevice settings where changed');
+        this.log('UPnPPlayerDevice settings where changed');
     }
 
     /**
@@ -50,7 +57,7 @@ class UPnPServerDevice extends Homey.Device
      */
     async onRenamed(name)
     {
-        this.log('MyDevice was renamed');
+        this.log('UPnPPlayerDevice was renamed');
     }
 
     /**
@@ -58,10 +65,10 @@ class UPnPServerDevice extends Homey.Device
      */
     async onDeleted()
     {
-        this.log('MyDevice has been deleted');
+        this.log('UPnPPlayerDevice has been deleted');
         //clearTimeout(this.onOffTimer);
     }
 
 }
 
-module.exports = UPnPServerDevice;
+module.exports = UPnPPlayerDevice;

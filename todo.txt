@@ -1,0 +1,59 @@
+"tokens": [
+          {
+            "name": "url",
+            "type": "string",
+            "title": {
+              "en": "url"
+            }
+          }
+        ]
+
+        
+
+  ,{
+      "type": "autocomplete",
+      "name": "playlist",
+      "placeholder": {
+        "en": "Playlist",
+        "nl": "Playlist"
+      }
+    }  
+
+upnpplayer_get_fileAction.getArgument('playlist').registerAutocompleteListener(returnPlaylistsForAutoComplete.bind(this)) ;
+upnpplayer_get_folderAction.getArgument('playlist').registerAutocompleteListener(returnPlaylistsForAutoComplete.bind(this)) ;
+.getArgument('playlist').registerAutocompleteListener(returnPlaylistsForAutoComplete.bind(this)) ;
+        
+
+        async function returnPlaylistsForAutoComplete(query, args) {
+            console.log('this.playlistManager.playlists');
+            console.log(this.playlistManager.playlists);
+            return _.map(this.playlistManager.playlists, pl=>{ return { id:pl.name, name:pl.name}; });
+        }
+        
+
+
+        {
+        "id": "playlist_trigger",        
+        "title": {
+          "en": "Playlist trigger"
+        },
+        "titleFormatted": {
+          "en": "Trigger for [[playlist]]"
+        },
+        "tokens": [
+          {
+            "name": "url",
+            "type": "string",
+            "title": {
+              "en": "Url"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=upnpplayer"
+          }        
+        ]        
+      },
