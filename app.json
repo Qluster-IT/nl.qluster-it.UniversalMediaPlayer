@@ -8,7 +8,7 @@
     "en": "Universal Media Player",
     "nl": "Universele Media Speler"
   },
-  "description": {
+  "description": { 
     "en": "UPnP Player to find the URL of files through browsing",
     "nl": "UPnP Player om de URL van bestanden te vinden via bladeren"
   },
