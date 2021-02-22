@@ -1,6 +1,6 @@
 {
   "id": "nl.qluster-it.UniversalMediaPlayer",
-  "version": "0.5.0",
+  "version": "0.0.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#E8A713",
@@ -9,8 +9,8 @@
     "nl": "Universele Media Speler"
   },
   "description": { 
-    "en": "UPnP Player to find the URL of files through browsing",
-    "nl": "UPnP Player om de URL van bestanden te vinden via bladeren"
+    "en": "Turn any device in a Media Player with remote storage",
+    "nl": "Verander elk apparaat in een Medie Speler met externe opslag"
   }, 
   "category": [
     "tools"
@@ -297,8 +297,8 @@
         "speaker_duration"
       ],
       "images": {
-        "large": "/drivers/watch/assets/images/large.png",
-        "small": "/drivers/watch/assets/images/small.png"
+        "large": "/drivers/upnpplayer/assets/images/large.png",
+        "small": "/drivers/upnpplayer/assets/images/small.png"
       },
       "pair": [
         {
