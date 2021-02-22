@@ -11,7 +11,7 @@
   "description": { 
     "en": "UPnP Player to find the URL of files through browsing",
     "nl": "UPnP Player om de URL van bestanden te vinden via bladeren"
-  },
+  }, 
   "category": [
     "tools"
   ],
