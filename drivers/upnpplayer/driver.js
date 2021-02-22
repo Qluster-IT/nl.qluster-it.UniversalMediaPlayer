@@ -43,11 +43,12 @@ class UPnPPlayerDriver extends Homey.Driver
             //.on('update', () => {})
             .registerRunListener(( args, state ) => {  
                 console.log( start.id + '.registerRunListener (args, state)');         
-                console.log(args);
-                console.log(state);
+                //console.log(args);
+                //console.log(state);
                 return Promise.resolve( args.id && args.id.id && state.id && state.id.id && args.id.id === state.id.id );        
             });
         }
+
         starts = [
             {id:'upnpplayer_get_file'},
             {id:'upnpplayer_get_file_message'}
@@ -57,7 +58,7 @@ class UPnPPlayerDriver extends Homey.Driver
             const upnpplayer_get_fileAction = this.homey.flow.getActionCard(start.id);
             upnpplayer_get_fileAction.registerRunListener(( async( args, state ) => {
                 this.log('upnpplayer_get_file.registerRunListener(args, state)');
-                this.log(args);
+                //this.log(args);
                 try {
                     if(!args.file || !args.device || !args.file.location) return false;
                     return await args.device.playlistManager.PlayFile({file:args.file, message: args.message});
@@ -76,13 +77,67 @@ class UPnPPlayerDriver extends Homey.Driver
             }).bind(this)) ;      
         }
 
+        var conditionStarts = [
+            {id:'condition_upnpplayer_play_file', triggerAndWait:true}
+        ];
+        for (let i = 0; i < conditionStarts.length; i++) {
+            const condition = conditionStarts[i];            
+            const conditionCard = this.homey.flow.getConditionCard(condition.id);
+            conditionCard.registerRunListener(( ( args, state ) => {
+                this.log(condition.id + '.registerRunListener(args, state)');
+                //this.log(args);
+                try {
+                    var defer = new Defer();
+                    if(!args.file || !args.device || !args.file.location) return Promise.resolve(false);
+                    var deferInternal = new Defer();
+                    var promises = [deferInternal.promise];
+                    
+                    if(condition.triggerAndWait) {
+                        args.device.playlistManager.PlayFile({file:args.file, message: args.message}).then((triggered)=> {
+                            console.log('PlayFile.then triggered: ' + triggered);
+                            if(triggered) {
+                                args.device.playlistManager.SetFinishedTimer().then(()=> {
+                                    deferInternal.resolve();
+                                }).catch(()=> {
+                                    deferInternal.reject();
+                                });
+                            }
+                            else {
+                                args.device.playlistManager.ClearFinishedTimer();
+                                deferInternal.reject();
+                            }
+                            
+                        });
+                    }
+                    
+                    var all = Promise.all(promises);                   
+                    all.then(()=> {
+                      defer.resolve();
+                    }).catch((err)=> {
+                      defer.reject(err);
+                    });
+                } catch (error) { defer.reject(error); console.log('Error file: ' + error); }
+                return defer.promise;
+            }).bind(this))
+            .getArgument('file').registerAutocompleteListener((( query, args) => {
+                var defer = new Defer();
+                try { this.log(condition.id + '.file.registerAutocompleteListener(query, state)');
+                    if((!query||query=='') && args && args.file) query=args.file.name || '';
+                    args.device.server.browse({query:query, search:'folders,files'}).then(list=>defer.resolve(list) );    
+                } catch (error) { this.log('upnpplayer_get_file.file.registerAutocompleteListener error: ' + error);
+                    defer.resolve([]);
+                }
+            return defer.promise;
+            }).bind(this)) ;      
+        }
+
            
         
 
         const upnpplayer_get_folderAction = this.homey.flow.getActionCard('upnpplayer_get_folder');
         upnpplayer_get_folderAction.registerRunListener(( async( args, state ) => {
             this.log('upnpplayer_get_folder.registerRunListener(args, state)');
-            this.log(args);
+            //this.log(args);
             try {
                 if(!args.folder || !args.device || !args.folder.location) return false;
                 return await args.device.playlistManager.PlayFolder({folder:args.folder,mode: args.mode});
@@ -173,7 +228,7 @@ class UPnPPlayerDriver extends Homey.Driver
                 console.log(devices.length);
                 defer.resolve(devices);
             });
-        }, 10000);
+        }, 15000);
 
         return defer.promise;
     }
