@@ -108,7 +108,7 @@ class UPnPPlayerDriver extends Homey.Driver
                             }
                             
                         });
-                    }
+                    } else deferInternal.resolve();
                     
                     var all = Promise.all(promises);                   
                     all.then(()=> {

@@ -1,12 +1,12 @@
 {
-  "id": "nl.qluster-it.UPnPPlayer",
+  "id": "nl.qluster-it.UniversalMediaPlayer",
   "version": "0.5.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#E8A713",
   "name": { 
-    "en": "UPnP Player",
-    "nl": "UPnP Player"
+    "en": "Universal Media Player",
+    "nl": "Universele Media Speler"
   },
   "description": {
     "en": "UPnP Player to find the URL of files through browsing",
@@ -20,9 +20,9 @@
     "large": "/assets/images/large.png",
     "small": "/assets/images/small.png"
   },
-  "source": "https://bitbucket.org/QlusterIT/nl.qluster-it.upnpplayer/",
+  "source": "https://bitbucket.org/QlusterIT/nl.qluster-it.universalmediaplayer/",
   "bugs": {
-    "url": "https://bitbucket.org/QlusterIT/nl.qluster-it.upnpplayer/issues"
+    "url": "https://bitbucket.org/QlusterIT/nl.qluster-it.universalmediaplayer/issues"
   },
   "homeyCommunityTopicId": 43450,
   "author": {
