@@ -1,17 +1,17 @@
 {
-  "id": "nl.qluster-it.UPnPPlayer",
+  "id": "nl.qluster-it.UniversalMediaPlayer",
   "version": "0.5.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#E8A713",
-  "name": {
-    "en": "UPnP Player",
-    "nl": "UPnP Player"
+  "name": { 
+    "en": "Universal Media Player",
+    "nl": "Universele Media Speler"
   },
-  "description": {
+  "description": { 
     "en": "UPnP Player to find the URL of files through browsing",
     "nl": "UPnP Player om de URL van bestanden te vinden via bladeren"
-  },
+  }, 
   "category": [
     "tools"
   ],
@@ -20,9 +20,9 @@
     "large": "/assets/images/large.png",
     "small": "/assets/images/small.png"
   },
-  "source": "https://bitbucket.org/QlusterIT/nl.qluster-it.upnpplayer/",
+  "source": "https://bitbucket.org/QlusterIT/nl.qluster-it.universalmediaplayer/",
   "bugs": {
-    "url": "https://bitbucket.org/QlusterIT/nl.qluster-it.upnpplayer/issues"
+    "url": "https://bitbucket.org/QlusterIT/nl.qluster-it.universalmediaplayer/issues"
   },
   "homeyCommunityTopicId": 43450,
   "author": {
@@ -115,6 +115,34 @@
         ]        
       }
     ],
+    "conditions": [
+      {
+        "id": "condition_upnpplayer_play_file",
+        "title": {
+          "en": "Play a UPnP file",
+          "nl": "Speel een UPnP bestand"
+        },
+        "titleFormatted": {
+          "en": "Playing [[file]] and finish",
+          "nl": "Speel [[file]] en voltooi"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=upnpplayer"
+          },
+          {
+            "type": "autocomplete",
+            "name": "file",
+            "placeholder": {
+              "en": "File",
+              "nl": "Bestand"
+            }
+          }
+        ]
+      }
+    ],
     "actions": [
       {
         "id": "upnpplayer_get_file",        
@@ -190,7 +218,7 @@
             "name": "folder",
             "placeholder": {
               "en": "Folder",
-              "nl": "Folder"
+              "nl": "Map"
             }
           },
           
@@ -231,7 +259,7 @@
                 }
               },
               {
-                "id": "random",
+                "id": "randomnormal",
                 "name": "Random",
                 "label": {
                   "en": "Play all items in the folder randomly (one time)"

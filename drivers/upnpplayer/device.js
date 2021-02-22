@@ -13,6 +13,13 @@ class UPnPPlayerDevice extends Homey.Device
     async onInit()
     {
         this.log('UPnPPlayerDevice has been initialized');
+        var capabilities = this.getCapabilities();
+
+        var caps = [ 'speaker_repeat' ];
+        for (let i = 0; i < caps.length; i++) {
+            const cap = caps[i];
+            if(!capabilities.indexOf(cap)>-1) this.addCapability(cap);                
+        }
 
         // register a capability listener
         //this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
@@ -25,6 +32,13 @@ class UPnPPlayerDevice extends Homey.Device
         });
         this.registerCapabilityListener('speaker_next', ( value, opts ) => {            
             return Promise.resolve(this.playlistManager.PlayNext());
+        });
+
+        this.registerCapabilityListener('speaker_shuffle', ( value, opts ) => {            
+            return Promise.resolve(this.playlistManager.SetShuffle(value));
+        });
+        this.registerCapabilityListener('speaker_repeat', ( value, opts ) => {            
+            return Promise.resolve(this.playlistManager.SetRepeat(value));
         });
         
     }
