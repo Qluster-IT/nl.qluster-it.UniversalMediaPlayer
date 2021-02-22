@@ -30,10 +30,14 @@ class UPnPPlayerDevice extends Homey.Device
         this.registerCapabilityListener('speaker_playing', ( value, opts ) => {            
             return Promise.resolve(this.playlistManager.TogglePlay(value));
         });
+        this.registerCapabilityListener('speaker_previous', ( value, opts ) => {            
+            return Promise.resolve(this.playlistManager.Play());
+        });
+        
         this.registerCapabilityListener('speaker_next', ( value, opts ) => {            
             return Promise.resolve(this.playlistManager.PlayNext());
         });
-
+        
         this.registerCapabilityListener('speaker_shuffle', ( value, opts ) => {            
             return Promise.resolve(this.playlistManager.SetShuffle(value));
         });
