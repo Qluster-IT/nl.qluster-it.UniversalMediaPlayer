@@ -1,17 +1,17 @@
 {
   "id": "nl.qluster-it.UniversalMediaPlayer",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#E8A713",
-  "name": { 
+  "name": {
     "en": "Universal Media Player",
     "nl": "Universele Media Speler"
   },
-  "description": { 
+  "description": {
     "en": "Turn any device in a Media Player with remote storage",
     "nl": "Verander elk apparaat in een Medie Speler met externe opslag"
-  }, 
+  },
   "category": [
     "tools"
   ],
@@ -30,10 +30,9 @@
     "email": "arie@qluster-it.nl"
   },
   "flow": {
-    "triggers": [      
-      
+    "triggers": [
       {
-        "id": "url_trigger",        
+        "id": "url_trigger",
         "title": {
           "en": "Url trigger"
         },
@@ -61,27 +60,27 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=upnpplayer"
-          }        
-        ]        
+          }
+        ]
       },
       {
-        "id": "stopped_trigger",        
+        "id": "stopped_trigger",
         "title": {
           "en": "Stopped"
         },
         "titleFormatted": {
           "en": "Stopped"
-        },          
+        },
         "args": [
           {
             "name": "device",
             "type": "device",
             "filter": "driver_id=upnpplayer"
-          }        
-        ]        
+          }
+        ]
       },
       {
-        "id": "finished_trigger",        
+        "id": "finished_trigger",
         "title": {
           "en": "Finished"
         },
@@ -92,27 +91,27 @@
           {
             "type": "boolean",
             "name": "hasMessage",
-            "title":{
-              "en":"Has message"	,
-              "nl":"Heeft een bericht"
+            "title": {
+              "en": "Has message",
+              "nl": "Heeft een bericht"
             }
           },
           {
             "type": "string",
             "name": "message",
-            "title":{
-              "en":"Message"	,
-              "nl":"Bericht"
+            "title": {
+              "en": "Message",
+              "nl": "Bericht"
             }
-          }        
+          }
         ],
         "args": [
           {
             "name": "device",
             "type": "device",
             "filter": "driver_id=upnpplayer"
-          }        
-        ]        
+          }
+        ]
       }
     ],
     "conditions": [
@@ -145,7 +144,7 @@
     ],
     "actions": [
       {
-        "id": "upnpplayer_get_file",        
+        "id": "upnpplayer_get_file",
         "title": {
           "en": "Get a UPnP file"
         },
@@ -166,9 +165,10 @@
               "nl": "File"
             }
           }
-        ]        
-      },{
-        "id": "upnpplayer_get_file_message",        
+        ]
+      },
+      {
+        "id": "upnpplayer_get_file_message",
         "title": {
           "en": "Get a UPnP file "
         },
@@ -197,10 +197,10 @@
               "nl": "Melding na afspelen"
             }
           }
-        ]        
+        ]
       },
       {
-        "id": "upnpplayer_get_folder",        
+        "id": "upnpplayer_get_folder",
         "title": {
           "en": "Start a UPnP folder"
         },
@@ -221,7 +221,6 @@
               "nl": "Map"
             }
           },
-          
           {
             "type": "dropdown",
             "name": "mode",
@@ -274,11 +273,11 @@
               }
             ]
           }
-        ]        
+        ]
       }
     ]
   },
-  "drivers": [    
+  "drivers": [
     {
       "id": "upnpplayer",
       "name": {
@@ -286,14 +285,14 @@
       },
       "class": "speaker",
       "capabilities": [
-        "speaker_playing", 
-        "speaker_next", 
-        "speaker_prev", 
-        "speaker_shuffle", 
-        "speaker_repeat", 
-        "speaker_artist", 
-        "speaker_album", 
-        "speaker_track", 
+        "speaker_playing",
+        "speaker_next",
+        "speaker_prev",
+        "speaker_shuffle",
+        "speaker_repeat",
+        "speaker_artist",
+        "speaker_album",
+        "speaker_track",
         "speaker_duration"
       ],
       "images": {
