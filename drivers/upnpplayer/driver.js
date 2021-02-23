@@ -112,7 +112,7 @@ class UPnPPlayerDriver extends Homey.Driver
                     
                     var all = Promise.all(promises);                   
                     all.then(()=> {
-                      defer.resolve();
+                      defer.resolve(true);
                     }).catch((err)=> {
                       defer.reject(err);
                     });
