@@ -1,9 +1,9 @@
 {
   "id": "nl.qluster-it.UniversalMediaPlayer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
-  "brandColor": "#E8A713",
+  "brandColor": "#1A3E59",
   "name": {
     "en": "Universal Media Player",
     "nl": "Universele Media Speler"
@@ -28,6 +28,14 @@
   "author": {
     "name": "Arie J. Godschalk",
     "email": "arie@qluster-it.nl"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Johan Bendz",
+        "email": "johan_bendz@hotmail.com"
+      }
+    ]
   },
   "flow": {
     "triggers": [
