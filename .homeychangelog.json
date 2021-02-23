@@ -16,5 +16,11 @@
   },
   "0.0.1": {
     "en": "Just a publish so its in the system, waiting for new images"
+  },
+  "1.0.0": {
+    "en": "publishable"
+  },
+  "1.1.0": {
+    "en": "Updated images and contributors"
   }
 }

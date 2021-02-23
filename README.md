@@ -11,3 +11,5 @@ This way you can use any UPnPServer (Like Synology or an (Asus/Linksys) Router/S
 
 
 Working on playing it on Homey itself.
+
+Thanks for Johan Bendz for the excellent images and icons!
