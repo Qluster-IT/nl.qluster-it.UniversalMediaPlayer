@@ -27,6 +27,9 @@
     "en": "Spelling"
   },
   "1.1.2": {
-    "en": "Supported device set to UPnP Server (instead of Player)"
+    "en": "Added Media Url Converter to readme"
+  },
+  "1.2.0": {
+    "en": "Updated readme"
   }
 }
