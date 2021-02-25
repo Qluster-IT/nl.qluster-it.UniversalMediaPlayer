@@ -10,4 +10,4 @@ When executing the flow, the current URL will be retrieved based on the same /Mu
 This way you can use any UPnPServer (Like Synology or an (Asus/Linksys) Router/Switch/Wifi UPnPServer) and use it as a storage place for your Sounds to be used.
 
 
-Working on playing it on Homey itself.
+For playing it on Homey itself, see Media Url Converter.
