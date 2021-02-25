@@ -25,5 +25,8 @@
   },
   "1.1.1": {
     "en": "Spelling"
+  },
+  "1.1.2": {
+    "en": "Supported device set to UPnP Server (instead of Player)"
   }
 }
