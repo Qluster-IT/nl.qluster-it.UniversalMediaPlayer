@@ -61,6 +61,13 @@
             "title": {
               "en": "Duration"
             }
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "title": {
+              "en": "Name"
+            }
           }
         ],
         "args": [
