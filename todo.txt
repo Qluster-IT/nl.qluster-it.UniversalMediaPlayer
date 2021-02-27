@@ -1,3 +1,9 @@
+Fix id is undefined if start by app and not through a flow yet.
+Show a message to start by flow.
+
+
+
+
 "tokens": [
           {
             "name": "url",
