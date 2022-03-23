@@ -67,10 +67,16 @@ class UPnPPlayerDriver extends Homey.Driver
             }).bind(this))
             .getArgument('file').registerAutocompleteListener((( query, args) => {
                 var defer = new Defer();
-                try { this.log('upnpplayer_get_file.file.registerAutocompleteListener(query, state)');
+                try { 
+                    this.log('upnpplayer_get_file.file.registerAutocompleteListener(query, state)');
                     if((!query||query=='') && args && args.file) query=args.file.name || '';
-                    args.device.server.browse({query:query, search:'folders,files'}).then(list=>defer.resolve(list) );    
-                } catch (error) { this.log('upnpplayer_get_file.file.registerAutocompleteListener error: ' + error);
+                    args.device.server.browse({query:query, search:'folders,files'}).then(list=>defer.resolve(list) ).catch(err=> {
+                        this.log('upnpplayer_get_file.file.registerAutocompleteListener err: ' + err);
+                        defer.resolve([]);
+                    });    
+                    
+                } catch (error) { 
+                    this.log('upnpplayer_get_file.file.registerAutocompleteListener error: ' + error);
                     defer.resolve([]);
                 }
             return defer.promise;
