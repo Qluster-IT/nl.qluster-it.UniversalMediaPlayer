@@ -1,6 +1,6 @@
 {
   "id": "nl.qluster-it.UniversalMediaPlayer",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#1A3E59",
@@ -294,6 +294,60 @@
                 }
               }
             ]
+          }
+        ]
+      },      
+      {
+        "id": "upnpplayer_get_file_af",
+        "title": {
+          "en": "Play a UPnP file",
+          "nl": "Speel een UPnP bestand"
+        },
+        "titleFormatted": {
+          "en": "Playing [[file]] and finish ([[finish]])",
+          "nl": "Speel [[file]] en voltooi ([[finish]])"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=upnpplayer"
+          },
+          {
+            "type": "autocomplete",
+            "name": "file",
+            "placeholder": {
+              "en": "File",
+              "nl": "File"
+            }
+          },
+          {
+            "type": "checkbox",
+            "name": "finish",
+            "title": { "en": "Finish", "nl": "Voltooi" }
+          }
+        ],
+        "tokens": [
+          {
+            "name": "url",
+            "type": "string",
+            "title": {
+              "en": "Url"
+            }
+          },
+          {
+            "name": "duration",
+            "type": "number",
+            "title": {
+              "en": "Duration"
+            }
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "title": {
+              "en": "Name"
+            }
           }
         ]
       }
