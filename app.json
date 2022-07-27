@@ -1,6 +1,6 @@
 {
   "id": "nl.qluster-it.UniversalMediaPlayer",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#1A3E59",
@@ -11,6 +11,10 @@
   "description": {
     "en": "Turn any device in a Media Player with remote storage",
     "nl": "Verander elk apparaat in een Media Speler met externe opslag"
+  },  
+  "tags": {
+    "en": ["url", "nas"],
+    "nl": ["url", "nas"]
   },
   "category": [
     "music"
