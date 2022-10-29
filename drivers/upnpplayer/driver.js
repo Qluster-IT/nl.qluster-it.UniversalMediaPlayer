@@ -51,7 +51,8 @@ class UPnPPlayerDriver extends Homey.Driver
 
         starts = [
             {id:'upnpplayer_get_file'},
-            {id:'upnpplayer_get_file_message'}
+            {id:'upnpplayer_get_file_message'},            
+            {id:'upnpplayer_get_file_af', af:true}
         ];
         for (let i = 0; i < starts.length; i++) {
             const start = starts[i];            
@@ -61,16 +62,25 @@ class UPnPPlayerDriver extends Homey.Driver
                 //this.log(args);
                 try {
                     if(!args.file || !args.device || !args.file.location) return false;
-                    return await args.device.playlistManager.PlayFile({file:args.file, message: args.message});
+                    var ret = await args.device.playlistManager.PlayFile({file:args.file, message: args.message, finish: args.finish || false, af:start.af});
+                    return ret;
+                    //if(start.af) return {url:this.currentFile.url, duration:this.currentFile.duration, name:this.currentFile.name};
+
                 } catch (error) { console.log('Error file: ' + error); }
                 return false;
             }).bind(this))
             .getArgument('file').registerAutocompleteListener((( query, args) => {
                 var defer = new Defer();
-                try { this.log('upnpplayer_get_file.file.registerAutocompleteListener(query, state)');
+                try { 
+                    this.log('upnpplayer_get_file.file.registerAutocompleteListener(query, state)');
                     if((!query||query=='') && args && args.file) query=args.file.name || '';
-                    args.device.server.browse({query:query, search:'folders,files'}).then(list=>defer.resolve(list) );    
-                } catch (error) { this.log('upnpplayer_get_file.file.registerAutocompleteListener error: ' + error);
+                    args.device.server.browse({query:query, search:'folders,files'}).then(list=>defer.resolve(list) ).catch(err=> {
+                        this.log('upnpplayer_get_file.file.registerAutocompleteListener err: ' + err);
+                        defer.resolve([]);
+                    });    
+                    
+                } catch (error) { 
+                    this.log('upnpplayer_get_file.file.registerAutocompleteListener error: ' + error);
                     defer.resolve([]);
                 }
             return defer.promise;

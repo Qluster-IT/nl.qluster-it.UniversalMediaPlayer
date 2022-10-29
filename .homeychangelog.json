@@ -43,5 +43,14 @@
   },
   "1.2.4": {
     "en": "Updated readme"
+  },
+  "1.2.5": {
+    "en": "Improved Error messages"
+  },
+  "1.2.6": {
+    "en": "Advanced Flows supported: Then cards with tokens are added."
+  },
+  "1.2.7": {
+    "en": "Improved Store tags."
   }
 }
