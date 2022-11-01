@@ -52,5 +52,8 @@
   },
   "1.2.7": {
     "en": "Improved Store tags."
+  },
+  "1.2.8": {
+    "en": "Added: Contribution options: Patreon and GithubSponsors (with PayPal already available)."
   }
 }
