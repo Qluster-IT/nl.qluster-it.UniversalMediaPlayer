@@ -14,18 +14,7 @@ class UPnPPlayerApp extends Homey.App {
 
 	onInit() {
 		this.log('UPnPPlayerApp is running...');        
-		try {
-			if (process.env.DEBUG === '1') require('inspector').open(9222, '0.0.0.0', false);
-		  } catch (error) {
-			
-		  }
-        //UPnPPlayerDriver.init();
-
-
-
-
-
-
+		
         //#endregion
 
 	}

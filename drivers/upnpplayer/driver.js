@@ -74,7 +74,9 @@ class UPnPPlayerDriver extends Homey.Driver
                 try { 
                     this.log('upnpplayer_get_file.file.registerAutocompleteListener(query, state)');
                     if((!query||query=='') && args && args.file) query=args.file.name || '';
-                    args.device.server.browse({query:query, search:'folders,files'}).then(list=>defer.resolve(list) ).catch(err=> {
+                    args.device.server.browse({query:query, search:'folders,files'}).then(list=>
+                        defer.resolve(list) 
+                        ).catch(err=> {
                         this.log('upnpplayer_get_file.file.registerAutocompleteListener err: ' + err);
                         defer.resolve([]);
                     });    
