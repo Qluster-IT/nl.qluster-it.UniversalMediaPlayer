@@ -58,5 +58,8 @@
   },
   "1.2.9": {
     "en": "Improved: Works with Early 2023 and now shows more than 100 images in the list when selecting files/folder in flows!"
+  },
+  "1.2.10": {
+    "en": "Resolved: The Pairscreen now response within the timeout."
   }
 }
