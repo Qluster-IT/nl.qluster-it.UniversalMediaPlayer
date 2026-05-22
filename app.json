@@ -1,6 +1,6 @@
 {
   "id": "nl.qluster-it.UniversalMediaPlayer",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#1A3E59",

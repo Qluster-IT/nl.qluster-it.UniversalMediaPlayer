@@ -64,5 +64,8 @@
   },
   "1.2.11": {
     "en": "Resolved: Bugs (socket hang up)."
+  },
+  "1.2.12": {
+    "en": "Resolved: Bugs (socket hang up)."
   }
 }
