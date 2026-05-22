@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "lodash-core": "^4.17.19",
+    "node-fetch": "^3.3.2",
+    "node-upnp-utils": "^1.0.3",
+    "uuid": "^14.0.0"
+  }
+}
