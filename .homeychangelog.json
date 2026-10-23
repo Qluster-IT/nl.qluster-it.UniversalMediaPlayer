@@ -58,5 +58,29 @@
   },
   "1.2.9": {
     "en": "Improved: Works with Early 2023 and now shows more than 100 images in the list when selecting files/folder in flows!"
+  },
+  "1.2.10": {
+    "en": "Resolved: The Pairscreen now response within the timeout."
+  },
+  "1.2.11": {
+    "en": "Resolved: Bugs (socket hang up)."
+  },
+  "1.2.13": {
+    "en": "Resolved: Bugs (socket hang up)."
+  },
+  "1.2.14": {
+    "en": "Changed sourcecode and issues from Bitbucket to GitHub.",
+    "nl": "Broncode en problemen verplaatst van Bitbucket naar GitHub.",
+    "da": "Ændrede kildekode og problemer fra Bitbucket til GitHub.",
+    "de": "Quellcode und Probleme von Bitbucket zu GitHub geändert.",
+    "es": "Cambió el código fuente y los problemas de Bitbucket a GitHub.",
+    "fr": "Sourcecode et problèmes changés de Bitbucket à GitHub.",
+    "it": "Codice sorgente e problemi cambiati da Bitbucket a GitHub.",
+    "no": "Endret kildekode og problemer fra Bitbucket til GitHub.",
+    "sv": "Ändrade källkod och problem från Bitbucket till GitHub.",
+    "pl": "Zmieniono kod źródłowy i problemy z Bitbucket na GitHub.",
+    "ru": "Изменили исходный код и задачи с Bitbucket на GitHub.",
+    "ko": "소스 코드와 문제를 Bitbucket에서 GitHub로 변경했습니다.",
+    "ar": "تم تغيير الشيفرة المصدرية والمشكلات من Bitbucket إلى GitHub."
   }
 }
