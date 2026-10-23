@@ -1,6 +1,6 @@
 {
   "id": "nl.qluster-it.UniversalMediaPlayer",
-  "version": "1.2.13",
+  "version": "1.2.14",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#1A3E59",
@@ -37,9 +37,9 @@
       }
 		}
 	},
-  "source": "https://bitbucket.org/QlusterIT/nl.qluster-it.universalmediaplayer/",
+  "source": "https://github.com/Qluster-IT/nl.qluster-it.UniversalMediaPlayer/",
   "bugs": {
-    "url": "https://bitbucket.org/QlusterIT/nl.qluster-it.universalmediaplayer/issues"
+    "url": "https://github.com/Qluster-IT/nl.qluster-it.UniversalMediaPlayer/issues"
   },
   "homeyCommunityTopicId": 43450,
   "author": {
