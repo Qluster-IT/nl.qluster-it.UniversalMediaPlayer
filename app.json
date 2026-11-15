@@ -38,6 +38,7 @@
 		}
 	},
   "source": "https://github.com/Qluster-IT/nl.qluster-it.UniversalMediaPlayer/",
+  "homepage": "https://github.com/Qluster-IT/nl.qluster-it.UniversalMediaPlayer/wiki",
   "bugs": {
     "url": "https://github.com/Qluster-IT/nl.qluster-it.UniversalMediaPlayer/issues"
   },
