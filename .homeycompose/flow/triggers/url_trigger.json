@@ -1,0 +1,98 @@
+{
+  "title": {
+    "en": "Playback URL changed",
+    "nl": "Afspeel-URL gewijzigd",
+    "de": "Wiedergabe-URL geändert",
+    "fr": "URL de lecture modifiée",
+    "it": "URL di riproduzione cambiato",
+    "es": "La URL de reproducción ha cambiado",
+    "da": "Afspilnings-URL ændret",
+    "no": "Avspillings-URL endret",
+    "sv": "Uppspelnings-URL ändrad",
+    "pl": "Zmieniono adres URL odtwarzania",
+    "ru": "URL воспроизведения изменился",
+    "ko": "재생 URL이 변경됨",
+    "ar": "تغيّر رابط التشغيل"
+  },
+  "titleFormatted": {
+    "en": "Playback URL changed",
+    "nl": "Afspeel-URL gewijzigd",
+    "de": "Wiedergabe-URL geändert",
+    "fr": "URL de lecture modifiée",
+    "it": "URL di riproduzione cambiato",
+    "es": "La URL de reproducción ha cambiado",
+    "da": "Afspilnings-URL ændret",
+    "no": "Avspillings-URL endret",
+    "sv": "Uppspelnings-URL ändrad",
+    "pl": "Zmieniono adres URL odtwarzania",
+    "ru": "URL воспроизведения изменился",
+    "ko": "재생 URL이 변경됨",
+    "ar": "تغيّر رابط التشغيل"
+  },
+  "tokens": [
+    {
+      "name": "url",
+      "type": "string",
+      "title": {
+        "en": "URL",
+        "nl": "URL",
+        "de": "URL",
+        "fr": "URL",
+        "it": "URL",
+        "es": "URL",
+        "da": "URL",
+        "no": "URL",
+        "sv": "URL",
+        "pl": "URL",
+        "ru": "URL",
+        "ko": "URL",
+        "ar": "URL"
+      }
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "title": {
+        "en": "Duration (milliseconds)",
+        "nl": "Duur (milliseconden)",
+        "de": "Dauer (Millisekunden)",
+        "fr": "Durée (millisecondes)",
+        "it": "Durata (millisecondi)",
+        "es": "Duración (milisegundos)",
+        "da": "Varighed (millisekunder)",
+        "no": "Varighet (millisekunder)",
+        "sv": "Varaktighet (millisekunder)",
+        "pl": "Czas trwania (milisekundy)",
+        "ru": "Длительность (миллисекунды)",
+        "ko": "재생 시간(밀리초)",
+        "ar": "مدة التشغيل (مللي ثانية)"
+      }
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "title": {
+        "en": "Name",
+        "nl": "Naam",
+        "de": "Name",
+        "fr": "Nom",
+        "it": "Nome",
+        "es": "Nombre",
+        "da": "Navn",
+        "no": "Navn",
+        "sv": "Namn",
+        "pl": "Nazwa",
+        "ru": "Название",
+        "ko": "이름",
+        "ar": "الاسم"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=upnpplayer"
+    }
+  ]
+}

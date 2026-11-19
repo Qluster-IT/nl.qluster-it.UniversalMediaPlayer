@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Sync playback from a Sonos speaker",
+    "nl": "Afspelen synchroniseren met een Sonos-speaker",
+    "de": "Wiedergabe mit einem Sonos-Lautsprecher synchronisieren",
+    "fr": "Synchroniser la lecture depuis une enceinte Sonos",
+    "it": "Sincronizza la riproduzione da un altoparlante Sonos",
+    "es": "Sincronizar reproducción desde un altavoz Sonos",
+    "da": "Synkroniser afspilning fra en Sonos-højttaler",
+    "no": "Synkroniser avspilling fra en Sonos-høyttaler",
+    "sv": "Synkronisera uppspelning från en Sonos-högtalare",
+    "pl": "Synchronizuj odtwarzanie z głośnika Sonos",
+    "ru": "Синхронизировать воспроизведение с колонкой Sonos",
+    "ko": "Sonos 스피커의 재생 상태 동기화",
+    "ar": "مزامنة التشغيل من سماعة Sonos"
+  },
+  "args": [
+    {"name": "device", "type": "device", "filter": "driver_id=upnpplayer"},
+    {
+      "name": "address",
+      "type": "text",
+      "title": {
+        "en": "Speaker IP address", "nl": "IP-adres speaker", "de": "Lautsprecher-IP-Adresse",
+        "fr": "Adresse IP de l’enceinte", "it": "Indirizzo IP altoparlante", "es": "Dirección IP del altavoz",
+        "da": "Højttalerens IP-adresse", "no": "Høyttalerens IP-adresse", "sv": "Högtalarens IP-adress",
+        "pl": "Adres IP głośnika", "ru": "IP-адрес колонки", "ko": "스피커 IP 주소", "ar": "عنوان IP للسماعة"
+      },
+      "placeholder": {"en": "192.168.1.177"}
+    }
+  ]
+}

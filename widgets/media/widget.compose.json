@@ -1,0 +1,199 @@
+{
+  "name": {
+    "en": "Media player",
+    "nl": "Mediaspeler",
+    "de": "Mediaplayer",
+    "fr": "Lecteur multimédia",
+    "it": "Lettore multimediale",
+    "es": "Reproductor multimedia",
+    "da": "Medieafspiller",
+    "no": "Mediespiller",
+    "sv": "Mediespelare",
+    "pl": "Odtwarzacz multimedialny",
+    "ru": "Медиаплеер",
+    "ko": "미디어 플레이어",
+    "ar": "مشغّل الوسائط"
+  },
+  "settings": [
+    {
+      "id": "pageSize",
+      "type": "number",
+      "value": 50,
+      "min": 1,
+      "max": 200,
+      "title": {
+        "en": "Items per page", "nl": "Items per pagina", "de": "Einträge pro Seite",
+        "fr": "Éléments par page", "it": "Elementi per pagina", "es": "Elementos por página",
+        "da": "Elementer pr. side", "no": "Elementer per side", "sv": "Poster per sida",
+        "pl": "Elementy na stronie", "ru": "Элементов на странице", "ko": "페이지당 항목", "ar": "العناصر في الصفحة"
+      }
+    },
+    {
+      "id": "volumeStep",
+      "type": "number",
+      "value": 5,
+      "min": 1,
+      "max": 100,
+      "title": {
+        "en": "Volume step (%)", "nl": "Volumestap (%)", "de": "Lautstärkeschritt (%)",
+        "fr": "Pas du volume (%)", "it": "Incremento volume (%)", "es": "Paso de volumen (%)",
+        "da": "Lydstyrketrin (%)", "no": "Volumtrinn (%)", "sv": "Volymsteg (%)",
+        "pl": "Krok głośności (%)", "ru": "Шаг громкости (%)", "ko": "볼륨 조절 간격 (%)",
+        "ar": "خطوة مستوى الصوت (%)"
+      }
+    },
+    {
+      "id": "player",
+      "type": "autocomplete",
+      "title": {
+        "en": "Player",
+        "nl": "Speler",
+        "de": "Player",
+        "fr": "Lecteur",
+        "it": "Lettore",
+        "es": "Reproductor",
+        "da": "Afspiller",
+        "no": "Spiller",
+        "sv": "Spelare",
+        "pl": "Odtwarzacz",
+        "ru": "Плеер",
+        "ko": "플레이어",
+        "ar": "المشغّل"
+      }
+    },
+    {
+      "id": "layout",
+      "type": "dropdown",
+      "title": {
+        "en": "Layout",
+        "nl": "Indeling",
+        "de": "Layout",
+        "fr": "Disposition",
+        "it": "Disposizione",
+        "es": "Diseño",
+        "da": "Layout",
+        "no": "Oppsett",
+        "sv": "Layout",
+        "pl": "Układ",
+        "ru": "Макет",
+        "ko": "레이아웃",
+        "ar": "التخطيط"
+      },
+      "value": "compact",
+      "values": [
+        {
+          "id": "compact",
+          "title": {
+            "en": "Compact",
+            "nl": "Compact",
+            "de": "Kompakt",
+            "fr": "Compacte",
+            "it": "Compatta",
+            "es": "Compacto",
+            "da": "Kompakt",
+            "no": "Kompakt",
+            "sv": "Kompakt",
+            "pl": "Kompaktowy",
+            "ru": "Компактный",
+            "ko": "소형",
+            "ar": "مدمج"
+          }
+        },
+        {
+          "id": "large",
+          "title": {
+            "en": "Large",
+            "nl": "Groot",
+            "de": "Groß",
+            "fr": "Grande",
+            "it": "Grande",
+            "es": "Grande",
+            "da": "Stor",
+            "no": "Stor",
+            "sv": "Stor",
+            "pl": "Duży",
+            "ru": "Большой",
+            "ko": "대형",
+            "ar": "كبير"
+          }
+        }
+      ]
+    },
+    {
+      "id": "library",
+      "type": "dropdown",
+      "title": {
+        "en": "Library",
+        "nl": "Bibliotheek",
+        "de": "Bibliothek",
+        "fr": "Bibliothèque",
+        "it": "Libreria",
+        "es": "Biblioteca",
+        "da": "Bibliotek",
+        "no": "Bibliotek",
+        "sv": "Bibliotek",
+        "pl": "Biblioteka",
+        "ru": "Библиотека",
+        "ko": "라이브러리",
+        "ar": "المكتبة"
+      },
+      "value": "toggle",
+      "values": [
+        {
+          "id": "toggle",
+          "title": {
+            "en": "Toggle button",
+            "nl": "Wisselknop",
+            "de": "Schaltfläche zum Ein- und Ausblenden",
+            "fr": "Bouton afficher/masquer",
+            "it": "Pulsante di apertura",
+            "es": "Botón para mostrar u ocultar",
+            "da": "Vis/skjul-knap",
+            "no": "Vis/skjul-knapp",
+            "sv": "Visa/dölj-knapp",
+            "pl": "Przycisk pokaż/ukryj",
+            "ru": "Кнопка показа и скрытия",
+            "ko": "표시/숨기기 버튼",
+            "ar": "زر الإظهار والإخفاء"
+          }
+        },
+        {
+          "id": "open",
+          "title": {
+            "en": "Always open",
+            "nl": "Altijd open",
+            "de": "Immer geöffnet",
+            "fr": "Toujours ouverte",
+            "it": "Sempre aperta",
+            "es": "Siempre abierta",
+            "da": "Altid åbent",
+            "no": "Alltid åpent",
+            "sv": "Alltid öppen",
+            "pl": "Zawsze otwarta",
+            "ru": "Всегда открыта",
+            "ko": "항상 열기",
+            "ar": "مفتوحة دائمًا"
+          }
+        }
+      ]
+    }
+  ],
+  "api": {
+    "playlist": {
+      "method": "POST",
+      "path": "/playlist"
+    },
+    "getState": {
+      "method": "GET",
+      "path": "/state"
+    },
+    "control": {
+      "method": "POST",
+      "path": "/control"
+    },
+    "browse": {
+      "method": "POST",
+      "path": "/browse"
+    }
+  }
+}

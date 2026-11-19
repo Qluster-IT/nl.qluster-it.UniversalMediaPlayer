@@ -1,0 +1,136 @@
+{
+  "title": {
+    "en": "Play a UPnP file with output tags",
+    "nl": "Speel een UPnP-bestand af met uitvoertags",
+    "de": "Eine UPnP-Datei mit Ausgabe-Tags abspielen",
+    "fr": "Lire un fichier UPnP avec des tags de sortie",
+    "it": "Riproduci un file UPnP con tag di output",
+    "es": "Reproducir un archivo UPnP con etiquetas de salida",
+    "da": "Afspil en UPnP-fil med outputtags",
+    "no": "Spill av en UPnP-fil med utdataetiketter",
+    "sv": "Spela upp en UPnP-fil med utdatataggar",
+    "pl": "Odtwórz plik UPnP z tagami wyjściowymi",
+    "ru": "Воспроизвести UPnP-файл с выходными тегами",
+    "ko": "출력 태그와 함께 UPnP 파일 재생",
+    "ar": "شغّل ملف UPnP مع وسوم الإخراج"
+  },
+  "titleFormatted": {
+    "en": "Play [[file]] and wait for its duration [[finish]]",
+    "nl": "Speel [[file]] af en wacht op de afspeelduur [[finish]]",
+    "de": "[[file]] abspielen und die Wiedergabedauer abwarten [[finish]]",
+    "fr": "Lire [[file]] et attendre la fin de sa durée de lecture [[finish]]",
+    "it": "Riproduci [[file]] e attendi che trascorra la durata di riproduzione [[finish]]",
+    "es": "Reproducir [[file]] y esperar a que transcurra su duración [[finish]]",
+    "da": "Afspil [[file]], og vent, til afspilningsvarigheden er gået [[finish]]",
+    "no": "Spill av [[file]] og vent til avspillingsvarigheten er utløpt [[finish]]",
+    "sv": "Spela upp [[file]] och vänta tills uppspelningstiden har löpt ut [[finish]]",
+    "pl": "Odtwórz [[file]] i czekaj na upływ czasu odtwarzania [[finish]]",
+    "ru": "Воспроизвести [[file]] и дождаться истечения времени воспроизведения [[finish]]",
+    "ko": "[[file]]을(를) 재생하고 재생 시간이 지날 때까지 대기 [[finish]]",
+    "ar": "شغّل [[file]] وانتظر حتى تنقضي مدة تشغيله [[finish]]"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=upnpplayer"
+    },
+    {
+      "type": "autocomplete",
+      "name": "file",
+      "placeholder": {
+        "en": "File",
+        "nl": "Bestand",
+        "de": "Datei",
+        "fr": "Fichier",
+        "it": "File",
+        "es": "Archivo",
+        "da": "Fil",
+        "no": "Fil",
+        "sv": "Fil",
+        "pl": "Plik",
+        "ru": "Файл",
+        "ko": "파일",
+        "ar": "الملف"
+      }
+    },
+    {
+      "type": "checkbox",
+      "name": "finish",
+      "title": {
+        "en": "Wait for duration",
+        "nl": "Wacht op de afspeelduur",
+        "de": "Wiedergabedauer abwarten",
+        "fr": "Attendre la durée de lecture",
+        "it": "Attendi la durata di riproduzione",
+        "es": "Esperar la duración de reproducción",
+        "da": "Vent, til afspilningsvarigheden er gået",
+        "no": "Vent til avspillingsvarigheten er utløpt",
+        "sv": "Vänta tills uppspelningstiden har löpt ut",
+        "pl": "Czekaj na upływ czasu odtwarzania",
+        "ru": "Дождаться истечения времени воспроизведения",
+        "ko": "재생 시간이 지날 때까지 대기",
+        "ar": "انتظر حتى تنقضي مدة التشغيل"
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "name": "url",
+      "type": "string",
+      "title": {
+        "en": "URL",
+        "nl": "URL",
+        "de": "URL",
+        "fr": "URL",
+        "it": "URL",
+        "es": "URL",
+        "da": "URL",
+        "no": "URL",
+        "sv": "URL",
+        "pl": "URL",
+        "ru": "URL",
+        "ko": "URL",
+        "ar": "URL"
+      }
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "title": {
+        "en": "Duration (milliseconds)",
+        "nl": "Duur (milliseconden)",
+        "de": "Dauer (Millisekunden)",
+        "fr": "Durée (millisecondes)",
+        "it": "Durata (millisecondi)",
+        "es": "Duración (milisegundos)",
+        "da": "Varighed (millisekunder)",
+        "no": "Varighet (millisekunder)",
+        "sv": "Varaktighet (millisekunder)",
+        "pl": "Czas trwania (milisekundy)",
+        "ru": "Длительность (миллисекунды)",
+        "ko": "재생 시간(밀리초)",
+        "ar": "مدة التشغيل (مللي ثانية)"
+      }
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "title": {
+        "en": "Name",
+        "nl": "Naam",
+        "de": "Name",
+        "fr": "Nom",
+        "it": "Nome",
+        "es": "Nombre",
+        "da": "Navn",
+        "no": "Navn",
+        "sv": "Namn",
+        "pl": "Nazwa",
+        "ru": "Название",
+        "ko": "이름",
+        "ar": "الاسم"
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "title": {
+    "en": "Play a UPnP file",
+    "nl": "Speel een UPnP-bestand af",
+    "de": "Eine UPnP-Datei abspielen",
+    "fr": "Lire un fichier UPnP",
+    "it": "Riproduci un file UPnP",
+    "es": "Reproducir un archivo UPnP",
+    "da": "Afspil en UPnP-fil",
+    "no": "Spill av en UPnP-fil",
+    "sv": "Spela upp en UPnP-fil",
+    "pl": "Odtwórz plik UPnP",
+    "ru": "Воспроизвести UPnP-файл",
+    "ko": "UPnP 파일 재생",
+    "ar": "شغّل ملف UPnP"
+  },
+  "titleFormatted": {
+    "en": "Start playing [[file]]",
+    "nl": "Start het afspelen van [[file]]",
+    "de": "Wiedergabe von [[file]] starten",
+    "fr": "Lancer la lecture de [[file]]",
+    "it": "Avvia la riproduzione di [[file]]",
+    "es": "Iniciar la reproducción de [[file]]",
+    "da": "Start afspilning af [[file]]",
+    "no": "Start avspilling av [[file]]",
+    "sv": "Starta uppspelning av [[file]]",
+    "pl": "Rozpocznij odtwarzanie pliku [[file]]",
+    "ru": "Начать воспроизведение файла [[file]]",
+    "ko": "[[file]] 재생 시작",
+    "ar": "ابدأ تشغيل [[file]]"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=upnpplayer"
+    },
+    {
+      "type": "autocomplete",
+      "name": "file",
+      "placeholder": {
+        "en": "File",
+        "nl": "Bestand",
+        "de": "Datei",
+        "fr": "Fichier",
+        "it": "File",
+        "es": "Archivo",
+        "da": "Fil",
+        "no": "Fil",
+        "sv": "Fil",
+        "pl": "Plik",
+        "ru": "Файл",
+        "ko": "파일",
+        "ar": "الملف"
+      }
+    }
+  ]
+}

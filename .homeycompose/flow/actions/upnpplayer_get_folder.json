@@ -1,0 +1,193 @@
+{
+  "title": {
+    "en": "Play a UPnP folder",
+    "nl": "Speel een UPnP-map af",
+    "de": "Einen UPnP-Ordner abspielen",
+    "fr": "Lire un dossier UPnP",
+    "it": "Riproduci una cartella UPnP",
+    "es": "Reproducir una carpeta UPnP",
+    "da": "Afspil en UPnP-mappe",
+    "no": "Spill av en UPnP-mappe",
+    "sv": "Spela upp en UPnP-mapp",
+    "pl": "Odtwórz folder UPnP",
+    "ru": "Воспроизвести папку UPnP",
+    "ko": "UPnP 폴더 재생",
+    "ar": "شغّل مجلد UPnP"
+  },
+  "titleFormatted": {
+    "en": "Start playing folder [[folder]] in mode [[mode]]",
+    "nl": "Start het afspelen van map [[folder]] in modus [[mode]]",
+    "de": "Wiedergabe des Ordners [[folder]] im Modus [[mode]] starten",
+    "fr": "Lancer la lecture du dossier [[folder]] en mode [[mode]]",
+    "it": "Avvia la riproduzione della cartella [[folder]] in modalità [[mode]]",
+    "es": "Iniciar la reproducción de la carpeta [[folder]] en modo [[mode]]",
+    "da": "Start afspilning af mappen [[folder]] i tilstanden [[mode]]",
+    "no": "Start avspilling av mappen [[folder]] i modusen [[mode]]",
+    "sv": "Starta uppspelning av mappen [[folder]] i läget [[mode]]",
+    "pl": "Rozpocznij odtwarzanie folderu [[folder]] w trybie [[mode]]",
+    "ru": "Начать воспроизведение папки [[folder]] в режиме [[mode]]",
+    "ko": "[[folder]] 폴더를 [[mode]] 모드로 재생 시작",
+    "ar": "ابدأ تشغيل المجلد [[folder]] في الوضع [[mode]]"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=upnpplayer"
+    },
+    {
+      "type": "autocomplete",
+      "name": "folder",
+      "placeholder": {
+        "en": "Folder",
+        "nl": "Map",
+        "de": "Ordner",
+        "fr": "Dossier",
+        "it": "Cartella",
+        "es": "Carpeta",
+        "da": "Mappe",
+        "no": "Mappe",
+        "sv": "Mapp",
+        "pl": "Folder",
+        "ru": "Папка",
+        "ko": "폴더",
+        "ar": "المجلد"
+      }
+    },
+    {
+      "type": "dropdown",
+      "name": "mode",
+      "placeholder": {
+        "en": "Mode",
+        "nl": "Modus",
+        "de": "Modus",
+        "fr": "Mode",
+        "it": "Modalità",
+        "es": "Modo",
+        "da": "Tilstand",
+        "no": "Modus",
+        "sv": "Läge",
+        "pl": "Tryb",
+        "ru": "Режим",
+        "ko": "모드",
+        "ar": "الوضع"
+      },
+      "values": [
+        {
+          "id": "single",
+          "name": "Single",
+          "label": {
+            "en": "Play the first file in the folder",
+            "nl": "Speel het eerste bestand in de map af",
+            "de": "Erste Datei im Ordner abspielen",
+            "fr": "Lire le premier fichier du dossier",
+            "it": "Riproduci il primo file della cartella",
+            "es": "Reproducir el primer archivo de la carpeta",
+            "da": "Afspil den første fil i mappen",
+            "no": "Spill av den første filen i mappen",
+            "sv": "Spela upp den första filen i mappen",
+            "pl": "Odtwórz pierwszy plik w folderze",
+            "ru": "Воспроизвести первый файл в папке",
+            "ko": "폴더의 첫 번째 파일 재생",
+            "ar": "شغّل أول ملف في المجلد"
+          }
+        },
+        {
+          "id": "randomsingle",
+          "name": "Random Single",
+          "label": {
+            "en": "Play one random file in the folder",
+            "nl": "Speel één willekeurig bestand in de map af",
+            "de": "Eine zufällige Datei im Ordner abspielen",
+            "fr": "Lire un fichier du dossier au hasard",
+            "it": "Riproduci un file a caso nella cartella",
+            "es": "Reproducir un archivo de la carpeta al azar",
+            "da": "Afspil en tilfældig fil i mappen",
+            "no": "Spill av én tilfeldig fil i mappen",
+            "sv": "Spela upp en slumpmässig fil i mappen",
+            "pl": "Odtwórz jeden losowy plik z folderu",
+            "ru": "Воспроизвести один случайный файл из папки",
+            "ko": "폴더에서 임의의 파일 하나 재생",
+            "ar": "شغّل ملفًا عشوائيًا واحدًا من المجلد"
+          }
+        },
+        {
+          "id": "normal",
+          "name": "Normal",
+          "label": {
+            "en": "Play all files in the folder once",
+            "nl": "Speel alle bestanden in de map één keer af",
+            "de": "Alle Dateien im Ordner einmal abspielen",
+            "fr": "Lire une fois tous les fichiers du dossier",
+            "it": "Riproduci tutti i file della cartella una volta",
+            "es": "Reproducir todos los archivos de la carpeta una vez",
+            "da": "Afspil alle filer i mappen én gang",
+            "no": "Spill av alle filene i mappen én gang",
+            "sv": "Spela upp alla filer i mappen en gång",
+            "pl": "Odtwórz wszystkie pliki z folderu jeden raz",
+            "ru": "Воспроизвести все файлы в папке один раз",
+            "ko": "폴더의 모든 파일을 한 번 재생",
+            "ar": "شغّل جميع ملفات المجلد مرة واحدة"
+          }
+        },
+        {
+          "id": "repeat",
+          "name": "Repeat",
+          "label": {
+            "en": "Repeat all files in the folder",
+            "nl": "Herhaal alle bestanden in de map",
+            "de": "Alle Dateien im Ordner wiederholen",
+            "fr": "Répéter tous les fichiers du dossier",
+            "it": "Ripeti tutti i file della cartella",
+            "es": "Repetir todos los archivos de la carpeta",
+            "da": "Gentag alle filer i mappen",
+            "no": "Gjenta alle filene i mappen",
+            "sv": "Upprepa alla filer i mappen",
+            "pl": "Powtarzaj wszystkie pliki z folderu",
+            "ru": "Повторять все файлы в папке",
+            "ko": "폴더의 모든 파일을 반복 재생",
+            "ar": "كرّر تشغيل جميع ملفات المجلد"
+          }
+        },
+        {
+          "id": "randomnormal",
+          "name": "Random",
+          "label": {
+            "en": "Play all files in random order once",
+            "nl": "Speel alle bestanden één keer in willekeurige volgorde af",
+            "de": "Alle Dateien einmal in zufälliger Reihenfolge abspielen",
+            "fr": "Lire tous les fichiers une fois dans un ordre aléatoire",
+            "it": "Riproduci tutti i file una volta in ordine casuale",
+            "es": "Reproducir todos los archivos una vez en orden aleatorio",
+            "da": "Afspil alle filer én gang i tilfældig rækkefølge",
+            "no": "Spill av alle filene én gang i tilfeldig rekkefølge",
+            "sv": "Spela upp alla filer en gång i slumpmässig ordning",
+            "pl": "Odtwórz wszystkie pliki jeden raz w losowej kolejności",
+            "ru": "Воспроизвести все файлы один раз в случайном порядке",
+            "ko": "모든 파일을 무작위 순서로 한 번 재생",
+            "ar": "شغّل جميع الملفات مرة واحدة بترتيب عشوائي"
+          }
+        },
+        {
+          "id": "randomrepeat",
+          "name": "RandomRepeat",
+          "label": {
+            "en": "Repeat all files in random order",
+            "nl": "Herhaal alle bestanden in willekeurige volgorde",
+            "de": "Alle Dateien in zufälliger Reihenfolge wiederholen",
+            "fr": "Répéter tous les fichiers dans un ordre aléatoire",
+            "it": "Ripeti tutti i file in ordine casuale",
+            "es": "Repetir todos los archivos en orden aleatorio",
+            "da": "Gentag alle filer i tilfældig rækkefølge",
+            "no": "Gjenta alle filene i tilfeldig rekkefølge",
+            "sv": "Upprepa alla filer i slumpmässig ordning",
+            "pl": "Powtarzaj wszystkie pliki w losowej kolejności",
+            "ru": "Повторять все файлы в случайном порядке",
+            "ko": "모든 파일을 무작위 순서로 반복 재생",
+            "ar": "كرّر تشغيل جميع الملفات بترتيب عشوائي"
+          }
+        }
+      ]
+    }
+  ]
+}

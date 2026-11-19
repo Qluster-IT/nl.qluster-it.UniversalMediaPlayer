@@ -4,6 +4,8 @@ const Homey = require('homey');
 
 const UPnPServer = require('./../../lib/upnpserver');
 const PlaylistManager = require('./../../lib/playlistmanager');
+const {requestVolume, stepVolume} = require('../../lib/speaker-volume');
+const {notifyWidget} = require('../../lib/widget-updates');
 
 class UPnPPlayerDevice extends Homey.Device
 {
@@ -13,12 +15,11 @@ class UPnPPlayerDevice extends Homey.Device
     async onInit()
     {
         this.log('UPnPPlayerDevice has been initialized');
-        var capabilities = this.getCapabilities();
+        const capabilities = this.getCapabilities();
 
-        var caps = [ 'speaker_repeat' ];
-        for (let i = 0; i < caps.length; i++) {
-            const cap = caps[i];
-            if(!capabilities.indexOf(cap)>-1) this.addCapability(cap);                
+        const caps = [ 'speaker_repeat', 'speaker_position', 'speaker_stop', 'volume_set', 'volume_up', 'volume_down', 'volume_mute' ];
+        for (const cap of caps) {
+            if (!capabilities.includes(cap)) await this.addCapability(cap);
         }
 
         // register a capability listener
@@ -30,8 +31,14 @@ class UPnPPlayerDevice extends Homey.Device
         this.registerCapabilityListener('speaker_playing', ( value, opts ) => {            
             return Promise.resolve(this.playlistManager.TogglePlay(value));
         });
-        this.registerCapabilityListener('speaker_previous', ( value, opts ) => {            
-            return Promise.resolve(this.playlistManager.Play());
+        this.registerCapabilityListener('speaker_stop', () => this.playlistManager.Stop());
+        for (const cap of ['volume_set', 'volume_mute']) {
+            this.registerCapabilityListener(cap, value => requestVolume(this, cap, value));
+        }
+        this.registerCapabilityListener('volume_up', () => stepVolume(this, 1));
+        this.registerCapabilityListener('volume_down', () => stepVolume(this, -1));
+        this.registerCapabilityListener('speaker_prev', ( value, opts ) => {
+            return Promise.resolve(this.playlistManager.PlayPrevious());
         });
         
         this.registerCapabilityListener('speaker_next', ( value, opts ) => {            
@@ -44,7 +51,10 @@ class UPnPPlayerDevice extends Homey.Device
         this.registerCapabilityListener('speaker_repeat', ( value, opts ) => {            
             return Promise.resolve(this.playlistManager.SetRepeat(value));
         });
-        
+        this.registerCapabilityListener('speaker_position', async () => {
+            throw new Error(this.homey.__('playback.seekUnsupported'));
+        });
+        this.playlistManager.RestorePlayback();
     }
 
     /**
@@ -63,9 +73,20 @@ class UPnPPlayerDevice extends Homey.Device
      * @param {string[]} event.changedKeys An array of keys changed since the previous version
      * @returns {Promise<string|void>} return a custom message that will be displayed
      */
-    async onSettings({ oldSettings, newSettings, changedKeys })
+    async onSettings({ newSettings, changedKeys })
     {
-        this.log('UPnPPlayerDevice settings where changed');
+        if (changedKeys.includes('recentFolderLimit') && (!Number.isInteger(newSettings.recentFolderLimit)
+            || newSettings.recentFolderLimit < 0 || newSettings.recentFolderLimit > 100)) {
+            throw new Error(this.homey.__('widget.invalidRecentLimit'));
+        }
+        if (changedKeys.includes('recentFolderLimit') && this.playlistManager) {
+            this.playlistManager.recentFolders = (this.playlistManager.recentFolders || []).slice(0, newSettings.recentFolderLimit);
+            await this.playlistManager.SavePlayback();
+        }
+        if (changedKeys.includes('ip')) {
+            this.IP = newSettings.ip;
+            this.server = new UPnPServer({ homey: this.homey, ip: this.IP });
+        }
     }
 
     /**
@@ -76,6 +97,7 @@ class UPnPPlayerDevice extends Homey.Device
     async onRenamed(name)
     {
         this.log('UPnPPlayerDevice was renamed');
+        notifyWidget(this, true);
     }
 
     /**
@@ -84,7 +106,12 @@ class UPnPPlayerDevice extends Homey.Device
     async onDeleted()
     {
         this.log('UPnPPlayerDevice has been deleted');
-        //clearTimeout(this.onOffTimer);
+        await this.playlistManager?.Dispose();
+    }
+
+    async onUninit()
+    {
+        await this.playlistManager?.Dispose();
     }
 
 }

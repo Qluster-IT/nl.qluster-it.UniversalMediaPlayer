@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../assets/css/media-widget.css">
+</head>
+<body class="ump-widget" ng-controller="MediaController as vm" ng-cloak>
+  <main class="media" ng-class="{'media-large': vm.large, 'media-playing': vm.player.playing}" ng-attr-aria-busy="{{vm.loading || vm.busy}}" ng-keydown="vm.sourceKey($event)">
+    <header class="player-header">
+      <button id="player" class="hy-nostyle source-toggle" type="button" ng-click="vm.toggleSources()"
+        aria-haspopup="menu" aria-controls="source-menu" ng-attr-aria-expanded="{{!!vm.sourcesOpen}}">
+        <span>{{vm.sourceName()}}</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <span class="status" ng-if="vm.large">{{vm.playbackStatus()}}</span>
+    </header>
+    <div class="source-overlay" ng-if="vm.sourcesOpen">
+      <button class="hy-nostyle source-backdrop" type="button" ng-click="vm.closeSources()" aria-label="{{vm.labels.selectPlayer}}" tabindex="-1"></button>
+      <div id="source-menu" class="source-menu" role="menu" aria-labelledby="player">
+        <button class="hy-nostyle" type="button" role="menuitemradio" ng-repeat="source in vm.players track by source.id"
+          ng-attr-aria-checked="{{source.id === vm.playerId}}" ng-click="vm.chooseSource(source.id)">{{source.name}}</button>
+        <p class="hint" ng-if="!vm.players.length">{{vm.labels.noPlayers}}</p>
+      </div>
+    </div>
+    <section class="summary">
+      <div class="artwork" aria-hidden="true">
+        <svg ng-if="!vm.artwork || vm.artFailed" viewBox="0 0 64 64"><path d="M25 42V18l26-5v24M25 25l26-5"/><ellipse cx="17" cy="45" rx="8" ry="6"/><ellipse cx="43" cy="40" rx="8" ry="6"/></svg>
+        <img ng-if="vm.artwork && !vm.artFailed" ng-src="{{vm.artwork}}" alt="" media-artwork>
+      </div>
+      <div class="track-details">
+        <h1><button class="hy-nostyle track-info" type="button" ng-click="vm.showDetails()" ng-disabled="!vm.player.canPlay"
+          aria-label="{{vm.labels.details}}" title="{{vm.player.track}}">{{vm.player.track || vm.labels.nothingPlaying}}</button></h1>
+        <p class="artist" title="{{vm.player.artist}}">{{vm.player.artist || '—'}}</p>
+        <p class="album" title="{{vm.player.album}}">{{vm.player.album || '—'}}</p>
+        <div class="playback-progress" ng-if="vm.player.canPlay">
+          <progress ng-if="vm.player.duration > 0" ng-attr-max="{{vm.player.duration}}" ng-attr-value="{{vm.position}}" aria-labelledby="media-playback-time"></progress>
+          <span class="duration" id="media-playback-time">{{vm.duration(vm.position)}}<span ng-if="vm.player.duration"> / {{vm.duration(vm.player.duration)}}</span></span>
+        </div>
+      </div>
+    </section>
+    <p class="hint" role="status" ng-if="!vm.large && vm.player.interrupted">{{vm.labels.interrupted}}</p>
+    <nav class="controls" aria-label="{{vm.labels.controls}}">
+      <div class="control-group">
+      <button class="hy-nostyle mute-button" type="button" ng-click="vm.command('mute', !vm.player.muted, $event)"
+        ng-disabled="vm.disabled()" ng-attr-aria-pressed="{{vm.player.muted == null ? undefined : vm.player.muted}}"
+        aria-label="{{vm.labels.mute}}" title="{{vm.player.muted ? vm.labels.unmute : vm.labels.mute}}">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 9v6h4l5 4V5L7 9Z"/>
+          <path ng-if="!vm.player.muted" d="M15 9a4 4 0 0 1 0 6m3-9a8 8 0 0 1 0 12"/>
+          <path ng-if="vm.player.muted" d="m16 9 5 6m0-6-5 6"/>
+        </svg>
+      </button>
+      <button class="hy-nostyle" type="button" ng-click="vm.command('shuffle', !vm.player.shuffle, $event)" ng-disabled="vm.disabled()" ng-attr-aria-pressed="{{!!vm.player.shuffle}}" title="{{vm.labels.shuffle}}" aria-label="{{vm.labels.shuffle}}">
+        <svg viewBox="0 0 24 24"><path d="M3 6h3c5 0 7 12 12 12h3m-4-4 4 4-4 4M3 18h3c2 0 3-2 4-4m4-4c1-2 2-4 4-4h3m-4-4 4 4-4 4"/></svg>
+      </button>
+      <button class="hy-nostyle" type="button" ng-click="vm.command('previous', undefined, $event)" ng-disabled="vm.disabled() || vm.playbackBlocked() || !vm.player.canNavigate" title="{{vm.labels.previous}}" aria-label="{{vm.labels.previous}}">
+        <svg viewBox="0 0 24 24"><path d="M5 5v14"/><path class="filled" d="m19 5-11 7 11 7Z"/></svg>
+      </button>
+      </div>
+      <button class="hy-nostyle primary" type="button" ng-click="vm.command(vm.player.playing ? 'pause' : 'play', undefined, $event)" ng-disabled="vm.disabled() || vm.playbackBlocked() || !vm.player.canPlay" title="{{vm.player.playing ? vm.labels.pause : vm.labels.play}}" aria-label="{{vm.player.playing ? vm.labels.pause : vm.labels.play}}">
+        <svg viewBox="0 0 24 24"><path class="filled" ng-attr-d="{{vm.player.playing ? 'M7 5h4v14H7z M13 5h4v14h-4z' : 'm8 4 12 8-12 8Z'}}"/></svg>
+      </button>
+      <div class="control-group">
+      <button class="hy-nostyle" type="button" ng-click="vm.command('stop', undefined, $event)" ng-disabled="vm.disabled() || (!vm.player.playing && !vm.player.paused)" title="{{vm.labels.stop}}" aria-label="{{vm.labels.stop}}">
+        <svg viewBox="0 0 24 24"><path class="filled" d="M6 6h12v12H6Z"/></svg>
+      </button>
+      <button class="hy-nostyle" type="button" ng-click="vm.command('next', undefined, $event)" ng-disabled="vm.disabled() || vm.playbackBlocked() || !vm.player.canNavigate" title="{{vm.labels.next}}" aria-label="{{vm.labels.next}}">
+        <svg viewBox="0 0 24 24"><path d="M19 5v14"/><path class="filled" d="m5 5 11 7-11 7Z"/></svg>
+      </button>
+      <button class="hy-nostyle" type="button" ng-click="vm.command('repeat', vm.player.repeat === 'playlist' ? 'none' : 'playlist', $event)" ng-disabled="vm.disabled()" ng-attr-aria-pressed="{{vm.player.repeat === 'playlist'}}" title="{{vm.labels.repeat}}" aria-label="{{vm.labels.repeat}}">
+        <svg viewBox="0 0 24 24"><path d="M4 10V7h16m-4-4 4 4-4 4M20 14v3H4m4-4-4 4 4 4"/></svg>
+      </button>
+      </div>
+    </nav>
+    <div class="volume-controls" ng-if="vm.player">
+      <label class="sr-only" for="media-volume">{{vm.labels.volume}}</label>
+      <button class="hy-nostyle volume-step" type="button" ng-click="vm.command('volumeDown', undefined, $event)"
+        ng-disabled="vm.disabled() || vm.player.volume == null || vm.player.volume <= 0"
+        aria-label="{{vm.labels.volumeDown}}" title="{{vm.labels.volumeDown}}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
+      </button>
+      <input class="hy-nostyle" id="media-volume" type="range" min="0" max="100" step="1" media-volume-track
+        ng-model="vm.volumeDraft" ng-model-options="{updateOn: 'change'}"
+        ng-change="vm.command('volume', vm.volumeDraft / 100)" ng-disabled="vm.disabled()">
+      <button class="hy-nostyle volume-step" type="button" ng-click="vm.command('volumeUp', undefined, $event)"
+        ng-disabled="vm.disabled() || vm.player.volume == null || vm.player.volume >= 1"
+        aria-label="{{vm.labels.volumeUp}}" title="{{vm.labels.volumeUp}}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>
+      </button>
+      <output ng-if="vm.large" for="media-volume" aria-hidden="true">{{vm.player.volume === null ? '—' : (vm.volumeDraft + '%')}}</output>
+    </div>
+    <div class="sleep-controls" ng-if="vm.player">
+      <label for="sleep-timer">{{vm.labels.sleepTimer}}</label>
+      <select id="sleep-timer" class="hy-nostyle" ng-model="vm.sleepChoice" ng-change="vm.setSleep()" ng-disabled="vm.disabled()">
+        <option value="deferred" ng-if="vm.player.sleep.mode === 'deferred'" disabled>{{vm.labels.sleepDeferred}}</option>
+        <option value="off">{{vm.labels.sleepOff}}</option>
+        <option value="15">{{vm.labels.sleep15}}</option>
+        <option value="30">{{vm.labels.sleep30}}</option>
+        <option value="60">{{vm.labels.sleep60}}</option>
+        <option value="track" ng-disabled="!vm.player.duration">{{vm.labels.sleepTrack}}</option>
+      </select>
+    </div>
+    <p class="hint" role="status" ng-if="vm.loading && !vm.player">{{vm.labels.loading}}</p>
+    <p class="hint" role="status" ng-if="vm.stale && vm.player">{{vm.labels.stale}}</p>
+    <p class="hint" ng-if="!vm.loading && !vm.playerId">{{vm.players.length ? vm.labels.selectPlayer : vm.labels.noPlayers}}</p>
+    <p class="error" role="alert" ng-if="vm.error">{{vm.error}} <button class="hy-nostyle" type="button" ng-click="vm.refresh()" ng-disabled="vm.loading || vm.busy">{{vm.labels.retry}}</button></p>
+    <section class="library" ng-if="vm.playerId">
+      <div class="library-tabs">
+        <button class="hy-nostyle library-button" type="button" ng-click="vm.toggleBrowser()" ng-attr-aria-expanded="{{vm.browserOpen}}" aria-controls="media-library">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V5h6l2 2h10v12H3Z"/></svg>
+          <span>{{vm.labels.library}}</span>
+        </button>
+        <button class="hy-nostyle library-button" type="button" ng-click="vm.togglePlaylist()" ng-attr-aria-expanded="{{!!vm.playlistOpen}}" aria-controls="media-playlist">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h10M3 10h10M3 15h6m7 2V5l5 2"/><ellipse cx="13.5" cy="17.5" rx="2.5" ry="2"/></svg>
+          <span>{{vm.labels.playlist}}</span>
+        </button>
+      </div>
+      <div id="media-library" ng-show="vm.browserOpen">
+        <details class="breadcrumbs" ng-if="vm.player.recentFolders.length">
+          <summary>{{vm.labels.recentFolders}}</summary>
+          <nav aria-label="{{vm.labels.recentFolders}}">
+            <button type="button" class="hy-nostyle library-button" ng-repeat="recent in vm.player.recentFolders track by $index"
+              ng-click="vm.openRecent(recent)"><bdi>{{recent.path[recent.path.length - 1].name}}</bdi></button>
+          </nav>
+        </details>
+        <details class="breadcrumbs" ng-if="vm.path.length > 1">
+          <summary>{{vm.labels.breadcrumbs}}</summary>
+          <nav aria-label="{{vm.labels.breadcrumbs}}">
+            <button type="button" class="hy-nostyle library-button" ng-repeat="crumb in vm.path track by $index"
+              ng-click="vm.jumpTo($index)" ng-disabled="$last" ng-attr-aria-current="{{$last ? 'location' : undefined}}">{{crumb.name}}</button>
+          </nav>
+        </details>
+        <div class="library-header">
+          <button class="hy-nostyle library-icon library-back" type="button" ng-if="vm.path.length > 1"
+            ng-click="vm.back()" aria-label="{{vm.labels.back}}" title="{{vm.labels.back}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5-7 7 7 7M3 12h18"/></svg>
+          </button>
+          <h2 class="library-title" title="{{vm.folder().name}}" ng-class="{'library-current': vm.folderPlaying()}">
+            {{vm.folder().name}} <span ng-if="vm.folderPlaying()">· {{vm.labels.playing}}</span>
+          </h2>
+          <button class="hy-nostyle library-icon" type="button" ng-if="vm.path.length > 1"
+            ng-click="vm.playFolder($event)" ng-disabled="vm.disabled() || vm.playbackBlocked() || vm.browsing"
+            aria-label="{{vm.labels.selectFolder}}" title="{{vm.labels.selectFolder}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 7V5h6l2 2h10v13H3Z"/>
+              <path class="filled" d="m10 10 6 4-6 4Z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="library-filter">
+          <label class="sr-only" for="library-filter">{{vm.labels.filter}}</label>
+          <input class="hy-nostyle" id="library-filter" type="search" maxlength="200" ng-model="vm.filter"
+            ng-model-options="{debounce: 300}" ng-change="vm.filterChanged()" placeholder="{{vm.labels.filter}}">
+          <button type="button" class="hy-nostyle library-button" ng-if="vm.filter" ng-click="vm.clearFilter()">{{vm.labels.clearFilter}}</button>
+        </div>
+        <p class="hint" role="status" ng-if="vm.browsing">{{vm.labels.browsing}}</p>
+        <p class="error" role="alert" ng-if="vm.browserError">{{vm.browserError}} <button class="hy-nostyle" type="button" ng-click="vm.retryBrowse()" ng-disabled="vm.browsing || vm.busy">{{vm.labels.retry}}</button></p>
+        <p class="hint" ng-if="!vm.browsing && !vm.browserError && !vm.entries.length && !vm.pinnedFile()">{{vm.filter ? vm.labels.noMatches : vm.labels.emptyFolder}}</p>
+        <ul class="library-list" ng-if="!vm.browserError && (vm.entries.length || vm.pinnedFile())">
+          <li ng-if="vm.pinnedFile()" class="library-entry library-current" aria-current="true">
+            <span aria-hidden="true">♪</span><bdi>{{vm.pinnedFile().name}}</bdi><span ng-if="vm.player.playing">{{vm.labels.playing}}</span>
+          </li>
+          <li class="library-row" ng-repeat="entry in vm.entries track by $index">
+            <button type="button" class="hy-nostyle library-entry" title="{{entry.folder ? entry.name : vm.labels.playFrom + ': ' + entry.name}}" ng-attr-aria-current="{{vm.filePlaying(entry) ? 'true' : 'false'}}" ng-class="{'library-current': vm.filePlaying(entry)}" ng-disabled="vm.browsing || (!entry.folder && (vm.disabled() || vm.playbackBlocked() || !entry.playable))" ng-click="vm.openEntry(entry, $event)">
+              <span aria-hidden="true">{{entry.folder ? '▸' : '♪'}}</span>
+              <bdi>{{entry.name}}</bdi>
+              <span ng-if="vm.player.playing && vm.filePlaying(entry)">{{vm.labels.playing}}</span>
+            </button>
+            <button type="button" class="hy-nostyle library-file-play" ng-if="!entry.folder"
+              ng-disabled="vm.disabled() || vm.browsing || !entry.playable" ng-click="vm.showTrackActions(entry)"
+              title="{{vm.labels.trackActions}}: {{entry.name}}" aria-label="{{vm.labels.trackActions}}: {{entry.name}}">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>
+            </button>
+          </li>
+        </ul>
+        <div class="pagination" ng-if="vm.pageHistory.length || vm.nextPage != null">
+          <button class="hy-nostyle library-button" type="button" ng-click="vm.previousLibraryPage()" ng-disabled="vm.browsing || !vm.pageHistory.length">{{vm.labels.previousPage}}</button>
+          <span>{{vm.pageNumber}}</span>
+          <button class="hy-nostyle library-button" type="button" ng-click="vm.nextLibraryPage()" ng-disabled="vm.browsing || vm.nextPage == null">{{vm.labels.nextPage}}</button>
+        </div>
+      </div>
+      <div id="media-playlist" ng-if="vm.playlistOpen">
+        <p class="hint" role="status" ng-if="vm.queueLoading && !vm.queue.length">{{vm.labels.loading}}</p>
+        <p class="error" role="alert" ng-if="vm.queueError">{{vm.queueError}} <button class="hy-nostyle" type="button" ng-click="vm.retryQueue()">{{vm.labels.retry}}</button></p>
+        <p class="hint" ng-if="!vm.queueLoading && !vm.queueError && !vm.queue.length">{{vm.labels.emptyPlaylist}}</p>
+        <ol class="library-list playlist-list" role="list" ng-attr-start="{{(vm.queueOffset || 0) + 1}}">
+          <li class="library-row" ng-repeat="item in vm.queue track by item.number" ng-attr-aria-current="{{item.current ? 'true' : undefined}}">
+            <button type="button" class="hy-nostyle library-entry" ng-class="{'library-current': item.current}"
+              ng-click="vm.playQueueItem(item, $event)" ng-disabled="vm.disabled() || vm.playbackBlocked() || vm.queueLoading || vm.queueError"
+              title="{{vm.labels.play}}: {{item.name}}">
+              <span class="playlist-number" aria-hidden="true">{{item.number}}</span>
+              <bdi>{{item.name}}</bdi><span ng-if="item.current">{{vm.playbackStatus()}}</span>
+            </button>
+          </li>
+        </ol>
+        <div class="pagination" ng-if="vm.queueOffset || vm.queueNext != null">
+          <button type="button" class="hy-nostyle library-button" ng-click="vm.queuePage(false)" ng-disabled="vm.queueLoading || !vm.queueOffset">{{vm.labels.previousPage}}</button>
+          <span>{{vm.queueOffset / vm.pageSize + 1}}</span>
+          <button type="button" class="hy-nostyle library-button" ng-click="vm.queuePage(true)" ng-disabled="vm.queueLoading || vm.queueNext == null">{{vm.labels.nextPage}}</button>
+        </div>
+      </div>
+    </section>
+    <dialog id="track-details" aria-labelledby="track-details-title">
+      <h2 id="track-details-title">{{vm.labels.details}}</h2>
+      <p class="details-title"><bdi>{{vm.player.track}}</bdi></p>
+      <p><bdi>{{vm.player.artist}}</bdi></p>
+      <p><bdi>{{vm.player.album}}</bdi></p>
+      <button type="button" class="hy-nostyle library-button" ng-click="vm.closeDetails()">{{vm.labels.close}}</button>
+    </dialog>
+    <dialog id="track-actions" aria-labelledby="track-actions-title">
+      <h2 id="track-actions-title"><bdi>{{vm.actionEntry.name}}</bdi></h2>
+      <div class="track-actions">
+        <button type="button" class="hy-nostyle library-button" ng-click="vm.runTrackAction('file', $event)" ng-disabled="vm.disabled() || vm.playbackBlocked()">{{vm.labels.playFile}}</button>
+        <button type="button" class="hy-nostyle library-button" ng-click="vm.runTrackAction('next', $event)"
+          ng-disabled="vm.disabled() || !vm.player.canPlay || !vm.actionEntry || vm.filePlaying(vm.actionEntry)">{{vm.labels.playNext}}</button>
+        <button type="button" class="hy-nostyle library-button" ng-click="vm.closeTrackActions()">{{vm.labels.close}}</button>
+      </div>
+    </dialog>
+  </main>
+  <script src="../../assets/js/angular.min.js"></script>
+  <script src="../../assets/js/media-widget.js"></script>
+</body>
+</html>

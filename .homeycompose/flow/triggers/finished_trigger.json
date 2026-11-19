@@ -1,0 +1,79 @@
+{
+  "title": {
+    "en": "Playback duration elapsed",
+    "nl": "Afspeelduur verstreken",
+    "de": "Wiedergabedauer abgelaufen",
+    "fr": "Durée de lecture écoulée",
+    "it": "Durata di riproduzione trascorsa",
+    "es": "Ha transcurrido la duración de reproducción",
+    "da": "Afspilningsvarighed udløbet",
+    "no": "Avspillingsvarigheten er utløpt",
+    "sv": "Uppspelningstiden har löpt ut",
+    "pl": "Upłynął czas odtwarzania",
+    "ru": "Время воспроизведения истекло",
+    "ko": "재생 시간이 지남",
+    "ar": "انقضت مدة التشغيل"
+  },
+  "titleFormatted": {
+    "en": "Playback duration elapsed",
+    "nl": "Afspeelduur verstreken",
+    "de": "Wiedergabedauer abgelaufen",
+    "fr": "Durée de lecture écoulée",
+    "it": "Durata di riproduzione trascorsa",
+    "es": "Ha transcurrido la duración de reproducción",
+    "da": "Afspilningsvarighed udløbet",
+    "no": "Avspillingsvarigheten er utløpt",
+    "sv": "Uppspelningstiden har löpt ut",
+    "pl": "Upłynął czas odtwarzania",
+    "ru": "Время воспроизведения истекло",
+    "ko": "재생 시간이 지남",
+    "ar": "انقضت مدة التشغيل"
+  },
+  "tokens": [
+    {
+      "type": "boolean",
+      "name": "hasMessage",
+      "title": {
+        "en": "Has message",
+        "nl": "Heeft een bericht",
+        "de": "Enthält eine Nachricht",
+        "fr": "Contient un message",
+        "it": "Contiene un messaggio",
+        "es": "Tiene mensaje",
+        "da": "Har en besked",
+        "no": "Har en melding",
+        "sv": "Innehåller ett meddelande",
+        "pl": "Zawiera wiadomość",
+        "ru": "Есть сообщение",
+        "ko": "메시지 있음",
+        "ar": "توجد رسالة"
+      }
+    },
+    {
+      "type": "string",
+      "name": "message",
+      "title": {
+        "en": "Message",
+        "nl": "Bericht",
+        "de": "Nachricht",
+        "fr": "Message",
+        "it": "Messaggio",
+        "es": "Mensaje",
+        "da": "Besked",
+        "no": "Melding",
+        "sv": "Meddelande",
+        "pl": "Wiadomość",
+        "ru": "Сообщение",
+        "ko": "메시지",
+        "ar": "الرسالة"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=upnpplayer"
+    }
+  ]
+}

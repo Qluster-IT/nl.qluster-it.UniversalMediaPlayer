@@ -1,0 +1,55 @@
+{
+  "name": {
+    "en": "UPnP Player",
+    "nl": "UPnP-speler",
+    "de": "UPnP-Player",
+    "fr": "Lecteur UPnP",
+    "it": "Lettore UPnP",
+    "es": "Reproductor UPnP",
+    "da": "UPnP-afspiller",
+    "no": "UPnP-spiller",
+    "sv": "UPnP-spelare",
+    "pl": "Odtwarzacz UPnP",
+    "ru": "UPnP-плеер",
+    "ko": "UPnP 플레이어",
+    "ar": "مشغّل UPnP"
+  },
+  "class": "speaker",
+  "capabilities": [
+    "speaker_playing",
+    "speaker_stop",
+    "speaker_next",
+    "speaker_prev",
+    "speaker_shuffle",
+    "speaker_repeat",
+    "speaker_artist",
+    "speaker_album",
+    "speaker_track",
+    "speaker_duration",
+    "speaker_position",
+    "volume_set",
+    "volume_up",
+    "volume_down",
+    "volume_mute"
+  ],
+  "images": {
+    "large": "/drivers/upnpplayer/assets/images/large.png",
+    "small": "/drivers/upnpplayer/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      },
+      "options": {
+        "singular": true
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

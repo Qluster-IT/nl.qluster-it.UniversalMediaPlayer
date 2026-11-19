@@ -1,0 +1,14 @@
+{
+  "title": {
+    "en": "Mute change requested", "nl": "Wijziging van demping aangevraagd", "de": "Änderung der Stummschaltung angefordert", "fr": "Changement de sourdine demandé", "it": "Modifica della modalità silenziosa richiesta", "es": "Cambio de silencio solicitado", "da": "Ændring af lydløs tilstand anmodet", "no": "Endring av demping forespurt", "sv": "Ändring av ljudavstängning begärd", "pl": "Zażądano zmiany wyciszenia", "ru": "Запрошено изменение режима без звука", "ko": "음소거 상태 변경 요청", "ar": "طُلب تغيير حالة كتم الصوت"
+  },
+  "tokens": [{
+    "name": "muted",
+    "type": "boolean",
+    "title": {
+      "en": "Muted", "nl": "Gedempt", "de": "Stumm", "fr": "En sourdine", "it": "Silenziato", "es": "Silenciado", "da": "Lydløs", "no": "Dempet", "sv": "Ljud av", "pl": "Wyciszony", "ru": "Звук выключен", "ko": "음소거됨", "ar": "الصوت مكتوم"
+    },
+    "example": true
+  }],
+  "args": [{"name": "device", "type": "device", "filter": "driver_id=upnpplayer"}]
+}

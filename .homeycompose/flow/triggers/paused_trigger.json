@@ -1,0 +1,39 @@
+{
+  "title": {
+    "en": "Playback paused",
+    "nl": "Afspelen gepauzeerd",
+    "de": "Wiedergabe pausiert",
+    "fr": "Lecture mise en pause",
+    "it": "Riproduzione in pausa",
+    "es": "Reproducción pausada",
+    "da": "Afspilning sat på pause",
+    "no": "Avspilling satt på pause",
+    "sv": "Uppspelningen pausades",
+    "pl": "Wstrzymano odtwarzanie",
+    "ru": "Воспроизведение приостановлено",
+    "ko": "재생이 일시정지됨",
+    "ar": "توقف التشغيل مؤقتًا"
+  },
+  "titleFormatted": {
+    "en": "Playback paused",
+    "nl": "Afspelen gepauzeerd",
+    "de": "Wiedergabe pausiert",
+    "fr": "Lecture mise en pause",
+    "it": "Riproduzione in pausa",
+    "es": "Reproducción pausada",
+    "da": "Afspilning sat på pause",
+    "no": "Avspilling satt på pause",
+    "sv": "Uppspelningen pausades",
+    "pl": "Wstrzymano odtwarzanie",
+    "ru": "Воспроизведение приостановлено",
+    "ko": "재생이 일시정지됨",
+    "ar": "توقف التشغيل مؤقتًا"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=upnpplayer"
+    }
+  ]
+}

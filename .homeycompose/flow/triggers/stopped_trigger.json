@@ -1,0 +1,39 @@
+{
+  "title": {
+    "en": "Playback stopped",
+    "nl": "Afspelen gestopt",
+    "de": "Wiedergabe gestoppt",
+    "fr": "Lecture arrêtée",
+    "it": "Riproduzione interrotta",
+    "es": "Reproducción detenida",
+    "da": "Afspilning stoppet",
+    "no": "Avspilling stoppet",
+    "sv": "Uppspelningen stoppades",
+    "pl": "Zatrzymano odtwarzanie",
+    "ru": "Воспроизведение остановлено",
+    "ko": "재생이 중지됨",
+    "ar": "توقّف التشغيل"
+  },
+  "titleFormatted": {
+    "en": "Playback stopped",
+    "nl": "Afspelen gestopt",
+    "de": "Wiedergabe gestoppt",
+    "fr": "Lecture arrêtée",
+    "it": "Riproduzione interrotta",
+    "es": "Reproducción detenida",
+    "da": "Afspilning stoppet",
+    "no": "Avspilling stoppet",
+    "sv": "Uppspelningen stoppades",
+    "pl": "Zatrzymano odtwarzanie",
+    "ru": "Воспроизведение остановлено",
+    "ko": "재생이 중지됨",
+    "ar": "توقّف التشغيل"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=upnpplayer"
+    }
+  ]
+}

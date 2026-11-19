@@ -1,13 +1,8 @@
-Use an UPnP Player to find the URL of files on a UPnP Server through browsing (with thumbnails).
-When executed it will retrieve the file from de UPnP Server based on the same browsing structure.
-This way you will be able to use a UPnP Server to play sounds on speaker systems like Sonos but also on TV's like Samsung or LG.
+Browse files on a UPnP server and send their URLs to a speaker or TV using Homey Flows.
 
-The way you can browse depends on how the UPnP Server is configured.
-Example: 
-You can browse to and (it will) save the location to /Music/Artist/Album/B/Bok van Blerk/Afrikanerhart.
-When executing the flow, the current URL will be retrieved based on the same /Music/Artists etc.
+Select a file or folder in a Flow card, then connect the Playback URL changed trigger to your speaker's play-URL action. The app looks up the current URL using the saved path.
 
-This way you can use any UPnPServer (Like Synology or an (Asus/Linksys) Router/Switch/Wifi UPnPServer) and use it as a storage place for your Sounds to be used.
+The app does not play audio itself. Connect the Playback stopped trigger to your speaker's pause or stop action.
 
-
-For playing it on Homey itself, see Media Url Converter.
+Community Forum: https://community.homey.app/t/43450
+For the wiki and manual, select Visit website under Developer website on the app's Homey App Store page.

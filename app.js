@@ -1,23 +1,18 @@
 'use strict';
 
 const Homey = require('homey');
-const _ = require('lodash-core');
-
-const { Defer} = require('./lib/proto');
-
-const UPnPPlayerDriver = require('./drivers/upnpplayer/driver');
 
 class UPnPPlayerApp extends Homey.App {
-	
-
-    
-
-	onInit() {
-		this.log('UPnPPlayerApp is running...');        
-		
-        //#endregion
-
-	}
+    async onInit() {
+        this.widgetHomeyId = await this.homey.cloud.getHomeyId();
+        this.homey.dashboards.getWidget('media').registerSettingAutocompleteListener('player', async query => {
+            const { getPlayers } = require('./lib/media-widget');
+            return getPlayers(this.homey)
+                .map(player => ({id: player.getData().id, name: player.getName()}))
+                .filter(player => player.name.toLowerCase().includes(query.toLowerCase()));
+        });
+        this.log('UPnPPlayerApp is running...');
+    }
 
 }
 

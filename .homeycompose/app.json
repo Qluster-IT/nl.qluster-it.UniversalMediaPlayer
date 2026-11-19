@@ -1,0 +1,82 @@
+{
+  "id": "nl.qluster-it.UniversalMediaPlayer",
+  "version": "1.2.14",
+  "compatibility": ">=12.3.0",
+  "sdk": 3,
+  "brandColor": "#1A3E59",
+  "name": {
+    "en": "Universal Media Player"
+  },
+  "description": {
+    "en": "Play media from a UPnP server through Homey Flows",
+    "nl": "Speel media van een UPnP-server af via Homey Flows",
+    "de": "Medien von einem UPnP-Server über Homey Flows abspielen",
+    "fr": "Lire les médias d’un serveur UPnP via les Flows Homey",
+    "it": "Riproduci contenuti da un server UPnP tramite i Flow di Homey",
+    "es": "Reproduce contenido de un servidor UPnP mediante Flows de Homey",
+    "da": "Afspil medier fra en UPnP-server via Homey Flows",
+    "no": "Spill av medier fra en UPnP-server via Homey Flows",
+    "sv": "Spela upp medier från en UPnP-server via Homey Flows",
+    "pl": "Odtwarzaj multimedia z serwera UPnP za pomocą Flow w Homey",
+    "ru": "Воспроизводите медиа с UPnP-сервера через сценарии Homey Flow",
+    "ko": "Homey Flow로 UPnP 서버의 미디어를 재생하세요",
+    "ar": "شغّل الوسائط من خادم UPnP عبر تدفقات Homey"
+  },
+  "tags": {
+    "en": ["url", "nas"],
+    "nl": ["url", "nas"],
+    "de": ["url", "nas"],
+    "fr": ["url", "nas"],
+    "it": ["url", "nas"],
+    "es": ["url", "nas"],
+    "da": ["url", "nas"],
+    "no": ["url", "nas"],
+    "sv": ["url", "nas"],
+    "pl": ["url", "nas"],
+    "ru": ["url", "nas"],
+    "ko": ["url", "nas"],
+    "ar": ["url", "nas"]
+  },
+  "category": [
+    "music"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "QlusterIT"
+      },
+      "patreon": {
+        "username": "QlusterIT"
+      },
+      "githubSponsors": {
+        "username": "Qluster-IT"
+      },
+      "bunq": {
+        "username": "QlusterIT"
+      }
+    }
+  },
+  "source": "https://github.com/Qluster-IT/nl.qluster-it.UniversalMediaPlayer/",
+  "homepage": "https://github.com/Qluster-IT/nl.qluster-it.UniversalMediaPlayer/wiki",
+  "bugs": {
+    "url": "https://github.com/Qluster-IT/nl.qluster-it.UniversalMediaPlayer/issues"
+  },
+  "homeyCommunityTopicId": 43450,
+  "author": {
+    "name": "Arie J. Godschalk",
+    "email": "arie@qluster-it.nl"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Johan Bendz",
+        "email": "johan_bendz@hotmail.com"
+      }
+    ]
+  }
+}

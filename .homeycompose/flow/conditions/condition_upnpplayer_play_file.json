@@ -1,0 +1,58 @@
+{
+  "title": {
+    "en": "Play a UPnP file and wait",
+    "nl": "Speel een UPnP-bestand af en wacht",
+    "de": "Eine UPnP-Datei abspielen und warten",
+    "fr": "Lire un fichier UPnP et attendre",
+    "it": "Riproduci un file UPnP e attendi",
+    "es": "Reproducir un archivo UPnP y esperar",
+    "da": "Afspil en UPnP-fil og vent",
+    "no": "Spill av en UPnP-fil og vent",
+    "sv": "Spela upp en UPnP-fil och vänta",
+    "pl": "Odtwórz plik UPnP i czekaj",
+    "ru": "Воспроизвести UPnP-файл и подождать",
+    "ko": "UPnP 파일을 재생하고 대기",
+    "ar": "شغّل ملف UPnP وانتظر"
+  },
+  "titleFormatted": {
+    "en": "Play [[file]] and wait for its duration",
+    "nl": "Speel [[file]] af en wacht op de afspeelduur",
+    "de": "[[file]] abspielen und die Wiedergabedauer abwarten",
+    "fr": "Lire [[file]] et attendre la fin de sa durée de lecture",
+    "it": "Riproduci [[file]] e attendi che trascorra la durata di riproduzione",
+    "es": "Reproducir [[file]] y esperar a que transcurra su duración",
+    "da": "Afspil [[file]], og vent, til afspilningsvarigheden er gået",
+    "no": "Spill av [[file]] og vent til avspillingsvarigheten er utløpt",
+    "sv": "Spela upp [[file]] och vänta tills uppspelningstiden har löpt ut",
+    "pl": "Odtwórz [[file]] i czekaj na upływ czasu odtwarzania",
+    "ru": "Воспроизвести [[file]] и дождаться истечения времени воспроизведения",
+    "ko": "[[file]]을(를) 재생하고 재생 시간이 지날 때까지 대기",
+    "ar": "شغّل [[file]] وانتظر حتى تنقضي مدة تشغيله"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=upnpplayer"
+    },
+    {
+      "type": "autocomplete",
+      "name": "file",
+      "placeholder": {
+        "en": "File",
+        "nl": "Bestand",
+        "de": "Datei",
+        "fr": "Fichier",
+        "it": "File",
+        "es": "Archivo",
+        "da": "Fil",
+        "no": "Fil",
+        "sv": "Fil",
+        "pl": "Plik",
+        "ru": "Файл",
+        "ko": "파일",
+        "ar": "الملف"
+      }
+    }
+  ]
+}
