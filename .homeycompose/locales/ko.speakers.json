@@ -1,0 +1,12 @@
+{
+  "stereo": "스테레오",
+  "left": "왼쪽",
+  "right": "오른쪽",
+  "all": "모든 스피커",
+  "all_help": "현재 검색할 수 있는 모든 스피커",
+  "saved_group": "저장된 스피커 그룹",
+  "all_no_tvs": "모든 스피커(TV 제외)",
+  "all_no_tvs_help": "인식된 TV와 동영상 Cast 수신기 제외",
+  "all_no_tv_speakers": "모든 스피커(TV 및 TV 스피커 제외)",
+  "all_no_tv_speakers_help": "인식된 사운드바와 홈 시어터 스피커도 제외"
+}

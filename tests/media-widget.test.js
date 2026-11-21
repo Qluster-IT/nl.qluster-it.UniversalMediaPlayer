@@ -48,6 +48,21 @@ function fixture() {
     return {homey, player, playlist, calls, values};
 }
 
+test('source preferences are isolated per widget and do not send playback commands', async () => {
+    const {homey, calls} = fixture();
+    const settings = new Map();
+    homey.settings = {get: key => settings.get(key), set: (key, value) => settings.set(key, value)};
+    const request = (instance, action, source) => widget.control({homey, body: {widget: instance, action, source}});
+    const source = {kind: 'speaker', id: 'dlna:uuid:test-speaker'};
+    await request('widget-1', 'saveSourcePreference', source);
+    assert.deepEqual(await request('widget-1', 'getSourcePreference'), {source});
+    assert.deepEqual(await request('widget-2', 'getSourcePreference'), {source: null});
+    await request('widget-1', 'saveSourcePreference', {kind: 'player', id: 'player-id'});
+    assert.deepEqual(await request('widget-1', 'getSourcePreference'), {source: {kind: 'player', id: 'player-id'}});
+    await assert.rejects(request('widget-1', 'saveSourcePreference', {kind: 'player', id: 'unknown'}), /invalidAction/);
+    assert.deepEqual(calls, []);
+});
+
 test('widget exposes app player state and HTTPS artwork without leaking the source URL', async () => {
     const {homey} = fixture();
     const result = await widget.getState({homey, query: {player: 'player-id'}});

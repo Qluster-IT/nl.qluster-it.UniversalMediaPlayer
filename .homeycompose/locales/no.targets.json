@@ -1,0 +1,13 @@
+{
+  "speaker": "Avspillingshøyttaler",
+  "default_speaker": "Standardhøyttaler",
+  "flow_only": "Bruk bare Flows",
+  "device_default": "Bruk enhetens standard",
+  "reload": "Last inn høyttalere på nytt",
+  "continue": "Fortsett",
+  "save": "Lagre",
+  "unavailable": "Søk etter høyttalere er ikke tilgjengelig.",
+  "invalid": "Velg en høyttaler eller gruppe fra listen.",
+  "apply_failed": "Kunne ikke endre avspillingshøyttaler.",
+  "invalid_settings": "Kontroller spillerinnstillingene."
+}

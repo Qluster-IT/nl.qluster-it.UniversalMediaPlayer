@@ -1,0 +1,12 @@
+{
+  "stereo": "Stereo",
+  "left": "Venstre",
+  "right": "Højre",
+  "all": "Alle højttalere",
+  "all_help": "Alle højttalere, der kan findes nu",
+  "saved_group": "Gemt højttalergruppe",
+  "all_no_tvs": "Alle højttalere (uden tv)",
+  "all_no_tvs_help": "Spring genkendte tv og video-Cast-enheder over",
+  "all_no_tv_speakers": "Alle højttalere (uden tv eller tv-højttalere)",
+  "all_no_tv_speakers_help": "Spring også genkendte soundbarer og hjemmebiohøjttalere over"
+}

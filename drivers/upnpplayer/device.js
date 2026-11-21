@@ -6,6 +6,7 @@ const UPnPServer = require('./../../lib/upnpserver');
 const PlaylistManager = require('./../../lib/playlistmanager');
 const {requestVolume, stepVolume} = require('../../lib/speaker-volume');
 const {notifyWidget} = require('../../lib/widget-updates');
+const widgetPlayback = require('../../lib/widget-playback');
 
 class UPnPPlayerDevice extends Homey.Device
 {
@@ -55,6 +56,8 @@ class UPnPPlayerDevice extends Homey.Device
             throw new Error(this.homey.__('playback.seekUnsupported'));
         });
         this.playlistManager.RestorePlayback();
+        await this.playlistManager.RecoverDirect();
+        await widgetPlayback.restore(this);
     }
 
     /**
@@ -107,11 +110,13 @@ class UPnPPlayerDevice extends Homey.Device
     {
         this.log('UPnPPlayerDevice has been deleted');
         await this.playlistManager?.Dispose();
+        await widgetPlayback.dispose(this);
     }
 
     async onUninit()
     {
         await this.playlistManager?.Dispose();
+        await widgetPlayback.dispose(this);
     }
 
 }

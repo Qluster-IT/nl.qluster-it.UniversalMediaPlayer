@@ -1,8 +1,8 @@
-Bläddra bland filer på en UPnP-server och skicka deras URL:er till en högtalare eller tv via Homey Flows.
+Bläddra bland och spela upp musik från en UPnP-server. Välj direkt uppspelning på en högtalare eller grupp, eller fortsätt styra uppspelningen med Homey Flows.
 
-Välj en fil eller mapp på ett Flow-kort och koppla utlösaren Uppspelnings-URL ändrad till högtalarens åtgärd för att spela upp en URL. Appen hittar den aktuella URL:en med hjälp av den sparade sökvägen.
+Spela upp direkt på Sonos, Google Cast och kompatibla UPnP/DLNA-högtalare eller sparade högtalargrupper. Styr uppspelningen, bläddra i biblioteket och välj en högtalare via widgeten Mediespelare på instrumentpanelen.
 
-Appen spelar inte upp ljud själv. Koppla utlösaren Uppspelningen stoppades till högtalarens paus- eller stoppåtgärd.
+Välj en fil eller mapp på ett Flow-kort och koppla utlösaren Uppspelnings-URL ändrad till högtalarens åtgärd för att spela upp en URL. Appen hittar den aktuella URL:en med hjälp av den sparade sökvägen. För uppspelning via Flows ansluter du utlösaren för stoppad uppspelning till högtalarens paus- eller stoppåtgärd.
 
 Communityforum: https://community.homey.app/t/43450
 Du hittar wikin och handboken under Utvecklarens webbplats → Besök webbplatsen på appens sida i Homey App Store.

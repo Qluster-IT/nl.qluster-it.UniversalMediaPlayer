@@ -14,6 +14,21 @@
     "ko": "Sonos 스피커의 재생 상태 동기화",
     "ar": "مزامنة التشغيل من سماعة Sonos"
   },
+  "titleFormatted": {
+    "en": "Sync playback from the Sonos speaker at [[address]]",
+    "nl": "Synchroniseer het afspelen met de Sonos-speaker op [[address]]",
+    "de": "Wiedergabe mit dem Sonos-Lautsprecher unter [[address]] synchronisieren",
+    "fr": "Synchroniser la lecture depuis l’enceinte Sonos à l’adresse [[address]]",
+    "it": "Sincronizza la riproduzione dall’altoparlante Sonos all’indirizzo [[address]]",
+    "es": "Sincronizar la reproducción desde el altavoz Sonos en [[address]]",
+    "da": "Synkroniser afspilning fra Sonos-højttaleren på [[address]]",
+    "no": "Synkroniser avspilling fra Sonos-høyttaleren på [[address]]",
+    "sv": "Synkronisera uppspelning från Sonos-högtalaren på [[address]]",
+    "pl": "Synchronizuj odtwarzanie z głośnika Sonos pod adresem [[address]]",
+    "ru": "Синхронизировать воспроизведение с колонкой Sonos по адресу [[address]]",
+    "ko": "[[address]]에 있는 Sonos 스피커의 재생 상태 동기화",
+    "ar": "مزامنة التشغيل من سماعة Sonos على العنوان [[address]]"
+  },
   "args": [
     {"name": "device", "type": "device", "filter": "driver_id=upnpplayer"},
     {

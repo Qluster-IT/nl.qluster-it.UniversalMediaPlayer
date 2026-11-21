@@ -1,0 +1,12 @@
+{
+  "stereo": "Stereo",
+  "left": "Venstre",
+  "right": "Høyre",
+  "all": "Alle høyttalere",
+  "all_help": "Alle høyttalere som kan oppdages nå",
+  "saved_group": "Lagret høyttalergruppe",
+  "all_no_tvs": "Alle høyttalere (uten TV-er)",
+  "all_no_tvs_help": "Hopp over gjenkjente TV-er og Cast-videoenheter",
+  "all_no_tv_speakers": "Alle høyttalere (uten TV-er eller TV-høyttalere)",
+  "all_no_tv_speakers_help": "Hopp også over gjenkjente lydplanker og hjemmekinohøyttalere"
+}

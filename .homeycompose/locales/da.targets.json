@@ -1,0 +1,13 @@
+{
+  "speaker": "Afspilningshøjttaler",
+  "default_speaker": "Standardhøjttaler",
+  "flow_only": "Brug kun Flows",
+  "device_default": "Brug enhedens standard",
+  "reload": "Genindlæs højttalere",
+  "continue": "Fortsæt",
+  "save": "Gem",
+  "unavailable": "Søgning efter højttalere er ikke tilgængelig.",
+  "invalid": "Vælg en højttaler eller gruppe på listen.",
+  "apply_failed": "Afspilningshøjttaleren kunne ikke ændres.",
+  "invalid_settings": "Kontrollér afspillerens indstillinger."
+}

@@ -1,13 +1,14 @@
 'use strict';
 
 const Homey = require('homey');
+const registerPlayerSetup = require('./player-setup');
 var upnp = require('node-upnp-utils');
 const PlaylistManager = require('../../lib/playlistmanager');
 const { Defer } = require('../../lib/proto');
 const {reportVolume} = require('../../lib/speaker-volume');
 const {syncPlayback} = require('../../lib/sonos-playback');
 
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('node:crypto');
 
 upnp.on('added', (device) =>
 {
@@ -52,6 +53,12 @@ class UPnPPlayerDriver extends Homey.Driver
             .registerRunListener(args => reportVolume(args.device, args));
         this.homey.flow.getActionCard('sync_sonos_playback')
             .registerRunListener(args => syncPlayback(args.device, args.address));
+        const notification = this.homey.flow.getActionCard('upnpplayer_play_notification')
+            .registerRunListener(args => args.device.playlistManager.PlayNotification(args.file, args));
+        notification.getArgument('file').registerAutocompleteListener((query, args) =>
+                args?.device?.server.browse({query: query || args.file?.name || '', search: 'files'}) ?? []);
+        notification.getArgument('speaker').registerAutocompleteListener(query =>
+            this.homey.app.speakerPlayback.autocomplete(query, false, true));
 
         starts = [
             {id:'upnpplayer_get_file'},
@@ -161,10 +168,15 @@ class UPnPPlayerDriver extends Homey.Driver
 
     }
 
-    /**
-     * onPairListDevices is called when a user is adding a device and the 'list_devices' view is called.
-     * This should return an array with the data of devices that are available for pairing.
-     */
+    onPair(session) {
+        const decorate = registerPlayerSetup(this, session);
+        session.setHandler('list_devices', async () => decorate(await this.onPairListDevices()));
+    }
+
+    onRepair(session, device) {
+        registerPlayerSetup(this, session, device);
+    }
+
     async onPairListDevices()
     {
         var defer = new Defer();
@@ -204,7 +216,7 @@ class UPnPPlayerDriver extends Homey.Driver
                             "name": 'UPnP ' + name + " (" + ip + ")",
                             data:
                             {
-                                "id": uuidv4()
+                                "id": randomUUID()
                             },
                             settings:
                             {

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Universal Media Player settings</title>
+    <style>
+        html { height: 100%; overflow: hidden; }
+        body.settings-page {
+            --settings-bg: var(--homey-background-color, var(--homey-color-background, Canvas));
+            --card-bg: var(--homey-color-mono-0, var(--settings-bg));
+            --header-bg: color-mix(in srgb, var(--homey-color-text, CanvasText) 7%, var(--card-bg));
+            --ink: var(--homey-color-text, var(--homey-text-color, CanvasText));
+            --muted: color-mix(in srgb, var(--ink) 78%, var(--card-bg));
+            --line: color-mix(in srgb, var(--ink) 24%, var(--card-bg));
+            --brand: #1A3E59;
+            --action: #1A3E59;
+            --focus: var(--ink);
+            margin: 0;
+            padding: 0 !important;
+            height: 100%;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto minmax(0, 1fr) auto;
+            background: var(--settings-bg);
+            color: var(--ink);
+            font: 1rem/1.5 system-ui, sans-serif;
+        }
+        @supports not (color: color-mix(in srgb, black, white)) {
+            body.settings-page { --header-bg: var(--card-bg); --muted: var(--ink); --line: #808080; }
+        }
+        @media (prefers-color-scheme: dark) {
+            body.settings-page { --brand: #8FA8BB; }
+        }
+        .settings-page * { box-sizing: border-box; }
+        .settings-page [hidden] { display: none !important; }
+        .settings-tabs { display: flex; border-bottom: 1px solid var(--line); }
+        .settings-tab {
+            display: flex; flex: 1 1 0; min-width: 0; min-height: 58px;
+            flex-direction: column; align-items: center; justify-content: center;
+            gap: 4px; padding: 5px 4px 4px; border: 0; border-radius: 0;
+            border-bottom: 3px solid transparent; background: transparent;
+            color: var(--muted); font: 500 0.75rem/1.2 system-ui, sans-serif; cursor: pointer;
+        }
+        .settings-tab:hover, .settings-tab:focus-visible,
+        .settings-tab[aria-selected="true"] { color: var(--brand); }
+        .settings-tab[aria-selected="true"] { border-bottom-color: var(--brand); }
+        .settings-tab-icon { width: 1rem; height: 1rem; fill: currentColor; }
+        .settings-scroll { overflow: auto; overscroll-behavior: contain; }
+        .settings-shell { max-width: 52rem; margin: 0 auto; padding: clamp(0.75rem, 3vw, 2rem); }
+        .settings-intro { margin-bottom: 1.25rem; }
+        .settings-intro h1 { margin: 0; font-size: 1.5rem; }
+        .settings-intro p { margin: 0.25rem 0 0; color: var(--muted); }
+        .settings-card {
+            margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 0.65rem;
+            overflow: hidden; background: var(--card-bg);
+        }
+        .card-heading {
+            margin: 0; padding: 0.65rem 1rem; background: var(--header-bg);
+            border-bottom: 1px solid var(--line); font-size: 1rem; font-weight: 700;
+        }
+        .card-body { padding: 1rem; }
+        .card-body > :first-child { margin-top: 0; }
+        .card-body > :last-child { margin-bottom: 0; }
+        .field + .field { margin-top: 1rem; }
+        .field > label, .group-members legend { display: block; margin-bottom: 0.3rem; font-weight: 600; }
+        .field-help { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.875rem; }
+        .settings-control {
+            display: block; width: 100%; min-width: 0; min-height: 2.75rem;
+            padding: 0.55rem 0.7rem; border: 1px solid var(--line); border-radius: 0.4rem;
+            background: var(--card-bg); color: var(--ink); font: inherit;
+        }
+        .group-toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+        .group-button {
+            min-height: 2.5rem; padding: 0.45rem 0.75rem; border: 1px solid var(--line);
+            border-radius: 0.4rem; background: var(--card-bg); color: var(--ink);
+            font: inherit; cursor: pointer;
+        }
+        .group-button:disabled, .settings-save:disabled { opacity: 0.65; cursor: default; }
+        .group-members { min-width: 0; padding: 0; border: 0; margin: 0; }
+        .group-members legend { padding: 0; }
+        .group-speaker-row { padding-block: 0.65rem; }
+        .group-speaker-row + .group-speaker-row { border-top: 1px solid var(--line); }
+        .checkbox-label { display: flex; align-items: flex-start; gap: 0.6rem; min-height: 2rem; overflow-wrap: anywhere; }
+        .checkbox-label input { flex: 0 0 auto; margin: 0.35rem 0 0; }
+        .group-volume-fields { display: grid; gap: 0.5rem; margin-inline-start: 1.6rem; }
+        .group-volume-slider { display: block; margin: 0; }
+        .group-volume-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
+        .group-volume-value { font-variant-numeric: tabular-nums; white-space: nowrap; }
+        .group-volume-slider input[type="range"] {
+            display: block; width: 100%; min-width: 0; min-height: 1.75rem;
+            margin: 0; padding: 0; accent-color: var(--brand);
+        }
+        .settings-actions {
+            padding: 0.75rem clamp(0.75rem, 3vw, 2rem);
+            padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+            border-top: 1px solid var(--line); background: var(--settings-bg);
+        }
+        .settings-actions-inner { max-width: 52rem; margin: 0 auto; }
+        .settings-save {
+            display: block; width: 100%; min-height: 2.75rem; padding: 0.55rem 0.9rem;
+            border: 1px solid transparent; border-radius: 0.4rem; background: var(--action);
+            color: #fff; font: inherit; font-weight: 600; cursor: pointer;
+        }
+        .settings-save:hover:not(:disabled) { filter: brightness(0.9); }
+        .save-status { margin: 0 0 0.4rem; overflow-wrap: anywhere; }
+        .save-status:empty { display: none; }
+        .settings-page :is(input, select, button):focus-visible {
+            outline: 2px solid var(--focus); outline-offset: 2px;
+        }
+        @media (max-width: 30rem) {
+            .group-toolbar > button { flex: 1 1 auto; }
+        }
+    </style>
+    <script src="/homey.js" data-origin="settings"></script>
+    <script src="speaker-groups.js"></script>
+    <script src="settings.js"></script>
+</head>
+<body class="settings-page">
+    <nav class="settings-tabs" id="settingsTabs" role="tablist" aria-label="App settings">
+        <button type="button" class="hy-nostyle settings-tab" id="generalTab" role="tab"
+            aria-controls="generalPanel" aria-selected="true" tabindex="0">
+            <svg class="settings-tab-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill-rule="evenodd" d="M10 2h4l.7 3.2 1.5.9 3.1-1 2 3.5-2.4 2.2v1.8l2.4 2.2-2 3.5-3.1-1-1.5.9L14 22h-4l-.7-3.8-1.5-.9-3.1 1-2-3.5 2.4-2.2v-1.8L2.7 8.6l2-3.5 3.1 1 1.5-.9L10 2Zm2 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/>
+            </svg>
+            <span data-i18n="settings.general_tab">General</span>
+        </button>
+        <button type="button" class="hy-nostyle settings-tab" id="groupsTab" role="tab"
+            aria-controls="groupsPanel" aria-selected="false" tabindex="-1">
+            <svg class="settings-tab-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill-rule="evenodd" d="M3 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4Zm4.75 3.5a2.25 2.25 0 1 0 4.5 0 2.25 2.25 0 0 0-4.5 0ZM6 15a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z"/>
+                <path d="M19 5h1a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-1V5Z"/>
+            </svg>
+            <span data-i18n="settings.speakers_tab">Speakers</span>
+        </button>
+    </nav>
+    <main class="settings-scroll" id="generalPanel" role="tabpanel" aria-labelledby="generalTab" tabindex="0">
+        <div class="settings-shell">
+            <header class="settings-intro">
+                <h1>Universal Media Player</h1>
+                <p data-i18n="settings.general_intro">Create and manage reusable speaker groups for your media players.</p>
+            </header>
+            <section class="settings-card" aria-labelledby="generalHeading">
+                <h2 class="card-heading" id="generalHeading" data-i18n="settings.general_heading">Speaker groups</h2>
+                <div class="card-body">
+                    <p data-i18n="settings.general_help">Open Speakers to choose speakers, adjust their volume rules, and save a group for reuse.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+    <main class="settings-scroll" id="groupsPanel" role="tabpanel" aria-labelledby="groupsTab" tabindex="0" hidden>
+        <div class="settings-shell">
+            <header class="settings-intro">
+                <h1 data-i18n="settings.speakers_tab">Speakers</h1>
+                <p data-i18n="settings.groups_intro">Create named speaker groups to reuse with your media players.</p>
+            </header>
+            <section class="settings-card" aria-labelledby="sonosModeHeading">
+                <h2 class="card-heading" id="sonosModeHeading" data-i18n="settings.sonos_mode">Sonos announcement mode</h2>
+                <div class="card-body">
+                    <label for="sonosAnnouncementMode" data-i18n="settings.sonos_app_default">App default</label>
+                    <select class="settings-control hy-nostyle" id="sonosAnnouncementMode" disabled>
+                        <option value="selected" data-i18n="settings.sonos_selected">Play Separately</option>
+                        <option value="sync" data-i18n="settings.sonos_sync">Play in Sync</option>
+                    </select>
+                    <p class="field-help save-status" id="sonosModeStatus" role="status" aria-live="polite"></p>
+                </div>
+            </section>
+            <section class="settings-card" aria-labelledby="speakerGroupsHeading">
+                <h2 class="card-heading" id="speakerGroupsHeading" data-i18n="settings.saved_groups">Saved groups</h2>
+                <div class="card-body">
+                    <p class="field-help" data-i18n="settings.group_ip_help">Reserve fixed IP addresses for your Sonos speakers in your router. With Play Separately, Homey can reuse known addresses instead of scanning the network, so announcements can start faster.</p>
+                    <div class="field">
+                        <label for="speakerGroupSelect" data-i18n="settings.speaker_group">Speaker group</label>
+                        <select class="settings-control hy-nostyle" id="speakerGroupSelect" disabled></select>
+                    </div>
+                    <div class="group-toolbar">
+                        <button type="button" class="hy-nostyle group-button" id="speakerGroupAdd"
+                            data-i18n="settings.group_add" disabled>Add group</button>
+                        <button type="button" class="hy-nostyle group-button" id="speakerGroupDelete"
+                            data-i18n="settings.group_delete" disabled>Delete group</button>
+                    </div>
+                    <p class="field-help save-status" id="speakerGroupStatus" role="status" aria-live="polite"></p>
+                    <button type="button" class="hy-nostyle group-button" id="speakerGroupLoadRetry"
+                        data-i18n="settings.group_retry" hidden>Retry loading groups</button>
+                </div>
+            </section>
+            <section class="settings-card" id="speakerGroupEditor" aria-labelledby="groupEditorHeading" hidden>
+                <h2 class="card-heading" id="groupEditorHeading" data-i18n="settings.edit_group">Group details</h2>
+                <div class="card-body">
+                    <div class="field">
+                        <label for="speakerGroupName" data-i18n="settings.group_name">Group name</label>
+                        <input type="text" class="settings-control hy-nostyle" id="speakerGroupName"
+                            maxlength="80" autocomplete="off">
+                        <p class="field-help save-status" id="groupValidationStatus" role="status" aria-live="polite"></p>
+                    </div>
+                    <div class="field">
+                        <fieldset class="group-members" id="groupMemberFields" disabled>
+                            <legend data-i18n="settings.group_members">Speakers</legend>
+                            <p class="field-help" data-i18n="settings.group_members_help">Select the speakers in this group. Offline members are marked and can remain saved.</p>
+                            <p class="field-help" data-i18n="settings.group_volume_help">The adjustment and maximum apply when a speaker volume is set for this group.</p>
+                            <p class="field-help save-status" id="groupDiscoveryStatus" role="status" aria-live="polite"></p>
+                            <div id="speakerGroupMembers"></div>
+                        </fieldset>
+                        <div class="group-toolbar">
+                            <button type="button" class="hy-nostyle group-button" id="speakerGroupRefresh"
+                                data-i18n="settings.group_refresh" disabled>Refresh speakers</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="settings-actions" id="generalActions">
+        <div class="settings-actions-inner">
+            <button type="button" class="hy-nostyle settings-save" id="openGroups"
+                data-i18n="settings.manage_groups">Manage groups</button>
+        </div>
+    </footer>
+    <footer class="settings-actions" id="groupsActions" hidden>
+        <div class="settings-actions-inner">
+            <button type="button" class="hy-nostyle settings-save" id="speakerGroupSave"
+                data-i18n="settings.group_save" disabled>Save group</button>
+        </div>
+    </footer>
+</body>
+</html>

@@ -2,6 +2,21 @@
   "title": {
     "en": "Report speaker volume or mute state", "nl": "Luidsprekervolume of demping doorgeven", "de": "Lautsprecherlautstärke oder Stummschaltung melden", "fr": "Signaler le volume ou la sourdine de l’enceinte", "it": "Comunica il volume o lo stato di silenziamento", "es": "Informar del volumen o del silencio del altavoz", "da": "Rapportér højttalerens lydstyrke eller lydløse tilstand", "no": "Rapporter høyttalervolum eller demping", "sv": "Rapportera högtalarens volym eller ljudavstängning", "pl": "Zgłoś głośność lub wyciszenie głośnika", "ru": "Сообщить громкость или состояние звука колонки", "ko": "스피커 볼륨 또는 음소거 상태 보고", "ar": "الإبلاغ عن مستوى صوت السماعة أو حالة كتمها"
   },
+  "titleFormatted": {
+    "en": "Report speaker volume [[volume]] or mute state [[muted]]",
+    "nl": "Geef luidsprekervolume [[volume]] of demping [[muted]] door",
+    "de": "Lautsprecherlautstärke [[volume]] oder Stummschaltung [[muted]] melden",
+    "fr": "Signaler le volume [[volume]] ou la sourdine [[muted]] de l’enceinte",
+    "it": "Comunica il volume [[volume]] o lo stato di silenziamento [[muted]]",
+    "es": "Informar del volumen [[volume]] o del estado de silencio [[muted]] del altavoz",
+    "da": "Rapportér højttalerens lydstyrke [[volume]] eller lydløse tilstand [[muted]]",
+    "no": "Rapporter høyttalervolum [[volume]] eller demping [[muted]]",
+    "sv": "Rapportera högtalarens volym [[volume]] eller ljudavstängning [[muted]]",
+    "pl": "Zgłoś głośność [[volume]] lub wyciszenie [[muted]] głośnika",
+    "ru": "Сообщить громкость [[volume]] или состояние отключения звука [[muted]] колонки",
+    "ko": "스피커 볼륨 [[volume]] 또는 음소거 상태 [[muted]] 보고",
+    "ar": "الإبلاغ عن مستوى صوت السماعة [[volume]] أو حالة كتمها [[muted]]"
+  },
   "args": [
     {"name": "device", "type": "device", "filter": "driver_id=upnpplayer"},
     {

@@ -38,6 +38,10 @@
   },
   "pair": [
     {
+      "id": "playback_setup",
+      "$template": "playback_setup"
+    },
+    {
       "id": "list_devices",
       "template": "list_devices",
       "navigation": {
@@ -50,6 +54,12 @@
     {
       "id": "add_my_devices",
       "template": "add_devices"
+    }
+  ],
+  "repair": [
+    {
+      "id": "playback_setup",
+      "$template": "playback_setup"
     }
   ]
 }

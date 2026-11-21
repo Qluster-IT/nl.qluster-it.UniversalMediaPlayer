@@ -1,0 +1,13 @@
+{
+  "speaker": "Afspeelluidspreker",
+  "default_speaker": "Standaard afspeelluidspreker",
+  "flow_only": "Alleen Flows gebruiken",
+  "device_default": "Apparaatstandaard gebruiken",
+  "reload": "Luidsprekers opnieuw laden",
+  "continue": "Doorgaan",
+  "save": "Opslaan",
+  "unavailable": "Luidsprekers zoeken is niet beschikbaar.",
+  "invalid": "Selecteer een luidspreker of groep uit de lijst.",
+  "apply_failed": "De afspeelluidspreker kon niet worden gewijzigd.",
+  "invalid_settings": "Controleer de spelerinstellingen."
+}

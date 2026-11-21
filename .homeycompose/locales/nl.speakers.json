@@ -1,0 +1,12 @@
+{
+  "stereo": "Stereo",
+  "left": "Links",
+  "right": "Rechts",
+  "all": "Alle luidsprekers",
+  "all_help": "Alle momenteel vindbare luidsprekers",
+  "saved_group": "Opgeslagen luidsprekergroep",
+  "all_no_tvs": "Alle luidsprekers (geen tv’s)",
+  "all_no_tvs_help": "Sla herkenbare tv’s en Cast-ontvangers met video over",
+  "all_no_tv_speakers": "Alle luidsprekers (geen tv’s of tv-luidsprekers)",
+  "all_no_tv_speakers_help": "Sla ook herkenbare soundbars en thuisbioscoopluidsprekers over"
+}

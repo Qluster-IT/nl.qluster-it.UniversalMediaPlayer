@@ -1,0 +1,12 @@
+{
+  "stereo": "Stereo",
+  "left": "Links",
+  "right": "Rechts",
+  "all": "Alle Lautsprecher",
+  "all_help": "Alle aktuell gefundenen Lautsprecher",
+  "saved_group": "Gespeicherte Lautsprechergruppe",
+  "all_no_tvs": "Alle Lautsprecher (ohne Fernseher)",
+  "all_no_tvs_help": "Erkannte Fernseher und Video-Cast-Empfänger überspringen",
+  "all_no_tv_speakers": "Alle Lautsprecher (ohne Fernseher oder TV-Lautsprecher)",
+  "all_no_tv_speakers_help": "Zusätzlich erkannte Soundbars und Heimkino-Lautsprecher überspringen"
+}

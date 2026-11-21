@@ -174,5 +174,186 @@
       "ko": "다음 파일을 재생하기 전 추가 대기 시간",
       "ar": "وقت انتظار إضافي قبل تشغيل الملف التالي"
     }
+  },
+  {
+    "id": "trigger_when_announcing",
+    "type": "checkbox",
+    "value": false,
+    "label": {
+      "en": "Run Flow triggers during direct playback",
+      "nl": "Flow-triggers uitvoeren bij direct afspelen",
+      "de": "Flow-Auslöser bei direkter Wiedergabe ausführen",
+      "fr": "Exécuter les déclencheurs de Flow en lecture directe",
+      "it": "Esegui i trigger dei Flow durante la riproduzione diretta",
+      "es": "Ejecutar disparadores de Flow durante la reproducción directa",
+      "da": "Kør Flow-udløsere ved direkte afspilning",
+      "no": "Kjør Flow-utløsere ved direkte avspilling",
+      "sv": "Kör Flow-utlösare vid direkt uppspelning",
+      "pl": "Uruchamiaj wyzwalacze Flow przy odtwarzaniu bezpośrednim",
+      "ru": "Запускать триггеры Flow при прямом воспроизведении",
+      "ko": "직접 재생 중 Flow 트리거 실행",
+      "ar": "تشغيل مشغّلات Flow أثناء التشغيل المباشر"
+    },
+    "hint": {
+      "en": "Also run the existing playback Flow triggers when playing directly on a speaker.",
+      "nl": "Voer de bestaande afspeeltriggers ook uit bij direct afspelen op een luidspreker.",
+      "de": "Führe die vorhandenen Wiedergabeauslöser auch bei direkter Wiedergabe auf einem Lautsprecher aus.",
+      "fr": "Exécute aussi les déclencheurs de lecture existants lors de la lecture directe sur une enceinte.",
+      "it": "Esegue anche i trigger di riproduzione esistenti durante la riproduzione diretta su un altoparlante.",
+      "es": "Ejecuta también los disparadores de reproducción existentes al reproducir directamente en un altavoz.",
+      "da": "Kører også de eksisterende afspilningsudløsere ved direkte afspilning på en højttaler.",
+      "no": "Kjører også eksisterende avspillingsutløsere ved direkte avspilling på en høyttaler.",
+      "sv": "Kör även befintliga uppspelningsutlösare vid direkt uppspelning på en högtalare.",
+      "pl": "Uruchamia też dotychczasowe wyzwalacze odtwarzania przy odtwarzaniu bezpośrednio na głośniku.",
+      "ru": "Запускает существующие триггеры воспроизведения и при прямом воспроизведении на динамике.",
+      "ko": "스피커에서 직접 재생할 때도 기존 재생 Flow 트리거를 실행합니다.",
+      "ar": "يشغّل أيضًا مشغّلات التشغيل الحالية عند التشغيل مباشرةً على مكبر صوت."
+    }
+  },
+  {
+    "id": "announcement_sonos_mode",
+    "type": "dropdown",
+    "label": {
+      "en": "Sonos announcement mode",
+      "nl": "Sonos-aankondigingsmodus",
+      "da": "Sonos-meddelelsestilstand",
+      "de": "Sonos-Durchsagemodus",
+      "es": "Modo de anuncios de Sonos",
+      "fr": "Mode d’annonce Sonos",
+      "it": "Modalità annunci Sonos",
+      "no": "Sonos-kunngjøringsmodus",
+      "sv": "Sonos-meddelandeläge",
+      "pl": "Tryb komunikatów Sonos",
+      "ru": "Режим объявлений Sonos",
+      "ko": "Sonos 안내 방송 모드",
+      "ar": "وضع إعلانات Sonos"
+    },
+    "value": "default",
+    "values": [
+      {
+        "id": "default",
+        "label": {
+          "en": "Use app default",
+          "nl": "Gebruik appstandaard",
+          "da": "Brug appstandard",
+          "de": "App-Standard verwenden",
+          "es": "Usar el valor de la app",
+          "fr": "Utiliser le réglage de l’app",
+          "it": "Usa il valore dell’app",
+          "no": "Bruk appstandard",
+          "sv": "Använd appens standard",
+          "pl": "Użyj ustawienia aplikacji",
+          "ru": "Использовать настройку приложения",
+          "ko": "앱 기본값 사용",
+          "ar": "استخدام إعداد التطبيق"
+        }
+      },
+      {
+        "id": "selected",
+        "label": {
+          "en": "Play Separately",
+          "nl": "Apart afspelen",
+          "da": "Afspil separat",
+          "de": "Getrennt abspielen",
+          "es": "Reproducir por separado",
+          "fr": "Lire séparément",
+          "it": "Riproduci separatamente",
+          "no": "Spill av separat",
+          "sv": "Spela separat",
+          "pl": "Odtwarzaj osobno",
+          "ru": "Воспроизводить отдельно",
+          "ko": "개별 재생",
+          "ar": "تشغيل منفصل"
+        }
+      },
+      {
+        "id": "sync",
+        "label": {
+          "en": "Play in Sync",
+          "nl": "Synchroon afspelen",
+          "da": "Afspil synkront",
+          "de": "Synchron abspielen",
+          "es": "Reproducir en sincronía",
+          "fr": "Lecture synchronisée",
+          "it": "Riproduci in sincronia",
+          "no": "Spill av synkront",
+          "sv": "Spela synkront",
+          "pl": "Odtwarzaj synchronicznie",
+          "ru": "Воспроизводить синхронно",
+          "ko": "동기 재생",
+          "ar": "تشغيل متزامن"
+        }
+      }
+    ]
+  },
+  {
+    "id": "announcement_group_sonos",
+    "type": "checkbox",
+    "value": true,
+    "label": {
+      "en": "Temporarily group Sonos rooms",
+      "nl": "Sonos-kamers tijdelijk groeperen",
+      "de": "Sonos-Räume vorübergehend gruppieren",
+      "fr": "Grouper temporairement les pièces Sonos",
+      "it": "Raggruppa temporaneamente le stanze Sonos",
+      "es": "Agrupar temporalmente las habitaciones Sonos",
+      "da": "Gruppér Sonos-rum midlertidigt",
+      "no": "Grupper Sonos-rom midlertidig",
+      "sv": "Gruppera Sonos-rum tillfälligt",
+      "pl": "Tymczasowo grupuj pokoje Sonos",
+      "ru": "Временно группировать комнаты Sonos",
+      "ko": "Sonos 방을 일시적으로 그룹화",
+      "ar": "تجميع غرف Sonos مؤقتًا"
+    },
+    "hint": {
+      "en": "Group compatible selected Sonos rooms for synchronized direct playback, then restore their previous groups.",
+      "nl": "Groepeer geselecteerde compatibele Sonos-kamers voor gesynchroniseerd direct afspelen en herstel daarna hun vorige groepen.",
+      "de": "Gruppiert ausgewählte kompatible Sonos-Räume für die synchrone direkte Wiedergabe und stellt danach ihre ursprünglichen Gruppen wieder her.",
+      "fr": "Groupe les pièces Sonos compatibles sélectionnées pour une lecture directe synchronisée, puis rétablit leurs groupes précédents.",
+      "it": "Raggruppa le stanze Sonos compatibili selezionate per una riproduzione diretta sincronizzata, poi ripristina i gruppi precedenti.",
+      "es": "Agrupa las habitaciones Sonos compatibles seleccionadas para reproducir directamente de forma sincronizada y después restaura sus grupos anteriores.",
+      "da": "Grupperer valgte kompatible Sonos-rum til synkroniseret direkte afspilning og gendanner derefter deres tidligere grupper.",
+      "no": "Grupperer valgte kompatible Sonos-rom for synkronisert direkte avspilling og gjenoppretter deretter de tidligere gruppene.",
+      "sv": "Grupperar valda kompatibla Sonos-rum för synkroniserad direkt uppspelning och återställer sedan deras tidigare grupper.",
+      "pl": "Grupuje wybrane zgodne pokoje Sonos na czas zsynchronizowanego odtwarzania bezpośredniego, a następnie przywraca poprzednie grupy.",
+      "ru": "Объединяет выбранные совместимые комнаты Sonos для синхронного прямого воспроизведения, а затем восстанавливает прежние группы.",
+      "ko": "호환되는 Sonos 방을 선택하면 직접 재생이 동기화되도록 그룹화한 뒤 이전 그룹을 복원합니다.",
+      "ar": "يجمع غرف Sonos المتوافقة المحددة للتشغيل المباشر المتزامن، ثم يعيدها إلى مجموعاتها السابقة."
+    }
+  },
+  {
+    "id": "announcement_resume",
+    "type": "checkbox",
+    "value": true,
+    "label": {
+      "en": "Restore previous speaker playback",
+      "nl": "Vorige luidsprekerweergave herstellen",
+      "de": "Vorherige Lautsprecherwiedergabe wiederherstellen",
+      "fr": "Rétablir la lecture précédente sur l’enceinte",
+      "it": "Ripristina la riproduzione precedente dell’altoparlante",
+      "es": "Restaurar la reproducción anterior del altavoz",
+      "da": "Gendan højttalerens tidligere afspilning",
+      "no": "Gjenopprett høyttalerens forrige avspilling",
+      "sv": "Återställ högtalarens tidigare uppspelning",
+      "pl": "Przywróć poprzednie odtwarzanie na głośniku",
+      "ru": "Восстановить прежнее воспроизведение на динамике",
+      "ko": "스피커의 이전 재생 복원",
+      "ar": "استعادة التشغيل السابق على مكبر الصوت"
+    },
+    "hint": {
+      "en": "Restore the previous source and playback position when direct playback ends, where supported.",
+      "nl": "Herstel de vorige bron en afspeelpositie als direct afspelen eindigt, indien ondersteund.",
+      "de": "Stelle bei Ende der direkten Wiedergabe die vorherige Quelle und Position wieder her, sofern unterstützt.",
+      "fr": "Rétablit la source et la position précédentes à la fin de la lecture directe, si cette fonction est prise en charge.",
+      "it": "Ripristina la sorgente e la posizione precedenti al termine della riproduzione diretta, se supportato.",
+      "es": "Restaura la fuente y la posición anteriores al terminar la reproducción directa, si es compatible.",
+      "da": "Gendanner den tidligere kilde og position efter direkte afspilning, hvor det understøttes.",
+      "no": "Gjenoppretter forrige kilde og posisjon når direkte avspilling avsluttes, der det støttes.",
+      "sv": "Återställer föregående källa och position när direkt uppspelning avslutas, där det stöds.",
+      "pl": "Po zakończeniu bezpośredniego odtwarzania przywraca poprzednie źródło i pozycję, jeśli jest to obsługiwane.",
+      "ru": "После завершения прямого воспроизведения восстанавливает прежний источник и позицию, если это поддерживается.",
+      "ko": "지원되는 경우 직접 재생이 끝나면 이전 소스와 재생 위치를 복원합니다.",
+      "ar": "يستعيد المصدر وموضع التشغيل السابقين عند انتهاء التشغيل المباشر، إذا كان ذلك مدعومًا."
+    }
   }
 ]

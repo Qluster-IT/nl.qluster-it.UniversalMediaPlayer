@@ -1,0 +1,13 @@
+{
+  "speaker": "Altavoz de reproducción",
+  "default_speaker": "Altavoz predeterminado",
+  "flow_only": "Usar solo Flows",
+  "device_default": "Usar el valor predeterminado del dispositivo",
+  "reload": "Recargar altavoces",
+  "continue": "Continuar",
+  "save": "Guardar",
+  "unavailable": "La búsqueda de altavoces no está disponible.",
+  "invalid": "Selecciona un altavoz o grupo de la lista.",
+  "apply_failed": "No se pudo cambiar el altavoz de reproducción.",
+  "invalid_settings": "Comprueba los ajustes del reproductor."
+}

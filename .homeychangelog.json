@@ -1,4 +1,7 @@
 {
+  "0.0.1": {
+    "en": "Just a publish so its in the system, waiting for new images"
+  },
   "0.1.0": {
     "en": "Nothing new yet"
   },
@@ -13,9 +16,6 @@
   },
   "0.2.1": {
     "en": "Build for SDK3"
-  },
-  "0.0.1": {
-    "en": "Just a publish so its in the system, waiting for new images"
   },
   "1.0.0": {
     "en": "publishable"
@@ -82,5 +82,20 @@
     "ru": "Изменили исходный код и задачи с Bitbucket на GitHub.",
     "ko": "소스 코드와 문제를 Bitbucket에서 GitHub로 변경했습니다.",
     "ar": "تم تغيير الشيفرة المصدرية والمشكلات من Bitbucket إلى GitHub."
+  },
+  "1.3.0": {
+    "en": "Play directly on Sonos, Google Cast and compatible UPnP/DLNA speakers or saved speaker groups.\nControl playback, browse the library and choose a speaker from the Media player dashboard widget.",
+    "nl": "Speel direct af op Sonos, Google Cast en compatibele UPnP/DLNA-luidsprekers of opgeslagen luidsprekergroepen.\nBedien het afspelen, blader door de bibliotheek en kies een luidspreker in de Mediaspeler-widget op je dashboard.",
+    "de": "Spiele direkt auf Sonos, Google Cast und kompatiblen UPnP/DLNA-Lautsprechern oder gespeicherten Lautsprechergruppen ab.\nSteuere die Wiedergabe, durchsuche die Mediathek und wähle einen Lautsprecher im Mediaplayer-Widget auf dem Dashboard.",
+    "fr": "Lancez la lecture directement sur Sonos, Google Cast, des enceintes UPnP/DLNA compatibles ou des groupes d’enceintes enregistrés.\nContrôlez la lecture, parcourez la bibliothèque et choisissez une enceinte depuis le widget Lecteur multimédia du tableau de bord.",
+    "it": "Riproduci direttamente su Sonos, Google Cast, altoparlanti UPnP/DLNA compatibili o gruppi di altoparlanti salvati.\nControlla la riproduzione, sfoglia la libreria e scegli un altoparlante dal widget Lettore multimediale nella dashboard.",
+    "es": "Reproduce directamente en Sonos, Google Cast, altavoces UPnP/DLNA compatibles o grupos de altavoces guardados.\nControla la reproducción, explora la biblioteca y elige un altavoz desde el widget Reproductor multimedia del panel.",
+    "da": "Afspil direkte på Sonos, Google Cast og kompatible UPnP/DLNA-højttalere eller gemte højttalergrupper.\nStyr afspilningen, gennemse biblioteket og vælg en højttaler i Medieafspiller-widgetten på dashboardet.",
+    "no": "Spill av direkte på Sonos, Google Cast og kompatible UPnP/DLNA-høyttalere eller lagrede høyttalergrupper.\nStyr avspillingen, bla gjennom biblioteket og velg en høyttaler fra Mediespiller-widgeten på dashbordet.",
+    "sv": "Spela upp direkt på Sonos, Google Cast och kompatibla UPnP/DLNA-högtalare eller sparade högtalargrupper.\nStyr uppspelningen, bläddra i biblioteket och välj en högtalare via widgeten Mediespelare på instrumentpanelen.",
+    "pl": "Odtwarzaj bezpośrednio na głośnikach Sonos, Google Cast, zgodnych urządzeniach UPnP/DLNA lub w zapisanych grupach głośników.\nSteruj odtwarzaniem, przeglądaj bibliotekę i wybieraj głośnik w widżecie Odtwarzacz multimedialny na pulpicie.",
+    "ru": "Воспроизводите музыку напрямую на Sonos, Google Cast, совместимых устройствах UPnP/DLNA или в сохранённых группах динамиков.\nУправляйте воспроизведением, просматривайте медиатеку и выбирайте динамик в виджете «Медиаплеер» на панели управления.",
+    "ko": "Sonos, Google Cast, 호환되는 UPnP/DLNA 스피커 또는 저장된 스피커 그룹에서 직접 재생하세요.\n대시보드의 미디어 플레이어 위젯에서 재생을 제어하고 라이브러리를 탐색하며 스피커를 선택하세요.",
+    "ar": "شغّل الصوت مباشرةً على مكبرات Sonos أو Google Cast أو مكبرات UPnP/DLNA المتوافقة أو مجموعات مكبرات الصوت المحفوظة.\nتحكّم في التشغيل وتصفّح المكتبة واختر مكبر الصوت من أداة مشغّل الوسائط في لوحة المعلومات."
   }
 }

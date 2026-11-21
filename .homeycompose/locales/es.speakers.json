@@ -1,0 +1,12 @@
+{
+  "stereo": "Estéreo",
+  "left": "Izquierda",
+  "right": "Derecha",
+  "all": "Todos los altavoces",
+  "all_help": "Todos los altavoces detectados",
+  "saved_group": "Grupo de altavoces guardado",
+  "all_no_tvs": "Todos los altavoces (sin televisores)",
+  "all_no_tvs_help": "Excluir televisores y receptores Cast de vídeo reconocidos",
+  "all_no_tv_speakers": "Todos los altavoces (sin televisores ni altavoces de TV)",
+  "all_no_tv_speakers_help": "Excluir también las barras de sonido y los altavoces de cine en casa reconocidos"
+}

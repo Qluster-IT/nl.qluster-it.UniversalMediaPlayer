@@ -1,0 +1,12 @@
+{
+  "stereo": "Stereo",
+  "left": "Sinistra",
+  "right": "Destra",
+  "all": "Tutti gli altoparlanti",
+  "all_help": "Tutti gli altoparlanti rilevati",
+  "saved_group": "Gruppo di altoparlanti salvato",
+  "all_no_tvs": "Tutti gli altoparlanti (senza TV)",
+  "all_no_tvs_help": "Escludi le TV e i ricevitori Cast video riconosciuti",
+  "all_no_tv_speakers": "Tutti gli altoparlanti (senza TV o altoparlanti TV)",
+  "all_no_tv_speakers_help": "Escludi anche soundbar e altoparlanti home theater riconosciuti"
+}

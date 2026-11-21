@@ -6,8 +6,8 @@ const test = require('node:test');
 const { Defer } = require('../lib/proto');
 const PlaylistManager = require('../lib/playlistmanager');
 const {readPlayback, syncPlayback} = require('../lib/sonos-playback');
+const {requestVolume} = require('../lib/speaker-volume');
 const UPnPServer = require('../lib/upnpserver');
-const upnp = require('node-upnp-utils');
 const english = require('../.homeycompose/locales/en.json');
 const dutch = require('../.homeycompose/locales/nl.json');
 
@@ -463,43 +463,38 @@ test('missing files and folders report a useful error', async () => {
 });
 
 test('UPnP browse accepts string resources and relative artwork URLs', async () => {
-    const original = upnp.invokeAction;
-    upnp.invokeAction = (params, callback) => callback(null, {
-        's:Body': {'u:BrowseResponse': {Result:
+    const server = Object.create(UPnPServer.prototype);
+    server.requestBrowse = async () => ({status: 200, browse: {Result:
             '<DIDL-Lite xmlns:dc="urn:dc" xmlns:upnp="urn:upnp">' +
             '<item id="1"><dc:title>Track</dc:title><res>http://example.test/track.mp3</res>' +
-            '<upnp:albumArtURI>/art.jpg</upnp:albumArtURI></item></DIDL-Lite>'}}
-    }, null, {statusCode: 200});
-    const server = Object.create(UPnPServer.prototype);
+            '<upnp:albumArtURI>/art.jpg</upnp:albumArtURI></item>' +
+            '<item id="2"><dc:title>FLAC</dc:title><res protocolInfo="http-get:*:audio/flac:*">http://example.test/track.flac</res></item>' +
+            '</DIDL-Lite>'}});
     server._ip = '192.0.2.1:1234';
     server.homey = {__: translator(dutch), app: {error: () => {}}};
-    server.getSoapActionFromSoapBody = async () => 'Browse';
-    try {
         const files = await server.browseById({id: '0', search: 'files'});
         assert.equal(files[0].url, 'http://example.test/track.mp3');
         assert.equal(files[0].albumUrl, 'http://192.0.2.1:1234/art.jpg');
+        assert.equal(files[1].contentType, 'audio/flac');
         const picker = await server.browseById({id: '12', ids: '12', locations: ['Music'], search: 'folders'});
         assert.deepEqual(picker.map(({id, name, description, location}) => ({id, name, description, location})), [
             {id: 'Back', name: 'Terug :[0]', description: 'Blader door de bovenliggende map', location: undefined},
             {id: '12', name: 'Music', description: 'Speel deze map af', location: 'Music'}
         ]);
-    } finally {
-        upnp.invokeAction = original;
-    }
 });
 
 test('paged browse XML-escapes UPnP IDs and reports the next offset without registering art', async t => {
     const server = Object.create(UPnPServer.prototype);
     server.homey = {__: translator(english), app: {error: () => {}}};
     server._ip = '192.0.2.1:1234';
-    server.getSoapActionFromSoapBody = async () => 'Browse';
     server.getImage = () => assert.fail('Widget browsing must not register artwork');
     let response = '<DIDL-Lite><container id="child"><dc:title>Folder</dc:title></container></DIDL-Lite>';
-    t.mock.method(upnp, 'invokeAction', ({soap}, callback) => {
+    t.mock.method(server, 'requestBrowse', async ({soap, action}) => {
+        assert.equal(action, '"urn:schemas-upnp-org:service:ContentDirectory:1#Browse"');
         assert.match(soap, /<ObjectID>A&amp;B&lt;C<\/ObjectID>/);
         assert.match(soap, /<StartingIndex>2<\/StartingIndex>/);
         assert.match(soap, /<RequestedCount>1<\/RequestedCount>/);
-        callback(null, {'s:Body': {'u:BrowseResponse': {Result: response, TotalMatches: '4'}}}, null, {statusCode: 200});
+        return {status: 200, browse: {Result: response, TotalMatches: '4'}};
     });
     const args = {id: 'A&B<C', search: 'folders,files', page: {offset: 2, size: 1}};
     const page = await server.browseById(args);
@@ -507,6 +502,29 @@ test('paged browse XML-escapes UPnP IDs and reports the next offset without regi
     assert.equal(page.next, 3);
     response = '<DIDL-Lite/>';
     assert.deepEqual(await server.browseById(args), {items: [], next: null});
+});
+
+test('UPnP picker shares album art registrations within a response and retains raw URL fallback', async t => {
+    const server = Object.create(UPnPServer.prototype);
+    server.homey = {__: translator(english), app: {error: () => {}}};
+    server._ip = '192.0.2.1:1234';
+    server.cloudUrl = 'https://homey.example.test/images/';
+    server.cloudUrlPromise = Promise.resolve();
+    const urls = ['/cover.jpg', 'http://192.0.2.1:1234/cover.jpg', '/missing.jpg', '/missing.jpg'];
+    const result = '<DIDL-Lite>' + urls.map((url, i) => `<item id="${i}"><dc:title>Track ${i}</dc:title>` +
+        `<upnp:albumArtURI>${url}</upnp:albumArtURI></item>`).join('') + '</DIDL-Lite>';
+    t.mock.method(server, 'requestBrowse', async () => ({status: 200, browse: {Result: result}}));
+    const register = t.mock.method(server, 'getImage', async url => url.endsWith('/cover.jpg') ? {id: 'cover'} : undefined);
+    const args = {id: '12', ids: '12', locations: ['Music'], search: 'files'};
+    const expected = [
+        'https://homey.example.test/images/cover', 'https://homey.example.test/images/cover',
+        'http://192.0.2.1:1234/missing.jpg', 'http://192.0.2.1:1234/missing.jpg'
+    ];
+    for (let i = 1; i <= 2; i++) {
+        const [, ...tracks] = await server.browseById(args);
+        assert.deepEqual(tracks.map(track => track.image), expected);
+        assert.equal(register.mock.callCount(), i * 2);
+    }
 });
 
 test('playback warns when the server does not provide a duration', async () => {
@@ -568,6 +586,237 @@ function restartFixture(t) {
     return {create, triggered, published, folder, files, writes: () => writes};
 }
 
+test('direct playback controls the speaker and suppresses playback Flows unless enabled', async t => {
+    const {create, triggered, folder} = restartFixture(t);
+    const playlist = create();
+    const operations = [];
+    let runFlows = false;
+    playlist.uPnPPlayer.getSetting = key => key === 'trigger_when_announcing' ? runFlows : undefined;
+    await playlist.uPnPPlayer.setStoreValue('announcement_speaker', {id: 'cast:room', name: 'Room'});
+    playlist.directSession = {
+        journal: {units: []},
+        start: async (target, file) => {
+            operations.push(['start', target.id, file.name]);
+            playlist.directSession.journal.units = [{}];
+            return {ok: true, active: true};
+        },
+        pause: async () => { operations.push(['pause']); return {ok: true, active: true}; },
+        resume: async () => { operations.push(['resume']); return {ok: true, active: true}; },
+        stop: async () => {
+            operations.push(['stop']);
+            playlist.directSession.journal.units = [];
+            return {ok: true};
+        }
+    };
+    await playlist.PlayFolder({folder, mode: 'normal'});
+    assert.deepEqual(triggered, []);
+    await playlist.Pause();
+    await playlist.TogglePlay(true);
+    runFlows = true;
+    await playlist.PlayNext();
+    assert.deepEqual(triggered, ['second']);
+    await playlist.Stop();
+    assert.deepEqual(triggered, ['second', 'stopped']);
+    assert.deepEqual(operations, [
+        ['start', 'cast:room', 'first'], ['pause'], ['resume'], ['start', 'cast:room', 'second'], ['stop']
+    ]);
+    operations.length = 0;
+    triggered.length = 0;
+    await playlist.uPnPPlayer.setStoreValue('ump_current_speaker', {id: 'group:kitchen'});
+    await playlist.PlayFolder({folder, mode: 'normal'});
+    await playlist.Pause();
+    await playlist.TogglePlay(true);
+    await playlist.PlayNext();
+    await playlist.Stop();
+    await playlist.Stop(); // Stopping again must not fall through to a Flow.
+    assert.deepEqual(operations, [
+        ['start', 'group:kitchen', 'first'], ['pause'], ['resume'], ['start', 'group:kitchen', 'second'], ['stop']
+    ]);
+    assert.deepEqual(triggered, []);
+    await playlist.Dispose();
+});
+
+test('failed direct start does not fire a URL Flow and restores partial sessions', async t => {
+    const {create, triggered, folder} = restartFixture(t);
+    const playlist = create();
+    let stopped = 0;
+    playlist.uPnPPlayer.getSetting = key => key === 'trigger_when_announcing';
+    await playlist.uPnPPlayer.setStoreValue('announcement_speaker', {id: 'cast:room'});
+    playlist.directSession = {
+        journal: {units: [{}]},
+        start: async () => ({ok: false, failures: [{message: 'Speaker unavailable'}]}),
+        stop: async () => { stopped++; playlist.directSession.journal.units = []; return {ok: true}; }
+    };
+    await assert.rejects(playlist.PlayFolder({folder, mode: 'normal'}), /Speaker unavailable/);
+    assert.deepEqual(triggered, []);
+    assert.equal(stopped, 1);
+    assert.equal(playlist.playing, false);
+    await playlist.Dispose();
+});
+
+test('direct volume and mute commands reach the speaker without echoing mute Flows', async () => {
+    const calls = [];
+    const session = {
+        setVolume: async value => { calls.push(['volume', value]); return {ok: true}; },
+        setMute: async value => { calls.push(['mute', value]); return {ok: true}; }
+    };
+    const manager = Object.assign(Object.create(PlaylistManager.prototype), {
+        directSession: session,
+        HasDirectSession: () => true,
+        uPnPPlayer: {getSetting: () => false}
+    });
+    const player = {
+        homey: {__: translator(english)},
+        playlistManager: manager,
+        setCapabilityValue: async (id, value) => calls.push([id, value]),
+        driver: {Triggers: {mute_requested: {Card: {trigger: () => assert.fail('Unexpected mute Flow')}}}}
+    };
+    await requestVolume(player, 'volume_set', 0);
+    await requestVolume(player, 'volume_mute', true);
+    assert.deepEqual(calls, [
+        ['volume', 0], ['volume_set', 0], ['mute', true], ['volume_mute', true]
+    ]);
+});
+
+test('notification mode uses Flow, then device, then app settings and preserves legacy opt-out', async t => {
+    const {create, files} = restartFixture(t);
+    const playlist = create();
+    const settings = {announcement_group_sonos: false};
+    playlist.uPnPPlayer.getSetting = key => settings[key];
+    playlist.uPnPPlayer.server.getFromLocation = async () => files[0];
+    await playlist.uPnPPlayer.setStoreValue('announcement_speaker', {id: 'cast:default'});
+    let appMode;
+    playlist.homey.settings = {get: () => appMode};
+    const calls = [];
+    playlist.directSession = {playNotification: async (target, file, options) => {
+        calls.push({target: target.id, group: options.group, mode: options.mode, volume: options.volume});
+        return {ok: true};
+    }};
+    await playlist.PlayNotification(files[0]);
+    appMode = 'sync';
+    await playlist.PlayNotification(files[0], {sonos_mode: 'default'});
+    settings.announcement_sonos_mode = 'selected';
+    await playlist.PlayNotification(files[0]);
+    await playlist.PlayNotification(files[0], {sonos_mode: 'sync', speaker: {id: 'cast:explicit'}, volume: 0});
+    assert.deepEqual(calls, [
+        {target: 'cast:default', mode: undefined, group: false, volume: undefined},
+        {target: 'cast:default', mode: 'sync', group: true, volume: undefined},
+        {target: 'cast:default', mode: 'selected', group: false, volume: undefined},
+        {target: 'cast:explicit', mode: 'sync', group: true, volume: 0}
+    ]);
+});
+
+test('switching direct targets keeps the pending single-track wait', async t => {
+    const {create, files, triggered} = restartFixture(t);
+    const playlist = create();
+    const operations = [];
+    playlist.uPnPPlayer.getSetting = () => undefined;
+    await playlist.uPnPPlayer.setStoreValue('announcement_speaker', {id: 'cast:first'});
+    playlist.directSession = {
+        journal: {units: []},
+        start: async () => { playlist.directSession.journal.units = [{}]; return {ok: true, active: true}; },
+        setTarget: async target => { operations.push(target.id); return {ok: true, active: true}; },
+        stop: async () => { playlist.directSession.journal.units = []; return {ok: true}; }
+    };
+    const done = playlist.PlayFile({file: files[0], finish: true, af: true}, async () => files[0]);
+    await new Promise(resolve => setImmediate(resolve));
+    await playlist.uPnPPlayer.setStoreValue('ump_current_speaker', {id: 'cast:second'});
+    await playlist.setPlaybackTarget();
+    assert.deepEqual(operations, ['cast:second']);
+    t.mock.timers.tick(21000);
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal((await done).name, 'first');
+    assert.deepEqual(triggered, []);
+    await playlist.Dispose();
+});
+
+test('a failed direct target handover suspends the queue instead of advancing it', async t => {
+    const {create, folder, triggered} = restartFixture(t);
+    const playlist = create();
+    playlist.uPnPPlayer.getSetting = () => undefined;
+    await playlist.uPnPPlayer.setStoreValue('announcement_speaker', {id: 'cast:first'});
+    playlist.directSession = {
+        journal: {units: []},
+        start: async () => { playlist.directSession.journal.units = [{}]; return {ok: true, active: true}; },
+        setTarget: async () => ({ok: false, failures: [{message: 'Target offline'}]})
+    };
+    await playlist.PlayFolder({folder, mode: 'normal'});
+    await playlist.uPnPPlayer.setStoreValue('ump_current_speaker', {id: 'cast:second'});
+    await assert.rejects(playlist.setPlaybackTarget(), /Target offline/);
+    assert.equal(playlist.playing, false);
+    assert.equal(playlist.restartOnSpeakerResume, true);
+    t.mock.timers.tick(30000);
+    assert.deepEqual(triggered, []);
+    await playlist.Dispose();
+});
+
+test('direct playback recovery verifies the speaker before advancing the playlist', async t => {
+    const {create, files, folder, triggered} = restartFixture(t);
+    const before = create();
+    await before.PlayFolder({folder, mode: 'normal'});
+    await before.Dispose();
+    await before.uPnPPlayer.setStoreValue('directSpeakerSessionV1', {version: 1, units: [{}]});
+    const after = create();
+    let resolveStatus;
+    after.directSession = {journal: {units: [{}]}, status: () => new Promise(resolve => { resolveStatus = resolve; })};
+    after.RestorePlayback();
+    const recovery = after.RecoverDirect();
+    t.mock.timers.tick(25000);
+    assert.deepEqual(triggered, ['first']);
+    resolveStatus({ok: true, active: true, targets: [{url: files[0].url, state: 'PLAYING', position: 5000}]});
+    await recovery;
+    assert.equal(after.position, 5000);
+    assert.equal(after.playing, true);
+    await after.Dispose();
+});
+
+test('native speaker skips update the saved UMP track without calling PlayNext', async t => {
+    const {create, files, folder, triggered} = restartFixture(t);
+    const before = create();
+    await before.PlayFolder({folder, mode: 'normal'});
+    await before.Dispose();
+    await before.uPnPPlayer.setStoreValue('directSpeakerSessionV1', {version: 1, units: [{}]});
+    const after = create();
+    let remote = {handoff: true, index: 1, url: files[1].url, state: 'PLAYING', position: 3000};
+    after.directSession = {hasHandoff: true, journal: {units: [{}]},
+        status: async () => ({ok: true, active: true, targets: [remote]})};
+    after.RestorePlayback();
+    await after.RecoverDirect();
+    assert.equal(after.playingIndex, 1);
+    assert.equal(after.position, 3000);
+    assert.deepEqual(triggered, ['first']);
+    remote = {...remote, state: 'PAUSED_PLAYBACK'};
+    await after.CheckSpeakerProgress(after.playbackRevision);
+    assert.equal(after.paused, true);
+    remote = {...remote, index: 0, url: files[0].url, state: 'PLAYING', position: 0};
+    await after.CheckSpeakerProgress(after.playbackRevision);
+    assert.equal(after.playingIndex, 0);
+    assert.equal(after.playing, true);
+    assert.deepEqual(triggered, ['first']);
+    await after.Dispose();
+});
+
+test('unverified direct playback is suspended after restart without issuing commands', async t => {
+    const {create, folder, triggered} = restartFixture(t);
+    const before = create();
+    await before.PlayFolder({folder, mode: 'normal'});
+    await before.Dispose();
+    await before.uPnPPlayer.setStoreValue('directSpeakerSessionV1', {version: 1, units: [{}]});
+    const after = create();
+    const errors = [];
+    after.uPnPPlayer.error = (...args) => errors.push(args);
+    after.directSession = {journal: {units: [{}]}, status: async () => ({ok: false, failures: [{message: 'Unavailable'}]})};
+    after.RestorePlayback();
+    await after.RecoverDirect();
+    assert.equal(after.playing, false);
+    assert.equal(after.paused, true);
+    assert.equal(after.restartOnSpeakerResume, true);
+    assert.equal(errors.length, 1);
+    t.mock.timers.tick(30000);
+    assert.deepEqual(triggered, ['first']);
+    await after.Dispose();
+});
+
 test('playback changes notify widgets without publishing periodic progress updates', async t => {
     const {create, folder} = restartFixture(t);
     const playlist = create();
@@ -611,6 +860,18 @@ test('restart restores active position and sends only the next track at the orig
     await Promise.resolve();
     assert.deepEqual(triggered, ['first', 'second']);
     assert.equal(after.position, 0);
+    await after.Dispose();
+});
+
+test('playback keeps UPnP content types after restart', async t => {
+    const {create, files, folder} = restartFixture(t);
+    files[0].contentType = 'audio/flac';
+    const before = create();
+    await before.PlayFolder({folder, mode: 'normal'});
+    await before.Dispose();
+    const after = create();
+    after.RestorePlayback();
+    assert.equal(after.currentFile.contentType, 'audio/flac');
     await after.Dispose();
 });
 
@@ -943,17 +1204,32 @@ test('album art arriving before image initialization is applied afterward', asyn
 });
 
 test('invalid UPnP browse responses reject instead of appearing empty', async () => {
-    const original = upnp.invokeAction;
-    upnp.invokeAction = (params, callback) => callback(null, {}, null, {statusCode: 200});
     const server = Object.create(UPnPServer.prototype);
+    server.requestBrowse = async () => ({status: 200});
     server._ip = '192.0.2.1:1234';
     server.homey = {__: translator(english)};
-    server.getSoapActionFromSoapBody = async () => 'Browse';
-    try {
-        await assert.rejects(server.browseById({id: '0', search: 'files'}), /Invalid UPnP browse response/);
-    } finally {
-        upnp.invokeAction = original;
-    }
+    await assert.rejects(server.browseById({id: '0', search: 'files'}), /Invalid UPnP browse response/);
+});
+
+test('ContentDirectory Browse works against a SOAP 1.1 server with different XML prefixes', async t => {
+    const http = require('node:http');
+    let received;
+    const listener = http.createServer((req, res) => {
+        received = req.headers;
+        if (received['content-type'] !== 'text/xml; charset="utf-8"') return res.writeHead(415).end();
+        res.end('<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"><env:Body>' +
+            '<cd:BrowseResponse xmlns:cd="urn:schemas-upnp-org:service:ContentDirectory:1">' +
+            '<Result>&lt;DIDL-Lite/&gt;</Result><TotalMatches>0</TotalMatches>' +
+            '</cd:BrowseResponse></env:Body></env:Envelope>');
+    });
+    await new Promise(resolve => listener.listen(0, '127.0.0.1', resolve));
+    t.after(() => new Promise(resolve => listener.close(resolve)));
+    const server = Object.create(UPnPServer.prototype);
+    server._ip = `127.0.0.1:${listener.address().port}`;
+    server.homey = {__: translator(english)};
+    assert.deepEqual(await server.browseById({id: '0', search: 'folders,files', page: {offset: 0, size: 10}}),
+        {items: [], next: null});
+    assert.equal(received.soapaction, '"urn:schemas-upnp-org:service:ContentDirectory:1#Browse"');
 });
 
 test('folder playback browses the resolved folder ID, not the saved ID', async () => {

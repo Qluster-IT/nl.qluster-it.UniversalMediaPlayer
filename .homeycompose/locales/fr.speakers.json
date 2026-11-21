@@ -1,0 +1,12 @@
+{
+  "stereo": "Stéréo",
+  "left": "Gauche",
+  "right": "Droite",
+  "all": "Toutes les enceintes",
+  "all_help": "Toutes les enceintes actuellement détectables",
+  "saved_group": "Groupe d’enceintes enregistré",
+  "all_no_tvs": "Toutes les enceintes (sans téléviseurs)",
+  "all_no_tvs_help": "Ignorer les téléviseurs et les récepteurs Cast vidéo reconnus",
+  "all_no_tv_speakers": "Toutes les enceintes (sans téléviseurs ni enceintes TV)",
+  "all_no_tv_speakers_help": "Ignorer aussi les barres de son et les enceintes home cinéma reconnues"
+}

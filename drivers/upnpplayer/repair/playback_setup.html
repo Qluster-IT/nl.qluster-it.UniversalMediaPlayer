@@ -1,0 +1,116 @@
+<style>
+  #playback-setup { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
+  #playback-setup fieldset { border: 0; margin: 0; padding: 0; }
+  #playback-setup .setup-actions { position: fixed; bottom: 0; left: 0; right: 0; z-index: 10; padding: 12px 20px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--homey-background-color, #fff); border-top: 1px solid var(--homey-line-color, #ddd); }
+  #playback-setup .setup-actions button { width: 100%; margin: 0; }
+  #playback-setup :is(input, select, [role="status"]) { scroll-margin-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
+  #playback-setup input[role="switch"] { appearance: none; width: 44px; height: 26px; border: 1px solid var(--homey-line-color, #888); border-radius: 20px; background: var(--homey-color-mono-400, #888); cursor: pointer; }
+  #playback-setup input[role="switch"]::before { content: ""; display: block; width: 20px; height: 20px; margin: 2px; border-radius: 50%; background: #fff; }
+  #playback-setup input[role="switch"]:checked { background: var(--homey-color-blue, #0082fa); }
+  #playback-setup input[role="switch"]:checked::before { transform: translateX(18px); }
+  #playback-setup input[role="switch"]:focus-visible { outline: 2px solid var(--homey-color-blue, #0082fa); outline-offset: 3px; }
+</style>
+<form class="homey-form" id="playback-setup">
+  <fieldset id="playback-fields" disabled>
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="playback-speaker" data-i18n="targets.default_speaker"></label>
+      <select class="homey-form-select" id="playback-speaker"></select>
+      <button class="homey-button-secondary hy-nostyle" type="button" id="playback-reload" data-i18n="targets.reload"></button>
+    </div>
+    <div id="playback-inputs"></div>
+    <div class="setup-actions">
+      <button class="homey-button-primary hy-nostyle" type="submit" id="playback-submit"></button>
+    </div>
+  </fieldset>
+  <p role="status" id="playback-status"></p>
+</form>
+<script>
+(async () => {
+    const form = document.getElementById('playback-setup');
+    const get = id => form.querySelector('#playback-' + id);
+    const status = get('status');
+    const select = get('speaker');
+    Homey.setTitle(Homey.__('targets.default_speaker'));
+    let config;
+    try { config = await Homey.emit('get_player_setup'); }
+    catch (error) { status.textContent = error.message || Homey.__('targets.unavailable'); return; }
+    get('submit').textContent = Homey.__(config.next ? 'targets.continue' : 'targets.save');
+    const controls = new Map();
+    for (const field of config.fields) {
+        const group = document.createElement('div');
+        group.className = 'homey-form-group';
+        const label = document.createElement('label');
+        label.className = 'homey-form-label';
+        label.htmlFor = 'playback-setting-' + field.id;
+        label.textContent = field.label;
+        const input = document.createElement('input');
+        input.id = label.htmlFor;
+        input.type = field.type;
+        input.readOnly = field.readOnly;
+        if (field.type === 'checkbox') {
+            input.checked = config.settings[field.id];
+            input.setAttribute('role', 'switch');
+        } else {
+            input.className = 'homey-form-input';
+            input.value = config.settings[field.id];
+            if (field.type === 'number') {
+                input.required = true;
+                input.step = 1;
+                for (const key of ['min', 'max']) if (field[key] !== undefined) input[key] = field[key];
+            }
+        }
+        group.append(label, input);
+        if (field.hint) {
+            const hint = document.createElement('p');
+            hint.id = input.id + '-help';
+            hint.className = 'homey-text-small';
+            hint.textContent = field.hint;
+            input.setAttribute('aria-describedby', hint.id);
+            group.append(hint);
+        }
+        get('inputs').append(group);
+        if (!field.readOnly) controls.set(field.id, input);
+    }
+
+    let options = config.speaker ? [config.speaker] : [];
+    function render(id) {
+        select.replaceChildren(new Option(Homey.__('targets.flow_only'), ''));
+        for (const {id, name, description} of options) {
+            select.add(new Option(description ? `${name} — ${description}` : name, id));
+        }
+        select.value = id || '';
+    }
+    render(config.speaker?.id);
+    async function perform(action, errorKey) {
+        get('fields').disabled = true;
+        status.textContent = '';
+        try { await action(); }
+        catch (error) {
+            status.textContent = error.message || Homey.__(errorKey);
+            status.scrollIntoView({block: 'nearest'});
+        } finally { get('fields').disabled = false; }
+    }
+    async function reload() {
+        const id = select.value;
+        const saved = [options.find(item => item.id === id), config.speaker];
+        options = await Homey.emit('list_playback_targets');
+        for (const item of saved) if (item && !options.some(option => option.id === item.id)) options.push(item);
+        render(id);
+    }
+    get('reload').onclick = () => perform(reload, 'targets.unavailable');
+    form.onsubmit = event => {
+        event.preventDefault();
+        const settings = {};
+        for (const [id, input] of controls) {
+            const value = input.type === 'checkbox' ? input.checked : input.valueAsNumber;
+            if (value !== config.settings[id]) settings[id] = value;
+        }
+        perform(async () => {
+            await Homey.emit('save_player_setup', {settings, speaker: select.value || null});
+            if (config.next) await Homey.showView(config.next);
+            else await Homey.done();
+        }, 'targets.apply_failed');
+    };
+    await perform(reload, 'targets.unavailable');
+})();
+</script>

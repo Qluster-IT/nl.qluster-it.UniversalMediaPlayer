@@ -1,0 +1,13 @@
+{
+  "speaker": "Enceinte de lecture",
+  "default_speaker": "Enceinte de lecture par défaut",
+  "flow_only": "Utiliser uniquement les Flows",
+  "device_default": "Utiliser le réglage de l’appareil",
+  "reload": "Recharger les enceintes",
+  "continue": "Continuer",
+  "save": "Enregistrer",
+  "unavailable": "La recherche d’enceintes est indisponible.",
+  "invalid": "Sélectionnez une enceinte ou un groupe dans la liste.",
+  "apply_failed": "Impossible de changer l’enceinte de lecture.",
+  "invalid_settings": "Vérifiez les réglages du lecteur."
+}

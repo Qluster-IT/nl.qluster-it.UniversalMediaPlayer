@@ -1,0 +1,13 @@
+{
+  "speaker": "Altoparlante di riproduzione",
+  "default_speaker": "Altoparlante predefinito",
+  "flow_only": "Usa solo i Flow",
+  "device_default": "Usa il valore predefinito del dispositivo",
+  "reload": "Ricarica gli altoparlanti",
+  "continue": "Continua",
+  "save": "Salva",
+  "unavailable": "La ricerca degli altoparlanti non è disponibile.",
+  "invalid": "Seleziona un altoparlante o un gruppo dall’elenco.",
+  "apply_failed": "Impossibile cambiare l’altoparlante di riproduzione.",
+  "invalid_settings": "Controlla le impostazioni del lettore."
+}

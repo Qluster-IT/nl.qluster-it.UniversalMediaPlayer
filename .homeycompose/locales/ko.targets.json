@@ -1,0 +1,13 @@
+{
+  "speaker": "재생 스피커",
+  "default_speaker": "기본 재생 스피커",
+  "flow_only": "Flow만 사용",
+  "device_default": "기기 기본값 사용",
+  "reload": "스피커 목록 새로 고침",
+  "continue": "계속",
+  "save": "저장",
+  "unavailable": "스피커를 검색할 수 없습니다.",
+  "invalid": "목록에서 스피커 또는 그룹을 선택하세요.",
+  "apply_failed": "재생 스피커를 변경할 수 없습니다.",
+  "invalid_settings": "플레이어 설정을 확인하세요."
+}

@@ -1,0 +1,12 @@
+{
+  "stereo": "Stereo",
+  "left": "Lewy",
+  "right": "Prawy",
+  "all": "Wszystkie głośniki",
+  "all_help": "Wszystkie obecnie wykrywalne głośniki",
+  "saved_group": "Zapisana grupa głośników",
+  "all_no_tvs": "Wszystkie głośniki (bez telewizorów)",
+  "all_no_tvs_help": "Pomiń rozpoznane telewizory i odbiorniki Cast wideo",
+  "all_no_tv_speakers": "Wszystkie głośniki (bez telewizorów i głośników TV)",
+  "all_no_tv_speakers_help": "Pomiń także rozpoznane soundbary i głośniki kina domowego"
+}

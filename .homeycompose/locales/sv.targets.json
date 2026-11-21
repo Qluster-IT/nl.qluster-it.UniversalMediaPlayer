@@ -1,0 +1,13 @@
+{
+  "speaker": "Uppspelningshögtalare",
+  "default_speaker": "Standardhögtalare",
+  "flow_only": "Använd bara Flows",
+  "device_default": "Använd enhetens standard",
+  "reload": "Läs in högtalare igen",
+  "continue": "Fortsätt",
+  "save": "Spara",
+  "unavailable": "Det går inte att söka efter högtalare.",
+  "invalid": "Välj en högtalare eller grupp i listan.",
+  "apply_failed": "Det gick inte att byta uppspelningshögtalare.",
+  "invalid_settings": "Kontrollera spelarens inställningar."
+}

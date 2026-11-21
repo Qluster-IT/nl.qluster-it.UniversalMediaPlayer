@@ -1,0 +1,250 @@
+{
+  "title": {
+    "en": "Play a notification sound",
+    "nl": "Speel een meldingsgeluid af",
+    "de": "Einen Benachrichtigungston abspielen",
+    "fr": "Jouer un son de notification",
+    "it": "Riproduci un suono di notifica",
+    "es": "Reproducir un sonido de notificación",
+    "da": "Afspil en notifikationslyd",
+    "no": "Spill av en varslingslyd",
+    "sv": "Spela upp ett aviseringsljud",
+    "pl": "Odtwórz dźwięk powiadomienia",
+    "ru": "Воспроизвести звук уведомления",
+    "ko": "알림 소리 재생",
+    "ar": "شغّل صوت إشعار"
+  },
+  "titleFormatted": {
+    "en": "Play [[file]] as a notification sound on [[speaker]], volume [[volume]]%, Sonos: [[sonos_mode]], then [[completion]]",
+    "nl": "Speel [[file]] af als meldingsgeluid op [[speaker]], volume [[volume]]%, Sonos: [[sonos_mode]], daarna [[completion]]",
+    "de": "[[file]] als Benachrichtigungston auf [[speaker]] abspielen, Lautstärke [[volume]]%, Sonos: [[sonos_mode]], danach [[completion]]",
+    "fr": "Jouer [[file]] comme son de notification sur [[speaker]], volume [[volume]] %, Sonos : [[sonos_mode]], puis [[completion]]",
+    "it": "Riproduci [[file]] come suono di notifica su [[speaker]], volume [[volume]]%, Sonos: [[sonos_mode]], poi [[completion]]",
+    "es": "Reproducir [[file]] como sonido de notificación en [[speaker]], volumen [[volume]]%, Sonos: [[sonos_mode]], luego [[completion]]",
+    "da": "Afspil [[file]] som notifikationslyd på [[speaker]], lydstyrke [[volume]]%, Sonos: [[sonos_mode]], derefter [[completion]]",
+    "no": "Spill av [[file]] som varslingslyd på [[speaker]], volum [[volume]]%, Sonos: [[sonos_mode]], deretter [[completion]]",
+    "sv": "Spela upp [[file]] som aviseringsljud på [[speaker]], volym [[volume]]%, Sonos: [[sonos_mode]], sedan [[completion]]",
+    "pl": "Odtwórz [[file]] jako dźwięk powiadomienia na [[speaker]], głośność [[volume]]%, Sonos: [[sonos_mode]], następnie [[completion]]",
+    "ru": "Воспроизвести [[file]] как звук уведомления на [[speaker]], громкость [[volume]]%, Sonos: [[sonos_mode]], затем [[completion]]",
+    "ko": "[[speaker]]에서 [[file]]을(를) 알림 소리로 재생, 볼륨 [[volume]]%, Sonos: [[sonos_mode]], 이후 [[completion]]",
+    "ar": "شغّل [[file]] كصوت إشعار على [[speaker]]، مستوى الصوت [[volume]]%، Sonos: [[sonos_mode]]، ثم [[completion]]"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=upnpplayer"
+    },
+    {
+      "name": "file",
+      "type": "autocomplete",
+      "title": {
+        "en": "File",
+        "nl": "Bestand",
+        "de": "Datei",
+        "fr": "Fichier",
+        "it": "File",
+        "es": "Archivo",
+        "da": "Fil",
+        "no": "Fil",
+        "sv": "Fil",
+        "pl": "Plik",
+        "ru": "Файл",
+        "ko": "파일",
+        "ar": "الملف"
+      }
+    },
+    {
+      "name": "speaker",
+      "type": "autocomplete",
+      "required": false,
+      "title": {
+        "en": "Speaker",
+        "nl": "Luidspreker",
+        "de": "Lautsprecher",
+        "fr": "Enceinte",
+        "it": "Altoparlante",
+        "es": "Altavoz",
+        "da": "Højttaler",
+        "no": "Høyttaler",
+        "sv": "Högtalare",
+        "pl": "Głośnik",
+        "ru": "Колонка",
+        "ko": "스피커",
+        "ar": "مكبر الصوت"
+      }
+    },
+    {
+      "name": "volume",
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 100,
+      "decimals": 0,
+      "title": {
+        "en": "Speaker volume (%)",
+        "nl": "Luidsprekervolume (%)",
+        "de": "Lautsprecherlautstärke (%)",
+        "fr": "Volume de l’enceinte (%)",
+        "it": "Volume altoparlante (%)",
+        "es": "Volumen del altavoz (%)",
+        "da": "Højttalerens lydstyrke (%)",
+        "no": "Høyttalervolum (%)",
+        "sv": "Högtalarvolym (%)",
+        "pl": "Głośność głośnika (%)",
+        "ru": "Громкость колонки (%)",
+        "ko": "스피커 볼륨 (%)",
+        "ar": "مستوى صوت مكبر الصوت (%)"
+      }
+    },
+    {
+      "name": "sonos_mode",
+      "type": "dropdown",
+      "required": false,
+      "title": {
+        "en": "Use device default",
+        "nl": "Gebruik apparaatstandaard",
+        "da": "Brug enhedsstandard",
+        "de": "Gerätestandard verwenden",
+        "es": "Usar el valor del dispositivo",
+        "fr": "Utiliser le réglage de l’appareil",
+        "it": "Usa il valore del dispositivo",
+        "no": "Bruk enhetsstandard",
+        "sv": "Använd enhetens standard",
+        "pl": "Użyj ustawienia urządzenia",
+        "ru": "Использовать настройку устройства",
+        "ko": "기기 기본값 사용",
+        "ar": "استخدام إعداد الجهاز"
+      },
+      "values": [
+        {
+          "id": "default",
+          "label": {
+            "en": "Use device default",
+            "nl": "Gebruik apparaatstandaard",
+            "da": "Brug enhedsstandard",
+            "de": "Gerätestandard verwenden",
+            "es": "Usar el valor del dispositivo",
+            "fr": "Utiliser le réglage de l’appareil",
+            "it": "Usa il valore del dispositivo",
+            "no": "Bruk enhetsstandard",
+            "sv": "Använd enhetens standard",
+            "pl": "Użyj ustawienia urządzenia",
+            "ru": "Использовать настройку устройства",
+            "ko": "기기 기본값 사용",
+            "ar": "استخدام إعداد الجهاز"
+          }
+        },
+        {
+          "id": "selected",
+          "label": {
+            "en": "Play Separately",
+            "nl": "Apart afspelen",
+            "da": "Afspil separat",
+            "de": "Getrennt abspielen",
+            "es": "Reproducir por separado",
+            "fr": "Lire séparément",
+            "it": "Riproduci separatamente",
+            "no": "Spill av separat",
+            "sv": "Spela separat",
+            "pl": "Odtwarzaj osobno",
+            "ru": "Воспроизводить отдельно",
+            "ko": "개별 재생",
+            "ar": "تشغيل منفصل"
+          }
+        },
+        {
+          "id": "sync",
+          "label": {
+            "en": "Play in Sync",
+            "nl": "Synchroon afspelen",
+            "da": "Afspil synkront",
+            "de": "Synchron abspielen",
+            "es": "Reproducir en sincronía",
+            "fr": "Lecture synchronisée",
+            "it": "Riproduci in sincronia",
+            "no": "Spill av synkront",
+            "sv": "Spela synkront",
+            "pl": "Odtwarzaj synchronicznie",
+            "ru": "Воспроизводить синхронно",
+            "ko": "동기 재생",
+            "ar": "تشغيل متزامن"
+          }
+        }
+      ]
+    },
+    {
+      "name": "completion",
+      "type": "dropdown",
+      "required": false,
+      "title": {
+        "en": "Wait for completion",
+        "nl": "Wachten tot het klaar is",
+        "de": "Warten bis zum Ende",
+        "fr": "Attendre la fin",
+        "it": "Attendi la fine",
+        "es": "Esperar hasta terminar",
+        "da": "Vent til afspilningen er færdig",
+        "no": "Vent til avspillingen er ferdig",
+        "sv": "Vänta tills klart",
+        "pl": "Czekaj do końca",
+        "ru": "Дождаться завершения",
+        "ko": "완료까지 대기",
+        "ar": "الانتظار حتى الانتهاء"
+      },
+      "values": [
+        {
+          "id": "continue",
+          "label": {
+            "en": "Continue",
+            "nl": "Doorgaan",
+            "de": "Fortfahren",
+            "fr": "Continuer",
+            "it": "Continua",
+            "es": "Continuar",
+            "da": "Fortsæt",
+            "no": "Fortsett",
+            "sv": "Fortsätt",
+            "pl": "Kontynuuj",
+            "ru": "Продолжить",
+            "ko": "계속",
+            "ar": "متابعة"
+          }
+        },
+        {
+          "id": "wait",
+          "label": {
+            "en": "Wait for completion",
+            "nl": "Wachten tot het klaar is",
+            "de": "Warten bis zum Ende",
+            "fr": "Attendre la fin",
+            "it": "Attendi la fine",
+            "es": "Esperar hasta terminar",
+            "da": "Vent til afspilningen er færdig",
+            "no": "Vent til avspillingen er ferdig",
+            "sv": "Vänta tills klart",
+            "pl": "Czekaj do końca",
+            "ru": "Дождаться завершения",
+            "ko": "완료까지 대기",
+            "ar": "الانتظار حتى الانتهاء"
+          }
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "en": "For Sonos, Play Separately plays only in selected rooms without changing groups. Play in Sync temporarily groups the selected rooms and restores their original groups. Wait for completion continues the Flow after playback and restoration.",
+    "nl": "Bij Sonos speelt Apart afspelen alleen in de gekozen kamers zonder groepen te wijzigen. Synchroon afspelen groepeert de gekozen kamers tijdelijk en herstelt daarna de oorspronkelijke groepen. Wachten tot het klaar is laat de Flow doorgaan na het afspelen en herstellen.",
+    "de": "Bei Sonos spielt Getrennt abspielen den Ton nur in den gewählten Räumen ab, ohne Gruppen zu ändern. Synchron abspielen gruppiert die gewählten Räume vorübergehend und stellt anschließend die ursprünglichen Gruppen wieder her. Warten bis zum Ende setzt den Flow nach Wiedergabe und Wiederherstellung fort.",
+    "fr": "Sur Sonos, Lire séparément ne joue le son que dans les pièces sélectionnées, sans modifier les groupes. Lecture synchronisée regroupe temporairement les pièces sélectionnées, puis rétablit les groupes d’origine. Attendre la fin reprend le Flow après la lecture et la restauration.",
+    "it": "Per Sonos, Riproduci separatamente riproduce solo nelle stanze selezionate senza modificare i gruppi. Riproduci in sincronia raggruppa temporaneamente le stanze e ripristina i gruppi originali. Attendi la fine prosegue il Flow dopo la riproduzione e il ripristino.",
+    "es": "En Sonos, Reproducir por separado solo reproduce el sonido en las habitaciones seleccionadas sin cambiar los grupos. Reproducir en sincronía agrupa temporalmente las habitaciones seleccionadas y restaura sus grupos originales. Esperar hasta terminar continúa el Flow tras la reproducción y la restauración.",
+    "da": "På Sonos afspiller Afspil separat kun i de valgte rum uden at ændre grupperne. Afspil synkront grupperer de valgte rum midlertidigt og gendanner derefter deres oprindelige grupper. Vent til afspilningen er færdig fortsætter Flowet efter afspilning og gendannelse.",
+    "no": "På Sonos spiller Spill av separat bare i de valgte rommene uten å endre gruppene. Spill av synkront grupperer de valgte rommene midlertidig og gjenoppretter deretter de opprinnelige gruppene. Vent til avspillingen er ferdig fortsetter Flow etter avspilling og gjenoppretting.",
+    "sv": "På Sonos spelar Spela separat upp ljudet bara i de valda rummen utan att ändra grupperna. Spela synkront grupperar de valda rummen tillfälligt och återställer sedan deras ursprungliga grupper. Vänta tills klart fortsätter Flow efter uppspelning och återställning.",
+    "pl": "W Sonos opcja Odtwarzaj osobno odtwarza dźwięk tylko w wybranych pokojach bez zmiany grup. Odtwarzaj synchronicznie tymczasowo grupuje wybrane pokoje, a następnie przywraca pierwotne grupy. Czekaj do końca wznawia Flow po odtworzeniu i przywróceniu grup.",
+    "ru": "На Sonos режим «Воспроизводить отдельно» проигрывает звук только в выбранных комнатах, не меняя группы. Режим «Воспроизводить синхронно» временно объединяет выбранные комнаты, а затем восстанавливает исходные группы. Режим «Дождаться завершения» продолжает Flow после воспроизведения и восстановления.",
+    "ko": "Sonos에서 개별 재생은 그룹을 변경하지 않고 선택한 방에서만 소리를 재생합니다. 동기 재생은 선택한 방을 일시적으로 그룹화한 뒤 원래 그룹을 복원합니다. 완료까지 대기를 선택하면 재생과 복원이 끝난 후 Flow가 계속됩니다.",
+    "ar": "على Sonos، يشغّل خيار «تشغيل منفصل» الصوت في الغرف المحددة فقط دون تغيير المجموعات. يجمع خيار «تشغيل متزامن» الغرف المحددة مؤقتًا ثم يعيد مجموعاتها الأصلية. يتابع «الانتظار حتى الانتهاء» الـ Flow بعد التشغيل والاستعادة."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "speaker": "Głośnik do odtwarzania",
+  "default_speaker": "Domyślny głośnik",
+  "flow_only": "Używaj tylko Flow",
+  "device_default": "Użyj ustawienia domyślnego urządzenia",
+  "reload": "Wczytaj ponownie głośniki",
+  "continue": "Dalej",
+  "save": "Zapisz",
+  "unavailable": "Wyszukiwanie głośników jest niedostępne.",
+  "invalid": "Wybierz głośnik lub grupę z listy.",
+  "apply_failed": "Nie udało się zmienić głośnika do odtwarzania.",
+  "invalid_settings": "Sprawdź ustawienia odtwarzacza."
+}

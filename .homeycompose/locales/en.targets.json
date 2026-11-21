@@ -1,0 +1,13 @@
+{
+  "speaker": "Playback speaker",
+  "default_speaker": "Default playback speaker",
+  "flow_only": "Use Flows only",
+  "device_default": "Use device default",
+  "reload": "Reload speakers",
+  "continue": "Continue",
+  "save": "Save",
+  "unavailable": "Speaker discovery is unavailable.",
+  "invalid": "Select a speaker or group from the list.",
+  "apply_failed": "The playback speaker could not be changed.",
+  "invalid_settings": "Check the player settings."
+}

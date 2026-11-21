@@ -1,0 +1,13 @@
+{
+  "speaker": "Wiedergabelautsprecher",
+  "default_speaker": "Standardlautsprecher",
+  "flow_only": "Nur Flows verwenden",
+  "device_default": "Gerätestandard verwenden",
+  "reload": "Lautsprecher neu laden",
+  "continue": "Weiter",
+  "save": "Speichern",
+  "unavailable": "Die Lautsprechersuche ist nicht verfügbar.",
+  "invalid": "Wähle einen Lautsprecher oder eine Gruppe aus der Liste.",
+  "apply_failed": "Der Wiedergabelautsprecher konnte nicht geändert werden.",
+  "invalid_settings": "Überprüfe die Player-Einstellungen."
+}

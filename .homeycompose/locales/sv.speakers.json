@@ -1,0 +1,12 @@
+{
+  "stereo": "Stereo",
+  "left": "Vänster",
+  "right": "Höger",
+  "all": "Alla högtalare",
+  "all_help": "Alla högtalare som kan hittas just nu",
+  "saved_group": "Sparad högtalargrupp",
+  "all_no_tvs": "Alla högtalare (utan TV-apparater)",
+  "all_no_tvs_help": "Hoppa över identifierade TV-apparater och Cast-videoenheter",
+  "all_no_tv_speakers": "Alla högtalare (utan TV-apparater eller TV-högtalare)",
+  "all_no_tv_speakers_help": "Hoppa även över identifierade soundbars och hemmabiohögtalare"
+}

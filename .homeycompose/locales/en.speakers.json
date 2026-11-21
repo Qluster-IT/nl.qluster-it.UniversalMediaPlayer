@@ -1,0 +1,12 @@
+{
+  "stereo": "Stereo",
+  "left": "Left",
+  "right": "Right",
+  "all": "All speakers",
+  "all_help": "All currently discoverable speakers",
+  "saved_group": "Saved speaker group",
+  "all_no_tvs": "All speakers (no TVs)",
+  "all_no_tvs_help": "Skip recognized TVs and video Cast receivers",
+  "all_no_tv_speakers": "All speakers (no TVs or TV speakers)",
+  "all_no_tv_speakers_help": "Also skip recognized soundbars and home theater speakers"
+}
