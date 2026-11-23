@@ -43,10 +43,15 @@ class UPnPPlayerApp extends Homey.App {
 
     async _notifyReleaseFeatures() {
         const key = 'umpSpeakerPlaybackReleaseNoticeAttempted';
+        const translationKey = 'release.speaker_playback_notice';
         try {
             if (this.homey.settings.get(key)) return;
+            const excerpt = this.homey.__(translationKey);
+            if (typeof excerpt !== 'string' || !excerpt.trim() || excerpt === translationKey) {
+                throw new Error(`Missing translation: ${translationKey}`);
+            }
             await this.homey.settings.set(key, true);
-            await this.homey.notifications.createNotification({excerpt: this.homey.__('release.speaker_playback_notice')});
+            await this.homey.notifications.createNotification({excerpt});
         } catch (error) {
             this.error('Unable to deliver release notification:', error);
         }

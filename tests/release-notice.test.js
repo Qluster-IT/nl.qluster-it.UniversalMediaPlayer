@@ -26,7 +26,8 @@ test('release notice records its attempt before sending and is not retried on fa
     app.homey = {
         __: () => 'notice',
         settings: {get: () => stored, set: async () => { stored = true; }},
-        notifications: {createNotification: async () => {
+        notifications: {createNotification: async ({excerpt}) => {
+            assert.equal(excerpt, 'notice');
             assert.equal(stored, true);
             attempts++;
             throw new Error('Unavailable');
@@ -36,6 +37,25 @@ test('release notice records its attempt before sending and is not retried on fa
     await app._notifyReleaseFeatures();
     assert.equal(attempts, 1);
     assert.equal(errors.length, 1);
+});
+
+test('release notice does not consume its attempt when the translation is missing', async () => {
+    const App = loadApp();
+    const app = new App();
+    let stored = false;
+    let attempts = 0;
+    const errors = [];
+    app.error = (...args) => errors.push(args);
+    app.homey = {
+        __: key => key,
+        settings: {get: () => stored, set: async () => { stored = true; }},
+        notifications: {createNotification: async () => { attempts++; }}
+    };
+    await app._notifyReleaseFeatures();
+    assert.equal(stored, false);
+    assert.equal(attempts, 0);
+    assert.equal(errors.length, 1);
+    assert.match(errors[0][1].message, /Missing translation: release\.speaker_playback_notice/);
 });
 
 test('release notices exist without corrupted text in every supported language', () => {
