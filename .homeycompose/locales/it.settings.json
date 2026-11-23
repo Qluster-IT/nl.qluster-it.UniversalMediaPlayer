@@ -51,5 +51,12 @@
   "sonos_saved": "Modalità Sonos salvata.",
   "sonos_save_error": "Impossibile salvare la modalità Sonos.",
   "sonos_load_error": "Impossibile caricare la modalità Sonos.",
-  "group_ip_help": "Riserva indirizzi IP fissi per gli altoparlanti Sonos nel router. Con Riproduci separatamente, Homey può riutilizzare gli indirizzi noti anziché eseguire una scansione della rete, così gli annunci possono iniziare più rapidamente."
+  "group_ip_help": "Riserva indirizzi IP fissi per gli altoparlanti Sonos nel router. Con Riproduci separatamente, Homey può riutilizzare gli indirizzi noti anziché eseguire una scansione della rete, così gli annunci possono iniziare più rapidamente.",
+  "group_auto_power": "Accendi e spegni automaticamente",
+  "group_auto_power_help": "Per gli annunci: un televisore spento viene prima acceso e poi spento di nuovo.",
+  "auto_power": "Accensione automatica",
+  "auto_power_all": "Accendi e spegni automaticamente per Tutti gli altoparlanti",
+  "auto_power_help": "Solo per gli annunci. Un televisore spento viene prima acceso e poi spento di nuovo. I gruppi salvati e i dispositivi di riproduzione hanno una propria impostazione.",
+  "auto_power_saved": "Accensione automatica salvata.",
+  "auto_power_error": "Impossibile salvare l’accensione automatica."
 }

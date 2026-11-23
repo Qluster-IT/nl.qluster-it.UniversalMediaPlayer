@@ -1,0 +1,17 @@
+{
+  "unsupported": "Deze speaker ondersteunt deze actie nu niet.",
+  "unreachable": "De speaker is niet bereikbaar op het lokale netwerk.",
+  "tvPermission": "Sta Universal Media Player toe op de tv en probeer het opnieuw.",
+  "tvUnreachable": "De tv kan niet worden ingeschakeld. Controleer of hij met het netwerk is verbonden.",
+  "tvOff": "Zet de tv eerst aan.",
+  "inputs": {
+    "tv": "Tv (HDMI ARC / optisch)",
+    "line_in": "Line-in",
+    "queue": "Muziek (Sonos-wachtrij)",
+    "samsung_tv": "Tv",
+    "hdmi_1": "HDMI 1",
+    "hdmi_2": "HDMI 2",
+    "hdmi_3": "HDMI 3",
+    "hdmi_4": "HDMI 4"
+  }
+}

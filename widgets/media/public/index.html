@@ -39,12 +39,18 @@
       </button>
     </header>
     <section class="summary">
-      <div class="artwork" aria-hidden="true">
-        <svg ng-if="(!vm.artwork || vm.artFailed) && !vm.player.activeInput && !vm.player.television" viewBox="0 0 64 64"><path d="M25 42V18l26-5v24M25 25l26-5"/><ellipse cx="17" cy="45" rx="8" ry="6"/><ellipse cx="43" cy="40" rx="8" ry="6"/></svg>
-        <svg ng-if="vm.player.activeInput === 'tv' || (vm.player.television && (!vm.artwork || vm.artFailed))" viewBox="0 0 64 64"><rect x="7" y="12" width="50" height="34" rx="4"/><path d="M23 52h18m-9-6v6"/></svg>
-        <svg ng-if="vm.player.activeInput === 'lineIn'" viewBox="0 0 64 64"><path d="m22 41 16-16m-8-7 16 16M38 26l10-10m-3 17 10-10M21 39l7 7-7 7a7 7 0 0 1-10-10z"/></svg>
-        <img ng-if="vm.artwork && !vm.artFailed" ng-src="{{vm.artwork}}" alt="" media-artwork>
-      </div>
+      <button class="hy-nostyle artwork" type="button" ng-click="vm.toggleSpectrum()" ng-disabled="!vm.player || !vm.spectrumProfile"
+        ng-class="{'artwork-static': !vm.spectrumProfile}"
+        ng-attr-aria-pressed="{{vm.spectrumProfile ? vm.spectrum : undefined}}"
+        ng-attr-aria-label="{{vm.spectrumProfile ? (vm.spectrum ? vm.labels.showArtwork : vm.labels.showSpectrum) : undefined}}"
+        ng-attr-title="{{vm.spectrumProfile ? (vm.spectrumStatus() || (vm.spectrum ? vm.labels.showArtwork : vm.labels.showSpectrum)) : undefined}}">
+        <canvas ng-if="vm.spectrum" media-spectrum aria-hidden="true"></canvas>
+        <span class="spectrum-status" ng-if="vm.spectrum && vm.large && vm.spectrumStatus()" aria-hidden="true">{{vm.spectrumStatus()}}</span>
+        <svg ng-if="!vm.spectrum && (!vm.artwork || vm.artFailed) && !vm.player.activeInput && !vm.player.television" viewBox="0 0 64 64" aria-hidden="true"><path d="M25 42V18l26-5v24M25 25l26-5"/><ellipse cx="17" cy="45" rx="8" ry="6"/><ellipse cx="43" cy="40" rx="8" ry="6"/></svg>
+        <svg ng-if="!vm.spectrum && (vm.player.activeInput === 'tv' || (vm.player.television && (!vm.artwork || vm.artFailed)))" viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="12" width="50" height="34" rx="4"/><path d="M23 52h18m-9-6v6"/></svg>
+        <svg ng-if="!vm.spectrum && vm.player.activeInput === 'lineIn'" viewBox="0 0 64 64" aria-hidden="true"><path d="m22 41 16-16m-8-7 16 16M38 26l10-10m-3 17 10-10M21 39l7 7-7 7a7 7 0 0 1-10-10z"/></svg>
+        <img ng-if="!vm.spectrum && vm.artwork && !vm.artFailed" ng-src="{{vm.artwork}}" alt="" media-artwork>
+      </button>
       <div class="track-details">
         <h1 ng-if="vm.player.activeInput">{{vm.inputLabel()}}</h1>
         <p class="album" ng-if="vm.player.audioFormat" title="{{vm.player.audioFormat}}">{{vm.player.audioFormat}}</p>
@@ -120,7 +126,7 @@
     <p class="hint" role="status" ng-if="vm.stale && vm.player">{{vm.labels.stale}}</p>
     <p class="hint" ng-if="!vm.loading && !vm.playerId && !vm.speakerId">{{vm.labels.selectPlayer}}</p>
     <section class="library" ng-if="vm.playerId || vm.speakerId">
-      <div class="library-tabs">
+      <div class="library-tabs" media-fit-labels>
         <button class="hy-nostyle library-button" type="button" ng-if="vm.canBrowse()" ng-click="vm.toggleBrowser()" ng-attr-aria-expanded="{{vm.browserOpen}}" aria-controls="media-library" aria-label="{{vm.labels.library}}" title="{{vm.labels.library}}">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V5h6l2 2h10v12H3Z"/></svg>
           <span>{{vm.labels.library}}</span>
@@ -134,7 +140,7 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5v5h5M3.5 10a9 9 0 1 1 .8 7M12 7v5l3 2"/></svg>
           <span>{{vm.labels.recent}}</span>
         </button>
-        <button class="hy-nostyle library-button config-button" type="button" ng-if="!vm.speakerId || vm.player.protocol === 'sonos'" ng-click="vm.toggleConfig()"
+        <button class="hy-nostyle library-button config-button" type="button" ng-if="!vm.speakerId || vm.player.protocol === 'sonos' || vm.player.television" ng-click="vm.toggleConfig()"
           ng-attr-aria-expanded="{{!!vm.configOpen}}" aria-controls="media-config"
           aria-label="{{vm.labels.config}}" title="{{vm.labels.config}}">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 3-.6 2.4-1.6.9-2.4-.7-2 3.4 1.8 1.7v2.6l-1.8 1.7 2 3.4 2.4-.7 1.6.9.6 2.4h4l.6-2.4 1.6-.9 2.4.7 2-3.4-1.8-1.7v-2.6l1.8-1.7-2-3.4-2.4.7-1.6-.9L14 3Z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -205,6 +211,24 @@
             </button>
           </li>
         </ul>
+      <section ng-if="vm.configOpen && vm.hasDeviceControls()" class="device-controls" aria-label="{{vm.labels.deviceInput}}">
+        <ul class="library-list">
+          <li class="sleep-controls" ng-if="vm.device.power">
+            <span>{{vm.labels.devicePower}}</span>
+            <button type="button" class="hy-nostyle library-button" ng-disabled="vm.disabled() || vm.deviceBusy"
+              ng-click="vm.togglePower()" ng-attr-aria-pressed="{{vm.device.power.on === true}}">
+              {{vm.device.power.on === false ? vm.labels.powerOn : vm.labels.powerOff}}</button>
+          </li>
+          <li class="sleep-controls" ng-if="vm.device.inputs.length">
+            <label for="device-input">{{vm.labels.deviceInput}}</label>
+            <select id="device-input" class="hy-nostyle library-button" ng-model="vm.device.input" ng-change="vm.setInput(vm.device.input)"
+              ng-disabled="vm.disabled() || vm.deviceBusy || vm.device.locked"
+              ng-options="item.id as item.title for item in vm.device.inputs">
+              <option value="" disabled>—</option>
+            </select>
+          </li>
+        </ul>
+      </section>
       <section ng-if="vm.configOpen && vm.roomTarget() && vm.roomsSupported !== false" aria-labelledby="room-heading">
         <h2 class="library-title" id="room-heading">{{vm.labels.groupRooms}}</h2>
         <p class="hint" ng-if="vm.roomsLoading && !vm.rooms.length" role="status">{{vm.labels.loading}}</p>
@@ -310,6 +334,7 @@
     </dialog>
   </main>
   <script src="../../assets/js/angular.min.js"></script>
+  <script src="../../assets/js/media-spectrum.js"></script>
   <script src="../../assets/js/media-widget.js"></script>
 </body>
 </html>

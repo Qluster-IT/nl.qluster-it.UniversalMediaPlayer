@@ -66,6 +66,10 @@
     "tvFrame": "The Frame",
     "tvVoice": "Spraakbediening",
     "tvGamepad": "Gamepadondersteuning",
+    "showSpectrum": "Spectrum tonen",
+    "showArtwork": "Albumhoes tonen",
+    "spectrumUnavailable": "Spectrum niet beschikbaar voor dit nummer",
+    "spectrumLoading": "Spectrum laden…",
     "close": "Sluiten",
     "stale": "Verbinding verbroken. De laatst bekende status wordt getoond.",
     "loading": "Laden...",
@@ -97,7 +101,7 @@
     "next": "Volgende",
     "repeat": "Afspeellijst herhalen",
     "startFlow": "Start eerst een bestand of map via een Flow.",
-    "noPlayers": "Voeg een UPnP-speler toe om deze widget te gebruiken.",
+    "noPlayers": "Voeg een mediaserver toe om deze widget te gebruiken.",
     "retry": "Opnieuw proberen",
     "loadError": "Kan de speler niet laden. Controleer de verbinding en probeer het opnieuw.",
     "controlError": "De actie is mislukt. Controleer de speler en de afspeel-Flows en probeer het opnieuw.",
@@ -110,6 +114,10 @@
     "emptyFolder": "Geen afspeelbare bestanden in deze map.",
     "more": "Meer laden",
     "pause": "Pauzeren",
-    "paused": "Gepauzeerd"
+    "paused": "Gepauzeerd",
+    "deviceInput": "Ingang",
+    "devicePower": "Aan/uit",
+    "powerOn": "Inschakelen",
+    "powerOff": "Uitschakelen"
   }
 }

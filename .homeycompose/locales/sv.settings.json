@@ -51,5 +51,12 @@
   "sonos_saved": "Sonos-läget sparades.",
   "sonos_save_error": "Det gick inte att spara Sonos-läget.",
   "sonos_load_error": "Det gick inte att läsa in Sonos-läget.",
-  "group_ip_help": "Reservera fasta IP-adresser för Sonos-högtalarna i routern. Med Spela separat kan Homey återanvända kända adresser i stället för att söka i nätverket, så att meddelanden kan starta snabbare."
+  "group_ip_help": "Reservera fasta IP-adresser för Sonos-högtalarna i routern. Med Spela separat kan Homey återanvända kända adresser i stället för att söka i nätverket, så att meddelanden kan starta snabbare.",
+  "group_auto_power": "Slå på och stäng av automatiskt",
+  "group_auto_power_help": "För meddelanden: en tv som är avstängd slås först på och stängs sedan av igen.",
+  "auto_power": "Automatisk ström",
+  "auto_power_all": "Slå på och stäng av automatiskt för Alla högtalare",
+  "auto_power_help": "Endast för meddelanden. En tv som är avstängd slås först på och stängs sedan av igen. Sparade grupper och uppspelningsenheter har en egen inställning.",
+  "auto_power_saved": "Automatisk ström sparad.",
+  "auto_power_error": "Det gick inte att spara automatisk ström."
 }

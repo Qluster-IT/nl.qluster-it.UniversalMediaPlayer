@@ -36,7 +36,7 @@
     "next": "Weiter",
     "repeat": "Wiedergabeliste wiederholen",
     "startFlow": "Starte zuerst eine Datei oder einen Ordner über einen Flow.",
-    "noPlayers": "Füge einen UPnP-Player hinzu, um dieses Widget zu nutzen.",
+    "noPlayers": "Füge einen Medienserver hinzu, um dieses Widget zu nutzen.",
     "retry": "Erneut versuchen",
     "loadError": "Player konnte nicht geladen werden. Prüfe die Verbindung und versuche es erneut.",
     "controlError": "Aktion fehlgeschlagen. Prüfe den Player und seine Wiedergabe-Flows und versuche es erneut.",
@@ -110,7 +110,15 @@
     "tvFirmware": "Firmware",
     "tvFrame": "The Frame",
     "tvVoice": "Sprachsteuerung",
-    "tvGamepad": "Gamepad-Unterstützung"
+    "tvGamepad": "Gamepad-Unterstützung",
+    "showSpectrum": "Spektrum anzeigen",
+    "showArtwork": "Albumcover anzeigen",
+    "spectrumUnavailable": "Spektrum für diesen Titel nicht verfügbar",
+    "spectrumLoading": "Spektrum wird geladen …",
+    "deviceInput": "Eingang",
+    "devicePower": "Ein/Aus",
+    "powerOn": "Einschalten",
+    "powerOff": "Ausschalten"
   },
   "settings": {
     "settings_title": "Einstellungen für Universal Media Player",
@@ -165,7 +173,14 @@
     "sonos_saved": "Sonos-Modus gespeichert.",
     "sonos_save_error": "Sonos-Modus konnte nicht gespeichert werden.",
     "sonos_load_error": "Sonos-Modus konnte nicht geladen werden.",
-    "group_ip_help": "Reserviere feste IP-Adressen für deine Sonos-Lautsprecher im Router. Bei Getrennt abspielen kann Homey bekannte Adressen wiederverwenden, statt das Netzwerk zu durchsuchen. So starten Durchsagen schneller."
+    "group_ip_help": "Reserviere feste IP-Adressen für deine Sonos-Lautsprecher im Router. Bei Getrennt abspielen kann Homey bekannte Adressen wiederverwenden, statt das Netzwerk zu durchsuchen. So starten Durchsagen schneller.",
+    "group_auto_power": "Automatisch ein- und ausschalten",
+    "group_auto_power_help": "Für Durchsagen: Ein ausgeschalteter Fernseher wird zuerst eingeschaltet und danach wieder ausgeschaltet.",
+    "auto_power": "Automatisches Ein/Aus",
+    "auto_power_all": "Für Alle Lautsprecher automatisch ein- und ausschalten",
+    "auto_power_help": "Nur für Durchsagen. Ein ausgeschalteter Fernseher wird zuerst eingeschaltet und danach wieder ausgeschaltet. Gespeicherte Gruppen und Wiedergabegeräte haben eine eigene Einstellung.",
+    "auto_power_saved": "Automatisches Ein/Aus gespeichert.",
+    "auto_power_error": "Automatisches Ein/Aus konnte nicht gespeichert werden."
   },
   "speakers": {
     "stereo": "Stereo",
@@ -194,5 +209,22 @@
   },
   "release": {
     "speaker_playback_notice": "Spiele direkt auf Sonos, Google Cast und kompatiblen UPnP/DLNA-Lautsprechern oder gespeicherten Lautsprechergruppen ab. Steuere die Wiedergabe, durchsuche die Mediathek und wähle einen Lautsprecher im Mediaplayer-Widget auf dem Dashboard. Die Anleitung findest du im Wiki, Hilfe im Universal Media Player-Thema im Community-Forum."
+  },
+  "speakerDevice": {
+    "unsupported": "Dieser Lautsprecher unterstützt diese Aktion derzeit nicht.",
+    "unreachable": "Der Lautsprecher ist im lokalen Netzwerk nicht erreichbar.",
+    "tvPermission": "Erlaube Universal Media Player auf dem Fernseher und versuche es erneut.",
+    "tvUnreachable": "Der Fernseher kann nicht eingeschaltet werden. Prüfe, ob er mit dem Netzwerk verbunden ist.",
+    "tvOff": "Schalte zuerst den Fernseher ein.",
+    "inputs": {
+      "tv": "TV (HDMI ARC / optisch)",
+      "line_in": "Line-In",
+      "queue": "Musik (Sonos-Warteschlange)",
+      "samsung_tv": "TV",
+      "hdmi_1": "HDMI 1",
+      "hdmi_2": "HDMI 2",
+      "hdmi_3": "HDMI 3",
+      "hdmi_4": "HDMI 4"
+    }
   }
 }

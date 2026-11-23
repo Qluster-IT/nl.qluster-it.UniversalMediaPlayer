@@ -36,7 +36,7 @@
     "next": "Nästa",
     "repeat": "Upprepa spellistan",
     "startFlow": "Starta först en fil eller mapp via ett Flow.",
-    "noPlayers": "Lägg till en UPnP-spelare för att använda widgeten.",
+    "noPlayers": "Lägg till en mediaserver för att använda widgeten.",
     "retry": "Försök igen",
     "loadError": "Det gick inte att läsa in spelaren. Kontrollera anslutningen och försök igen.",
     "controlError": "Åtgärden misslyckades. Kontrollera spelaren och dess uppspelnings-Flows och försök igen.",
@@ -110,7 +110,15 @@
     "tvFirmware": "Fast programvara",
     "tvFrame": "The Frame",
     "tvVoice": "Röststyrning",
-    "tvGamepad": "Stöd för spelkontroll"
+    "tvGamepad": "Stöd för spelkontroll",
+    "showSpectrum": "Visa spektrum",
+    "showArtwork": "Visa skivomslag",
+    "spectrumUnavailable": "Spektrum är inte tillgängligt för det här spåret",
+    "spectrumLoading": "Läser in spektrum …",
+    "deviceInput": "Ingång",
+    "devicePower": "Ström",
+    "powerOn": "Slå på",
+    "powerOff": "Stäng av"
   },
   "settings": {
     "settings_title": "Inställningar för Universal Media Player",
@@ -165,7 +173,14 @@
     "sonos_saved": "Sonos-läget sparades.",
     "sonos_save_error": "Det gick inte att spara Sonos-läget.",
     "sonos_load_error": "Det gick inte att läsa in Sonos-läget.",
-    "group_ip_help": "Reservera fasta IP-adresser för Sonos-högtalarna i routern. Med Spela separat kan Homey återanvända kända adresser i stället för att söka i nätverket, så att meddelanden kan starta snabbare."
+    "group_ip_help": "Reservera fasta IP-adresser för Sonos-högtalarna i routern. Med Spela separat kan Homey återanvända kända adresser i stället för att söka i nätverket, så att meddelanden kan starta snabbare.",
+    "group_auto_power": "Slå på och stäng av automatiskt",
+    "group_auto_power_help": "För meddelanden: en tv som är avstängd slås först på och stängs sedan av igen.",
+    "auto_power": "Automatisk ström",
+    "auto_power_all": "Slå på och stäng av automatiskt för Alla högtalare",
+    "auto_power_help": "Endast för meddelanden. En tv som är avstängd slås först på och stängs sedan av igen. Sparade grupper och uppspelningsenheter har en egen inställning.",
+    "auto_power_saved": "Automatisk ström sparad.",
+    "auto_power_error": "Det gick inte att spara automatisk ström."
   },
   "speakers": {
     "stereo": "Stereo",
@@ -194,5 +209,22 @@
   },
   "release": {
     "speaker_playback_notice": "Spela upp direkt på Sonos, Google Cast och kompatibla UPnP/DLNA-högtalare eller sparade högtalargrupper. Styr uppspelningen, bläddra i biblioteket och välj en högtalare via widgeten Mediespelare på instrumentpanelen. Se wikin för handboken och ämnet Universal Media Player på communityforumet för hjälp."
+  },
+  "speakerDevice": {
+    "unsupported": "Den här högtalaren stöder inte den här åtgärden just nu.",
+    "unreachable": "Högtalaren kan inte nås i det lokala nätverket.",
+    "tvPermission": "Tillåt Universal Media Player på tv:n och försök igen.",
+    "tvUnreachable": "Tv:n kan inte slås på. Kontrollera att den är ansluten till nätverket.",
+    "tvOff": "Slå på tv:n först.",
+    "inputs": {
+      "tv": "TV (HDMI ARC / optisk)",
+      "line_in": "Linjeingång",
+      "queue": "Musik (Sonos-kö)",
+      "samsung_tv": "TV",
+      "hdmi_1": "HDMI 1",
+      "hdmi_2": "HDMI 2",
+      "hdmi_3": "HDMI 3",
+      "hdmi_4": "HDMI 4"
+    }
   }
 }

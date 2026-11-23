@@ -1,0 +1,17 @@
+{
+  "unsupported": "Dieser Lautsprecher unterstützt diese Aktion derzeit nicht.",
+  "unreachable": "Der Lautsprecher ist im lokalen Netzwerk nicht erreichbar.",
+  "tvPermission": "Erlaube Universal Media Player auf dem Fernseher und versuche es erneut.",
+  "tvUnreachable": "Der Fernseher kann nicht eingeschaltet werden. Prüfe, ob er mit dem Netzwerk verbunden ist.",
+  "tvOff": "Schalte zuerst den Fernseher ein.",
+  "inputs": {
+    "tv": "TV (HDMI ARC / optisch)",
+    "line_in": "Line-In",
+    "queue": "Musik (Sonos-Warteschlange)",
+    "samsung_tv": "TV",
+    "hdmi_1": "HDMI 1",
+    "hdmi_2": "HDMI 2",
+    "hdmi_3": "HDMI 3",
+    "hdmi_4": "HDMI 4"
+  }
+}

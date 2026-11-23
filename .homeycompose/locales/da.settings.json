@@ -51,5 +51,12 @@
   "sonos_saved": "Sonos-tilstanden er gemt.",
   "sonos_save_error": "Sonos-tilstanden kunne ikke gemmes.",
   "sonos_load_error": "Sonos-tilstanden kunne ikke indlæses.",
-  "group_ip_help": "Reservér faste IP-adresser til dine Sonos-højttalere i routeren. Med Afspil separat kan Homey genbruge kendte adresser i stedet for at søge på netværket, så meddelelser kan starte hurtigere."
+  "group_ip_help": "Reservér faste IP-adresser til dine Sonos-højttalere i routeren. Med Afspil separat kan Homey genbruge kendte adresser i stedet for at søge på netværket, så meddelelser kan starte hurtigere.",
+  "group_auto_power": "Tænd og sluk automatisk",
+  "group_auto_power_help": "Til meddelelser: et slukket tv tændes først og slukkes igen bagefter.",
+  "auto_power": "Automatisk tænd/sluk",
+  "auto_power_all": "Tænd og sluk automatisk for Alle højttalere",
+  "auto_power_help": "Kun til meddelelser. Et slukket tv tændes først og slukkes igen bagefter. Gemte grupper og afspilningsenheder har deres egen indstilling.",
+  "auto_power_saved": "Automatisk tænd/sluk gemt.",
+  "auto_power_error": "Automatisk tænd/sluk kunne ikke gemmes."
 }

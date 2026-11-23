@@ -72,7 +72,7 @@ assert(Number.isInteger(rounds) && rounds >= 1 && rounds <= 10);
         } finally { await delay(200); }
     }
     try {
-        for (let round = 1; round <= rounds; round++) for (let index = 0; index < targets.length; index++) {
+        for (let round = 1; !process.argv.includes('--natural-only') && round <= rounds; round++) for (let index = 0; index < targets.length; index++) {
             const target = targets[index];
             const other = targets[(index + 1) % targets.length];
             await check(target, round, 'start-own-queue', async () => {
@@ -153,17 +153,20 @@ assert(Number.isInteger(rounds) && rounds >= 1 && rounds <= 10);
                 await control({speaker: other.id, action: 'stop'});
             });
         }
-        if (process.argv.includes('--natural-end')) {
+        if (process.argv.includes('--natural-end') || process.argv.includes('--natural-only')) {
             for (const action of ['playFile', 'playFrom']) {
                 for (const target of targets) {
                     await control({action: 'setTarget', value: target.id});
                     await control({action: 'stop'});
                     const started = (await load(action)).player;
                     assert(started.playing && started.duration === 226000, 'Natural-end fixture changed');
+                    console.log(JSON.stringify({target: target.name, operation: action + '-natural-start', ok: true}));
                 }
                 await delay(160000);
                 for (const target of targets) {
                     const running = (await state(target.id)).player;
+                    console.log(JSON.stringify({target: target.name, operation: action + '-natural-progress',
+                        playing: running?.playing, paused: running?.paused, position: running?.position}));
                     assert(running.playing && running.position >= 120000, target.name + ': playback stopped early while deselected');
                 }
                 await delay(70000);
@@ -183,6 +186,9 @@ assert(Number.isInteger(rounds) && rounds >= 1 && rounds <= 10);
                 });
             }
         }
+    } catch (error) {
+        console.error('Switching test failed before cleanup: ' + error.message);
+        throw error;
     } finally {
         const cleanupErrors = [];
         for (const target of targets) {

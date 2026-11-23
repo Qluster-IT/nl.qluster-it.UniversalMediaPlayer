@@ -108,11 +108,12 @@ test('Sonos controller follows existing groups, reads native queue and only edit
         directory: {endpoint: `${base}/${name}/directory`, service: 'urn:schemas-upnp-org:service:ContentDirectory:1'},
         properties: {endpoint: `${base}/${name}/properties`, service: 'urn:schemas-upnp-org:service:DeviceProperties:1'}
     }));
-    const homey = {__: key => key, app: {speakerPlayback: {
+    const homey = {__: key => key, app: {speakerUpdates: new EventEmitter(), speakerPlayback: {
         selectForControl: async ({id}) => rooms.find(room => room.id === id),
         listSpeakers: async () => rooms.map(({id, name}) => ({id, name}))
     }}};
     const kitchen = ID('kitchen');
+    const changed = () => homey.app.speakerUpdates.emit('speaker', kitchen);
     const state = await speaker.state(homey, kitchen);
     assert.deepEqual([state.name, state.coordinator, state.track, state.position, state.trackNumber, state.volume],
         ['kitchen', 'living', 'Track Two', 12000, 2, 0.22]);
@@ -121,11 +122,19 @@ test('Sonos controller follows existing groups, reads native queue and only edit
     assert(calls.every(call => call.action.startsWith('Get')));
     assert.equal(state.artwork, `${base}/cover.png`);
     assert(!calls.some(call => call.action === 'GetZoneInfo'));
+
+    // A Playback Device and open widgets reuse one fresh read until the speaker reports a change.
+    const reads = calls.length;
+    assert.equal(await speaker.state(homey, kitchen), state);
+    assert.equal(calls.length, reads);
+    changed();
     homey.app.speakerArtwork = {host: async () => { throw new Error('Artwork service unavailable'); }};
     assert.equal((await speaker.state(homey, kitchen)).artwork, `${base}/cover.png`);
+    assert(calls.length > reads);
     delete homey.app.speakerArtwork;
 
     currentUri = 'x-sonos-htastream:RINCON_LIVING:spdif';
+    changed();
     const tv = await speaker.state(homey, kitchen);
     assert.equal(tv.activeInput, 'tv');
     assert.equal(tv.audioFormat, 'Dolby Digital 5.1');
@@ -140,10 +149,12 @@ test('Sonos controller follows existing groups, reads native queue and only edit
 
     currentUri = '';
     trackUri = 'x-rincon-stream:RINCON_LIVING';
+    changed();
     assert.equal((await speaker.state(homey, kitchen)).activeInput, 'lineIn');
 
     // The active queue URI takes precedence over stale track information.
     currentUri = queueUri;
+    changed();
     const music = await speaker.state(homey, kitchen);
     assert.equal(music.activeInput, null);
     assert.equal(music.track, 'Track Two');
@@ -281,4 +292,143 @@ test('Cast speaker mode reads an existing app and disconnects without launching 
         assert.deepEqual(packets, ['GET_STATUS', 'GET_STATUS']);
         await speaker.control(homey, {speaker: target.id, action: 'next'});
         assert.deepEqual(packets.filter(type => type !== 'GET_STATUS'), ['QUEUE_UPDATE']);
+});
+
+test('UMP playback through a Sonos group lets its own widget add and remove rooms', async t => {
+    const DirectSpeakerSession = require('../lib/direct-speaker-session');
+    const {topology, roomGroup, abandonOwnership, isOwned} = DirectSpeakerSession.controller;
+    let patio = false;
+    const calls = [];
+    const member = name => `<ZoneGroupMember UUID="RINCON_${name.toUpperCase()}"/>`;
+    const group = (name, members) =>
+        `<ZoneGroup Coordinator="RINCON_${name.toUpperCase()}">${members.map(member).join('')}</ZoneGroup>`;
+    const server = http.createServer(async (req, res) => {
+        for await (const _chunk of req);
+        const action = req.headers.soapaction.split('#')[1].slice(0, -1);
+        calls.push({path: req.url, action});
+        const fields = {};
+        if (action === 'GetZoneGroupState') {
+            fields.ZoneGroupState = `<ZoneGroups>${group('living', ['living', 'kitchen', ...(patio ? ['patio'] : [])])}` +
+                `${patio ? '' : group('patio', ['patio'])}</ZoneGroups>`;
+        } else if (action === 'GetVolume') fields.CurrentVolume = '20';
+        else if (action === 'SetAVTransportURI') patio = true;
+        else if (action === 'BecomeCoordinatorOfStandaloneGroup') patio = false;
+        res.end(`<s:Envelope xmlns:s="urn:soap"><s:Body><${action}Response>` +
+            Object.entries(fields).map(([key, value]) => `<${key}>${escape(value)}</${key}>`).join('') +
+            `</${action}Response></s:Body></s:Envelope>`);
+    });
+    await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+    t.after(() => new Promise(resolve => server.close(resolve)));
+    const base = `http://127.0.0.1:${server.address().port}`;
+    const rooms = ['living', 'kitchen', 'patio'].map(name => ({
+        id: ID(name), name, protocol: 'sonos', endpoint: `${base}/${name}/transport`, service: AV,
+        topology: `${base}/topology`, rendering: {endpoint: `${base}/${name}/volume`, service: AV}
+    }));
+    const homey = {__: key => key, app: {speakerUpdates: new EventEmitter(), speakerPlayback: {
+        selectForControl: async ({id}) => rooms.find(room => room.id === id),
+        listSpeakers: async () => rooms.map(({id, name}) => ({id, name}))
+    }}};
+    const [living, kitchen] = rooms;
+    const playing = {uri: 'http://nas.test/song.mp3', state: 'PLAYING'};
+    const store = {directSpeakerSessionV1: {version: 1, selection: kitchen.id, units: [{
+        target: living, original: playing, expected: playing, group: roomGroup(await topology(living), living),
+        rooms: [living, kitchen], joins: [], volumes: [], loaded: true, levelRoom: kitchen.id
+    }]}};
+    const device = {getData: () => ({id: 'ump'}), getStoreValue: key => store[key],
+        setStoreValue: async (key, value) => { store[key] = value; }};
+    const session = new DirectSpeakerSession({playback: homey.app.speakerPlayback, device});
+    t.after(() => abandonOwnership('ump'));
+    await session.status();
+    const body = (action, value) => ({speaker: kitchen.id, action, value});
+    // Another playback, or a widget without the session, may not regroup the playing rooms.
+    await assert.rejects(speaker.control(homey, body('joinRoom', ID('patio'))), /invalidAction/);
+    const locked = await speaker.control(homey, {speaker: kitchen.id, action: 'listRooms'});
+    assert(!locked.rooms.find(room => room.id === ID('patio')).editable);
+    const listed = await speaker.control(homey, {speaker: kitchen.id, action: 'listRooms'}, true, 'ump');
+    assert.equal(listed.locked, false);
+    assert(listed.rooms.find(room => room.id === ID('patio')).editable);
+
+    const joined = await speaker.regroup(homey, body('joinRoom', ID('patio')), session);
+    assert(joined.rooms.find(room => room.id === ID('patio')).joined);
+    assert.equal(joined.roomCount, 3);
+    const unit = store.directSpeakerSessionV1.units[0];
+    assert.deepEqual(unit.rooms.map(room => room.name), ['living', 'kitchen', 'patio']);
+    assert.equal(unit.group.members.length, 3);
+    assert(isOwned(rooms[2]));
+    assert(calls.filter(call => call.path.startsWith('/living/')).every(call => call.action.startsWith('Get')));
+
+    // The session now expects the new membership, so the next change passes its topology check.
+    const left = await speaker.regroup(homey, body('leaveRoom', ID('patio')), session);
+    assert(!left.rooms.find(room => room.id === ID('patio')).joined);
+    assert.deepEqual(store.directSpeakerSessionV1.units[0].rooms.map(room => room.name), ['living', 'kitchen']);
+    assert(!isOwned(rooms[2]));
+    await assert.rejects(speaker.regroup(homey, body('leaveRoom', ID('living')), session), /invalidAction/);
+});
+
+
+test('Sonos soundbar inputs are listed, switched to TV and locked during UMP playback', async t => {
+    const DirectSpeakerSession = require('../lib/direct-speaker-session');
+    const {abandonOwnership} = DirectSpeakerSession.controller;
+    let currentUri = 'x-rincon-queue:RINCON_TVBAR#0';
+    const calls = [];
+    const server = http.createServer(async (req, res) => {
+        let body = '';
+        for await (const chunk of req) body += chunk;
+        const action = req.headers.soapaction.split('#')[1].slice(0, -1);
+        calls.push({path: req.url, action, body});
+        const fields = {};
+        if (action === 'GetZoneGroupState') {
+            fields.ZoneGroupState = '<ZoneGroups><ZoneGroup Coordinator="RINCON_TVBAR"><ZoneGroupMember UUID="RINCON_TVBAR"/></ZoneGroup></ZoneGroups>';
+        } else if (action === 'GetMediaInfo') Object.assign(fields, {CurrentURI: currentUri, NrTracks: '0'});
+        else if (action === 'GetTransportInfo') fields.CurrentTransportState = 'STOPPED';
+        else if (action === 'GetPositionInfo') fields.TrackURI = '';
+        else if (action === 'SetAVTransportURI') currentUri = /<CurrentURI>([^<]*)</.exec(body)[1];
+        res.end(`<s:Envelope xmlns:s="urn:soap"><s:Body><${action}Response>` +
+            Object.entries(fields).map(([key, value]) => `<${key}>${escape(value)}</${key}>`).join('') +
+            `</${action}Response></s:Body></s:Envelope>`);
+    });
+    await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+    t.after(() => new Promise(resolve => server.close(resolve)));
+    const base = `http://127.0.0.1:${server.address().port}`;
+    const tvbar = {id: ID('tvbar'), name: 'TV Bar', protocol: 'sonos', kind: 'tvSpeaker', model: 'Sonos Beam',
+        endpoint: `${base}/tvbar/transport`, service: AV, topology: `${base}/topology`};
+    const homey = {__: key => key, drivers: {getDriver: () => ({getDevices: () => []})},
+        app: {speakerUpdates: new EventEmitter(), speakerPlayback: {selectForControl: async () => tvbar}}};
+    const control = (action, value) => widget.control({homey, body: {speaker: tvbar.id, action, value}});
+
+    const listed = await control('deviceControls');
+    assert.deepEqual(listed.inputs.map(item => item.id), ['tv', 'queue']);
+    assert.equal(listed.input, 'queue');
+    assert.equal(listed.power, null);
+    await assert.rejects(control('setInput', 'line_in'), /invalidAction/);
+    assert(!calls.some(call => call.action === 'SetAVTransportURI'));
+
+    const switched = await control('setInput', 'tv');
+    assert.equal(switched.input, 'tv');
+    const write = calls.find(call => call.action === 'SetAVTransportURI');
+    assert.equal(write.path, '/tvbar/transport');
+    assert.match(write.body, /<CurrentURI>x-sonos-htastream:RINCON_TVBAR:spdif<\/CurrentURI>/);
+    // An empty Sonos queue is selected without trying to play it.
+    await control('setInput', 'queue');
+    assert(!calls.some(call => call.action === 'Play'));
+
+    const playing = {uri: 'http://nas.test/song.mp3', state: 'PLAYING'};
+    const store = {directSpeakerSessionV1: {version: 1, selection: tvbar.id, units: [{target: tvbar, original: playing,
+        expected: playing, rooms: [tvbar], joins: [], volumes: [], loaded: true}]}};
+    const session = new DirectSpeakerSession({playback: homey.app.speakerPlayback, device: {getData: () => ({id: 'other-ump'}),
+        getStoreValue: key => store[key], setStoreValue: async (key, value) => { store[key] = value; }}});
+    t.after(() => abandonOwnership('other-ump'));
+    await session.status();
+    assert.equal((await control('deviceControls')).locked, true);
+    const writes = calls.filter(call => call.action === 'SetAVTransportURI').length;
+    await assert.rejects(control('setInput', 'tv'), /invalidAction/);
+    const ownerDevice = {getData: () => ({id: 'other-ump'}), getAvailable: () => true, playlistManager: {},
+        getStoreValue: key => key === 'widgetPlaybackController' ? {widget: 'owner-widget'} : store[key]};
+    homey.drivers.getDriver = name => ({getDevices: () => name === 'upnpplayer' ? [ownerDevice] : []});
+    const fromWidget = (widgetId, action, value) => widget.control({homey, body: {speaker: tvbar.id, widget: widgetId, action, value}});
+    assert.equal((await fromWidget('other-widget', 'deviceControls')).locked, true);
+    await assert.rejects(fromWidget('other-widget', 'setInput', 'tv'), /invalidAction/);
+    assert.equal((await fromWidget('owner-widget', 'deviceControls')).locked, false);
+    assert.equal((await fromWidget('owner-widget', 'setInput', 'tv')).input, 'tv');
+    assert.equal(calls.filter(call => call.action === 'SetAVTransportURI').length, writes + 1);
 });

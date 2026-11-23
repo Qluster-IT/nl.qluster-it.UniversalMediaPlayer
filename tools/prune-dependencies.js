@@ -8,8 +8,11 @@ const root = path.resolve(__dirname, '..');
 const modules = path.join(root, 'node_modules');
 const removableFile = /(?:\.d\.[cm]?ts|\.[cm]?ts|\.map|\.md|\.markdown|\.min\.[cm]?js)$/i;
 const removableDirs = new Set(['example', 'examples', 'test', 'tests', '__tests__']);
-// Node entry points use protobufjs/src and xml2js/lib, not these alternate builds.
-const unused = ['protobufjs/dist', 'protobufjs/cli', 'xml2js/lib/xml2js.bc.js'];
+// Node entry points use protobufjs/src, node-fetch/lib/index.js and xml2js/lib, not these alternate builds.
+// castv2 parses its own .proto without imports, so protobufjs's descriptor extension and bundled Google types are unused.
+const unused = ['protobufjs/dist', 'protobufjs/cli', 'protobufjs/bin', 'protobufjs/ext', 'protobufjs/google',
+    'protobufjs/scripts', 'protobufjs/tsconfig.json', 'node-fetch/lib/index.es.js', 'node-fetch/lib/index.mjs',
+    'node-fetch/browser.js', 'xml2js/lib/xml2js.bc.js'];
 const dryRun = process.argv.includes('--dry-run');
 const stats = {files: 0, bytes: 0};
 const removed = new Set();

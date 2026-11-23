@@ -476,6 +476,8 @@ test('UPnP browse accepts string resources and relative artwork URLs', async () 
         assert.equal(files[0].url, 'http://example.test/track.mp3');
         assert.equal(files[0].albumUrl, 'http://192.0.2.1:1234/art.jpg');
         assert.equal(files[1].contentType, 'audio/flac');
+        assert.equal(files[1].protocolInfo, 'http-get:*:audio/flac:*');
+        assert.equal(files[0].protocolInfo, undefined);
         const picker = await server.browseById({id: '12', ids: '12', locations: ['Music'], search: 'folders'});
         assert.deepEqual(picker.map(({id, name, description, location}) => ({id, name, description, location})), [
             {id: 'Back', name: 'Terug :[0]', description: 'Blader door de bovenliggende map', location: undefined},

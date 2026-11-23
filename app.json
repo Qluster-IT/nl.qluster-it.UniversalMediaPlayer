@@ -1384,19 +1384,104 @@
   "drivers": [
     {
       "name": {
-        "en": "UPnP Player",
-        "nl": "UPnP-speler",
-        "de": "UPnP-Player",
-        "fr": "Lecteur UPnP",
-        "it": "Lettore UPnP",
-        "es": "Reproductor UPnP",
-        "da": "UPnP-afspiller",
-        "no": "UPnP-spiller",
-        "sv": "UPnP-spelare",
-        "pl": "Odtwarzacz UPnP",
-        "ru": "UPnP-плеер",
-        "ko": "UPnP 플레이어",
-        "ar": "مشغّل UPnP"
+        "en": "Playback Device",
+        "nl": "Afspeelapparaat",
+        "de": "Wiedergabegerät",
+        "fr": "Appareil de lecture",
+        "it": "Dispositivo di riproduzione",
+        "es": "Dispositivo de reproducción",
+        "da": "Afspilningsenhed",
+        "no": "Avspillingsenhet",
+        "sv": "Uppspelningsenhet",
+        "pl": "Urządzenie odtwarzające",
+        "ru": "Устройство воспроизведения",
+        "ko": "재생 기기",
+        "ar": "جهاز التشغيل"
+      },
+      "class": "speaker",
+      "capabilities": [
+        "speaker_playing",
+        "speaker_stop",
+        "speaker_track",
+        "speaker_artist",
+        "speaker_album",
+        "speaker_position",
+        "speaker_duration"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "large": "/drivers/playbackdevice/assets/images/large.png",
+        "small": "/drivers/playbackdevice/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "id": "auto_power",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Turn on and off automatically",
+            "nl": "Automatisch in- en uitschakelen",
+            "de": "Automatisch ein- und ausschalten",
+            "fr": "Allumer et éteindre automatiquement",
+            "it": "Accendi e spegni automaticamente",
+            "es": "Encender y apagar automáticamente",
+            "da": "Tænd og sluk automatisk",
+            "no": "Slå på og av automatisk",
+            "sv": "Slå på och stäng av automatiskt",
+            "pl": "Włączaj i wyłączaj automatycznie",
+            "ru": "Включать и выключать автоматически",
+            "ko": "자동으로 켜고 끄기",
+            "ar": "التشغيل والإيقاف تلقائيًا"
+          },
+          "hint": {
+            "en": "For announcements to this device: if it is off, it is switched on first and switched off again afterwards. Only for devices that can be switched on and off, such as Samsung TVs.",
+            "nl": "Voor meldingen op dit apparaat: staat het uit, dan wordt het eerst ingeschakeld en daarna weer uitgeschakeld. Alleen voor apparaten die aan en uit kunnen, zoals Samsung-tv's.",
+            "de": "Für Durchsagen auf diesem Gerät: Ist es aus, wird es zuerst eingeschaltet und danach wieder ausgeschaltet. Nur für Geräte, die ein- und ausgeschaltet werden können, wie Samsung-Fernseher.",
+            "fr": "Pour les annonces sur cet appareil : s’il est éteint, il est d’abord allumé, puis éteint à nouveau. Uniquement pour les appareils pouvant être allumés et éteints, comme les téléviseurs Samsung.",
+            "it": "Per gli annunci su questo dispositivo: se è spento, viene prima acceso e poi spento di nuovo. Solo per dispositivi che si possono accendere e spegnere, come i televisori Samsung.",
+            "es": "Para avisos en este dispositivo: si está apagado, se enciende primero y después se vuelve a apagar. Solo para dispositivos que se pueden encender y apagar, como los televisores Samsung.",
+            "da": "Til meddelelser på denne enhed: er den slukket, tændes den først og slukkes igen bagefter. Kun for enheder, der kan tændes og slukkes, f.eks. Samsung-tv.",
+            "no": "For kunngjøringer på denne enheten: er den av, slås den først på og deretter av igjen. Bare for enheter som kan slås av og på, for eksempel Samsung-TV-er.",
+            "sv": "För meddelanden på den här enheten: är den avstängd slås den först på och stängs sedan av igen. Endast för enheter som kan slås på och av, till exempel Samsung-tv.",
+            "pl": "Dla komunikatów na tym urządzeniu: jeśli jest wyłączone, zostanie najpierw włączone, a potem ponownie wyłączone. Tylko dla urządzeń, które można włączać i wyłączać, np. telewizorów Samsung.",
+            "ru": "Для объявлений на этом устройстве: если оно выключено, оно сначала включается, а затем снова выключается. Только для устройств, которые можно включать и выключать, например телевизоров Samsung.",
+            "ko": "이 기기의 안내 방송용: 꺼져 있으면 먼저 켜고 나중에 다시 끕니다. Samsung TV처럼 켜고 끌 수 있는 기기에만 적용됩니다.",
+            "ar": "للإعلانات على هذا الجهاز: إذا كان مطفأً، يُشغَّل أولاً ثم يُطفأ مرة أخرى بعد ذلك. فقط للأجهزة التي يمكن تشغيلها وإيقافها، مثل تلفزيونات Samsung."
+          }
+        }
+      ],
+      "id": "playbackdevice"
+    },
+    {
+      "name": {
+        "en": "Media Server",
+        "nl": "Mediaserver",
+        "de": "Medienserver",
+        "fr": "Serveur multimédia",
+        "it": "Server multimediale",
+        "es": "Servidor multimedia",
+        "da": "Medieserver",
+        "no": "Medieserver",
+        "sv": "Mediaserver",
+        "pl": "Serwer multimediów",
+        "ru": "Медиасервер",
+        "ko": "미디어 서버",
+        "ar": "خادم الوسائط"
       },
       "class": "speaker",
       "capabilities": [
@@ -2002,6 +2087,100 @@
               }
             }
           ]
+        },
+        {
+          "id": "visualizer",
+          "type": "dropdown",
+          "title": {
+            "en": "Visualizer",
+            "nl": "Visualisatie",
+            "de": "Visualisierung",
+            "fr": "Visualiseur",
+            "it": "Visualizzatore",
+            "es": "Visualizador",
+            "da": "Visualisering",
+            "no": "Visualisering",
+            "sv": "Visualisering",
+            "pl": "Wizualizacja",
+            "ru": "Визуализация",
+            "ko": "시각화",
+            "ar": "المؤثرات المرئية"
+          },
+          "value": "normal",
+          "values": [
+            {
+              "id": "off",
+              "title": {
+                "en": "No visualizer",
+                "nl": "Geen visualisatie",
+                "de": "Keine Visualisierung",
+                "fr": "Aucun visualiseur",
+                "it": "Nessun visualizzatore",
+                "es": "Sin visualizador",
+                "da": "Ingen visualisering",
+                "no": "Ingen visualisering",
+                "sv": "Ingen visualisering",
+                "pl": "Bez wizualizacji",
+                "ru": "Без визуализации",
+                "ko": "시각화 없음",
+                "ar": "بدون مؤثرات مرئية"
+              }
+            },
+            {
+              "id": "light",
+              "title": {
+                "en": "Light (older tablets)",
+                "nl": "Licht (oudere tablets)",
+                "de": "Leicht (ältere Tablets)",
+                "fr": "Léger (anciennes tablettes)",
+                "it": "Leggero (tablet meno recenti)",
+                "es": "Ligero (tabletas antiguas)",
+                "da": "Let (ældre tablets)",
+                "no": "Lett (eldre nettbrett)",
+                "sv": "Lätt (äldre surfplattor)",
+                "pl": "Lekka (starsze tablety)",
+                "ru": "Лёгкая (старые планшеты)",
+                "ko": "가벼움 (구형 태블릿)",
+                "ar": "خفيف (الأجهزة اللوحية القديمة)"
+              }
+            },
+            {
+              "id": "normal",
+              "title": {
+                "en": "Normal",
+                "nl": "Normaal",
+                "de": "Normal",
+                "fr": "Normal",
+                "it": "Normale",
+                "es": "Normal",
+                "da": "Normal",
+                "no": "Normal",
+                "sv": "Normal",
+                "pl": "Normalna",
+                "ru": "Обычная",
+                "ko": "보통",
+                "ar": "عادي"
+              }
+            },
+            {
+              "id": "heavy",
+              "title": {
+                "en": "Detailed (fast devices)",
+                "nl": "Gedetailleerd (snelle apparaten)",
+                "de": "Detailliert (schnelle Geräte)",
+                "fr": "Détaillé (appareils rapides)",
+                "it": "Dettagliato (dispositivi veloci)",
+                "es": "Detallado (dispositivos rápidos)",
+                "da": "Detaljeret (hurtige enheder)",
+                "no": "Detaljert (raske enheter)",
+                "sv": "Detaljerad (snabba enheter)",
+                "pl": "Szczegółowa (szybkie urządzenia)",
+                "ru": "Подробная (быстрые устройства)",
+                "ko": "상세 (빠른 기기)",
+                "ar": "مفصّل (الأجهزة السريعة)"
+              }
+            }
+          ]
         }
       ],
       "api": {
@@ -2020,6 +2199,10 @@
         "browse": {
           "method": "POST",
           "path": "/browse"
+        },
+        "audio": {
+          "method": "POST",
+          "path": "/audio"
         }
       },
       "id": "media"

@@ -5,3 +5,5 @@ settings_notused/
 todo.txt
 README.md
 tools/
+package-lock.json
+

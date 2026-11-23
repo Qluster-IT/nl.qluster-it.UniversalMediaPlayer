@@ -51,5 +51,12 @@
   "sonos_saved": "Mode Sonos enregistré.",
   "sonos_save_error": "Impossible d’enregistrer le mode Sonos.",
   "sonos_load_error": "Impossible de charger le mode Sonos.",
-  "group_ip_help": "Réservez des adresses IP fixes à vos enceintes Sonos dans votre routeur. Avec Lire séparément, Homey peut réutiliser les adresses connues au lieu de parcourir le réseau. Les annonces peuvent ainsi démarrer plus vite."
+  "group_ip_help": "Réservez des adresses IP fixes à vos enceintes Sonos dans votre routeur. Avec Lire séparément, Homey peut réutiliser les adresses connues au lieu de parcourir le réseau. Les annonces peuvent ainsi démarrer plus vite.",
+  "group_auto_power": "Allumer et éteindre automatiquement",
+  "group_auto_power_help": "Pour les annonces : un téléviseur éteint est d’abord allumé, puis éteint à nouveau.",
+  "auto_power": "Alimentation automatique",
+  "auto_power_all": "Allumer et éteindre automatiquement pour Tous les haut-parleurs",
+  "auto_power_help": "Pour les annonces uniquement. Un téléviseur éteint est d’abord allumé, puis éteint à nouveau. Les groupes enregistrés et les appareils de lecture ont leur propre réglage.",
+  "auto_power_saved": "Alimentation automatique enregistrée.",
+  "auto_power_error": "Impossible d’enregistrer l’alimentation automatique."
 }

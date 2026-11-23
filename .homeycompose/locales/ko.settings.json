@@ -51,5 +51,12 @@
   "sonos_saved": "Sonos 모드를 저장했습니다.",
   "sonos_save_error": "Sonos 모드를 저장하지 못했습니다.",
   "sonos_load_error": "Sonos 모드를 불러오지 못했습니다.",
-  "group_ip_help": "공유기에서 Sonos 스피커에 고정 IP 주소를 예약하세요. 개별 재생을 사용하면 Homey가 네트워크를 검색하는 대신 기존 주소를 다시 사용해 알림을 더 빨리 시작할 수 있습니다."
+  "group_ip_help": "공유기에서 Sonos 스피커에 고정 IP 주소를 예약하세요. 개별 재생을 사용하면 Homey가 네트워크를 검색하는 대신 기존 주소를 다시 사용해 알림을 더 빨리 시작할 수 있습니다.",
+  "group_auto_power": "자동으로 켜고 끄기",
+  "group_auto_power_help": "안내 방송용: 꺼져 있는 TV를 먼저 켜고 나중에 다시 끕니다.",
+  "auto_power": "자동 전원",
+  "auto_power_all": "모든 스피커에 대해 자동으로 켜고 끄기",
+  "auto_power_help": "안내 방송에만 적용됩니다. 꺼져 있는 TV를 먼저 켜고 나중에 다시 끕니다. 저장된 그룹과 재생 기기에는 별도 설정이 있습니다.",
+  "auto_power_saved": "자동 전원이 저장되었습니다.",
+  "auto_power_error": "자동 전원을 저장할 수 없습니다."
 }

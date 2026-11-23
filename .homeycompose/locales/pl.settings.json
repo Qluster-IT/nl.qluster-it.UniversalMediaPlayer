@@ -51,5 +51,12 @@
   "sonos_saved": "Zapisano tryb Sonos.",
   "sonos_save_error": "Nie udało się zapisać trybu Sonos.",
   "sonos_load_error": "Nie udało się wczytać trybu Sonos.",
-  "group_ip_help": "Zarezerwuj stałe adresy IP dla głośników Sonos w routerze. W trybie Odtwarzaj osobno Homey może użyć znanych adresów zamiast przeszukiwać sieć, dzięki czemu komunikaty mogą zacząć się szybciej."
+  "group_ip_help": "Zarezerwuj stałe adresy IP dla głośników Sonos w routerze. W trybie Odtwarzaj osobno Homey może użyć znanych adresów zamiast przeszukiwać sieć, dzięki czemu komunikaty mogą zacząć się szybciej.",
+  "group_auto_power": "Włączaj i wyłączaj automatycznie",
+  "group_auto_power_help": "Dla komunikatów: wyłączony telewizor jest najpierw włączany, a potem ponownie wyłączany.",
+  "auto_power": "Automatyczne zasilanie",
+  "auto_power_all": "Włączaj i wyłączaj automatycznie dla Wszystkich głośników",
+  "auto_power_help": "Tylko dla komunikatów. Wyłączony telewizor jest najpierw włączany, a potem ponownie wyłączany. Zapisane grupy i urządzenia odtwarzające mają własne ustawienie.",
+  "auto_power_saved": "Zapisano automatyczne zasilanie.",
+  "auto_power_error": "Nie udało się zapisać automatycznego zasilania."
 }

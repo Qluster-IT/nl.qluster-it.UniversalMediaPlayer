@@ -51,5 +51,12 @@
   "sonos_saved": "Sonos-modus opgeslagen.",
   "sonos_save_error": "Kan de Sonos-modus niet opslaan.",
   "sonos_load_error": "Kan de Sonos-modus niet laden.",
-  "group_ip_help": "Reserveer vaste IP-adressen voor je Sonos-luidsprekers in je router. Met Apart afspelen kan Homey bekende adressen hergebruiken in plaats van het netwerk te scannen, zodat aankondigingen sneller kunnen starten."
+  "group_ip_help": "Reserveer vaste IP-adressen voor je Sonos-luidsprekers in je router. Met Apart afspelen kan Homey bekende adressen hergebruiken in plaats van het netwerk te scannen, zodat aankondigingen sneller kunnen starten.",
+  "group_auto_power": "Automatisch in- en uitschakelen",
+  "group_auto_power_help": "Voor meldingen: een tv die uit staat wordt eerst ingeschakeld en daarna weer uitgeschakeld.",
+  "auto_power": "Automatisch aan/uit",
+  "auto_power_all": "Automatisch in- en uitschakelen voor Alle speakers",
+  "auto_power_help": "Alleen voor meldingen. Een tv die uit staat wordt eerst ingeschakeld en daarna weer uitgeschakeld. Opgeslagen groepen en afspeelapparaten hebben een eigen instelling.",
+  "auto_power_saved": "Automatisch aan/uit opgeslagen.",
+  "auto_power_error": "Automatisch aan/uit kon niet worden opgeslagen."
 }

@@ -55,6 +55,102 @@
             });
         }};
     });
+    // Shows icon-only buttons when the full labels don't fit on one line in this language and width.
+    app.directive('mediaFitLabels', function () {
+        return {link(scope, element) {
+            const row = element[0];
+            let frame = 0;
+            const fit = () => {
+                frame = 0;
+                row.classList.remove('icons-only');
+                if (row.scrollWidth > row.clientWidth) row.classList.add('icons-only');
+            };
+            const schedule = () => { if (!frame) frame = requestAnimationFrame(fit); };
+            const observer = new ResizeObserver(schedule);
+            observer.observe(row);
+            const unwatch = scope.$watch(() => row.textContent, () => scope.$$postDigest(schedule));
+            scope.$on('$destroy', () => {
+                unwatch();
+                observer.disconnect();
+                cancelAnimationFrame(frame);
+            });
+        }};
+    });
+    app.directive('mediaSpectrum', function () {
+        return {link(scope, element) {
+            const canvas = element[0];
+            const context = canvas.getContext('2d');
+            const profile = scope.vm.spectrumProfile;
+            const bands = profile.bands;
+            const levels = new Float32Array(bands);
+            const heights = new Float32Array(bands);
+            const peaks = new Float32Array(bands);
+            const interval = 1000 / profile.drawFps;
+            let frame;
+            let status;
+            let color;
+            let settled = false;
+            let last = 0;
+            function schedule(wait) {
+                frame = wait <= 0 && profile.drawFps >= 60 ? {raf: requestAnimationFrame(draw)} : {timer: setTimeout(draw, wait)};
+            }
+            function draw() {
+                const now = performance.now();
+                const elapsed = last ? Math.min(250, now - last) / 1000 : 0;
+                last = now;
+                const vm = scope.vm;
+                if (vm.spectrumStatus() !== status) {
+                    status = vm.spectrumStatus();
+                    scope.$applyAsync();
+                }
+                const ratio = Math.min(profile.maxRatio, window.devicePixelRatio || 1);
+                const width = Math.round(canvas.clientWidth * ratio);
+                const height = Math.round(canvas.clientHeight * ratio);
+                if (!width || !height) return schedule(250);
+                if (canvas.width !== width || canvas.height !== height) {
+                    canvas.width = width;
+                    canvas.height = height;
+                    color = getComputedStyle(canvas).color;
+                    settled = false;
+                }
+                const active = Boolean(vm.player?.playing) && vm.spectrumLevels(levels);
+                const fall = 2.1 * elapsed;
+                let moving = false;
+                for (let band = 0; band < bands; band++) {
+                    const value = active ? levels[band] : 0;
+                    const next = value > heights[band] ? value : Math.max(value, heights[band] - fall);
+                    const peak = Math.max(next, peaks[band] - fall * 0.35);
+                    moving ||= next !== heights[band] || (profile.peaks && peak !== peaks[band]);
+                    heights[band] = next;
+                    peaks[band] = peak;
+                }
+                // Idle widgets only poll occasionally for the next track or status change.
+                if (!moving && settled) return schedule(active ? interval : 500);
+                settled = !moving;
+                const inset = Math.round(Math.min(width, height) * 0.14);
+                const gap = Math.max(1, Math.round(width / bands * 0.25));
+                const bar = (width - inset * 2 - gap * (bands - 1)) / bands;
+                const room = height - inset * 2;
+                const cap = Math.max(1, Math.round(2 * ratio));
+                context.clearRect(0, 0, width, height);
+                context.fillStyle = color;
+                for (let band = 0; band < bands; band++) {
+                    const size = Math.max(2 * ratio, heights[band] * room);
+                    const x = inset + band * (bar + gap);
+                    context.fillRect(x, height - inset - size, bar, size);
+                    if (profile.peaks && peaks[band] * room > size + cap) {
+                        context.fillRect(x, height - inset - peaks[band] * room, bar, cap);
+                    }
+                }
+                schedule(Math.max(0, interval - (performance.now() - now)));
+            }
+            schedule(0);
+            scope.$on('$destroy', () => {
+                if (frame?.raf) cancelAnimationFrame(frame.raf);
+                clearTimeout(frame?.timer);
+            });
+        }};
+    });
     app.controller('MediaController', ['$scope', '$window', '$interval', function ($scope, $window, $interval) {
         const vm = this;
         const Homey = $window.umpHomey;
@@ -79,6 +175,8 @@
         let sourceRequest = 0;
         let nativeTimer;
         let roomRequest = 0;
+        let deviceRequest = 0;
+        let confirmedInput = null;
         const menuTriggers = {source: 'player', speaker: 'speaker-picker', sleep: 'sleep-timer'};
         let retryTimer;
         let errorTimer;
@@ -97,7 +195,8 @@
             'emptyFolder', 'more', 'volume', 'volumeUp', 'volumeDown', 'mute', 'unmute', 'playFile', 'playFrom',
             'playlist', 'filter', 'clearFilter', 'previousPage', 'nextPage', 'details', 'close', 'stale',
             'loading', 'emptyPlaylist', 'noMatches', 'interrupted', 'recent', 'recentFolders', 'playNext',
-            'sleepTimer', 'sleepOff', 'sleep15', 'sleep30', 'sleep60', 'sleepTrack', 'sleepDeferred', 'trackActions', 'config'];
+            'sleepTimer', 'sleepOff', 'sleep15', 'sleep30', 'sleep60', 'sleepTrack', 'sleepDeferred', 'trackActions', 'config',
+            'showSpectrum', 'showArtwork', 'spectrumUnavailable', 'spectrumLoading'];
         vm.labels = Object.fromEntries(keys.map(function (key) { return [key, Homey.__('widget.' + key)]; }));
         vm.labels.back = Homey.__('browse.back');
         vm.labels.selectFolder = Homey.__('browse.selectFolder');
@@ -105,7 +204,7 @@
         for (const key of ['umpPlayers', 'speakerSources', 'queueUnavailable', 'groupRooms', 'groupCoordinator', 'groupMember',
             'inOtherGroup', 'joinRoom', 'leaveRoom', 'controllerLocked', 'seek', 'noRooms', 'tvInput', 'lineInInput',
             'groupVolume', 'roomVolume', 'roomCount', 'tvDetails', 'tvOn', 'tvOff', 'tvStandby',
-            'tvWired', 'tvWireless', 'tvFirmware', 'tvFrame', 'tvVoice', 'tvGamepad']) {
+            'tvWired', 'tvWireless', 'tvFirmware', 'tvFrame', 'tvVoice', 'tvGamepad', 'deviceInput', 'devicePower', 'powerOn', 'powerOff']) {
             vm.labels[key] = Homey.__('widget.' + key);
         }
         for (const key of ['speaker', 'flow_only', 'device_default', 'reload', 'unavailable', 'apply_failed']) {
@@ -133,6 +232,43 @@
                 ...(widget ? {widget} : {})};
         };
         vm.canBrowse = function () { return Boolean(vm.player && (!vm.speakerId || vm.player.canBrowse)); };
+        const spectrumKey = widget ? 'ump-spectrum-' + widget : null;
+        vm.visualizer = ['off', 'light', 'normal', 'heavy'].includes(settings.visualizer) ? settings.visualizer : 'normal';
+        vm.spectrumProfile = $window.UmpSpectrum.PROFILES[vm.visualizer] || null;
+        const spectrum = new $window.UmpSpectrum(({item, offset}) =>
+            Homey.api('POST', '/audio', {...vm.sourcePayload(), item, offset}), vm.visualizer);
+        try {
+            vm.spectrum = Boolean(spectrumKey && vm.spectrumProfile) && $window.localStorage.getItem(spectrumKey) === '1';
+        } catch (error) { vm.spectrum = false; }
+        function spectrumItem() {
+            return vm.player && !vm.player.activeInput ? vm.player.selection?.file?.id : null;
+        }
+        function syncSpectrum() {
+            const item = spectrumItem();
+            if (!vm.spectrum || !item || document.hidden) spectrum.cancel();
+            else spectrum.load(vm.player.contextId + '\n' + item, item, vm.player.duration, vm.livePosition);
+        }
+        vm.toggleSpectrum = function () {
+            if (!vm.spectrumProfile) return;
+            vm.spectrum = !vm.spectrum;
+            try {
+                if (spectrumKey) $window.localStorage.setItem(spectrumKey, vm.spectrum ? '1' : '0');
+            } catch (error) { /* Storage can be unavailable in private views. */ }
+            syncSpectrum();
+        };
+        vm.spectrumStatus = function () {
+            if (!vm.spectrum || !vm.player?.canPlay) return '';
+            if (!spectrumItem() || spectrum.status === 'unavailable') return vm.labels.spectrumUnavailable;
+            return spectrum.status === 'loading' ? vm.labels.spectrumLoading : '';
+        };
+        vm.spectrumLevels = function (levels) {
+            return Boolean(spectrumItem()) && spectrum.levels(vm.livePosition(), levels);
+        };
+        vm.livePosition = function () {
+            if (!vm.player) return 0;
+            const position = (vm.player.position || 0) + (vm.player.playing ? Math.max(0, Date.now() - positionSampleAt) : 0);
+            return vm.player.duration ? Math.min(position, vm.player.duration) : position;
+        };
         vm.playbackBlocked = function () { return vm.player?.sleep?.mode === 'deferred'; };
         vm.inputLabel = function () {
             return vm.player.activeInput === 'tv' ? vm.labels.tvInput : vm.labels.lineInInput;
@@ -407,6 +543,7 @@
         }
         function applyPlayer(player) {
             const previousRoom = vm.roomTarget();
+            const previousDevice = vm.deviceTarget();
             const contextChanged = player?.contextId && player.contextId !== vm.player?.contextId;
             if (player?.volume !== vm.player?.volume || player?.id !== vm.player?.id) {
                 vm.volumeDraft = player?.volume == null ? 50 : Math.round(player.volume * 100);
@@ -431,9 +568,14 @@
                 resetRooms();
                 vm.loadRooms();
             }
+            if (previousDevice !== vm.deviceTarget()) {
+                resetDevice();
+                vm.loadDevice();
+            }
             vm.sleepChoice = sleepChoice(player);
             positionSampleAt = Date.now();
             updatePosition();
+            syncSpectrum();
             if (player?.playing && !document.hidden) {
                 if (!positionTimer) positionTimer = $interval(updatePosition, 1000);
             } else stopPositionTimer();
@@ -540,6 +682,7 @@
                         revealPlayback();
                         if (!speaker || vm.playlistOpen) refreshQueue();
                         if (!vm.roomsError) vm.loadRooms();
+                        vm.loadDevice();
                     });
                 }).catch(function (error) {
                     console.error('Unable to load media widget:', error);
@@ -570,6 +713,7 @@
             vm.stale = true;
             resetBrowser();
             resetRooms();
+            resetDevice();
             vm.configOpen = false;
             vm.recentOpen = false;
             vm.browserOpen = !vm.speakerId && vm.alwaysOpen;
@@ -931,6 +1075,7 @@
                 ++browseRevision;
                 vm.browsing = false;
                 vm.loadRooms();
+                vm.loadDevice();
             } else if (vm.alwaysOpen && vm.canBrowse()) {
                 vm.browserOpen = true;
                 restoreFolder();
@@ -956,6 +1101,51 @@
             if (vm.speakerId) return vm.player?.protocol === 'sonos' ? vm.speakerId : null;
             const id = (vm.player?.currentTarget || vm.player?.defaultTarget)?.id;
             return typeof id === 'string' && id.startsWith('dlna:uuid:') ? id : null;
+        };
+        // Inputs and power of the selected source speaker or of the playback destination.
+        vm.deviceTarget = function () {
+            if (vm.speakerId) return vm.speakerId;
+            const id = (vm.player?.currentTarget || vm.player?.defaultTarget)?.id;
+            return typeof id === 'string' && /^(?:cast:|dlna:uuid:)/.test(id) ? id : null;
+        };
+        vm.device = {inputs: [], input: null, power: null, locked: false};
+        function resetDevice() {
+            ++deviceRequest;
+            vm.device = {inputs: [], input: null, power: null, locked: false};
+            confirmedInput = null;
+            vm.deviceBusy = false;
+        }
+        vm.hasDeviceControls = () => Boolean(vm.device.inputs.length || vm.device.power);
+        function deviceCall(payload) {
+            const id = vm.deviceTarget();
+            if (!id) return;
+            const request = ++deviceRequest;
+            if (payload.action !== 'deviceControls') vm.deviceBusy = true;
+            Homey.api('POST', '/control', {speaker: id, widget, ...payload}).then(result => update(() => {
+                if (request !== deviceRequest) return;
+                vm.device = result;
+                confirmedInput = result.input;
+            })).catch(error => {
+                console.error('Unable to control the device:', error);
+                update(() => {
+                    if (request !== deviceRequest) return;
+                    vm.device.input = confirmedInput;
+                    if (payload.action !== 'deviceControls') showError(vm.labels.controlError, null, error);
+                });
+            }).finally(() => update(() => {
+                if (request !== deviceRequest) return;
+                vm.deviceBusy = false;
+                if (payload.action !== 'deviceControls') vm.refresh();
+            }));
+        }
+        vm.loadDevice = function () {
+            if (vm.configOpen && !vm.deviceBusy) deviceCall({action: 'deviceControls'});
+        };
+        vm.setInput = function (input) {
+            if (!vm.deviceBusy && !vm.disabled() && input && input !== confirmedInput) deviceCall({action: 'setInput', value: input});
+        };
+        vm.togglePower = function () {
+            if (!vm.deviceBusy && !vm.disabled() && vm.device.power) deviceCall({action: 'setPower', value: vm.device.power.on === false});
         };
         function resetRooms() {
             ++roomRequest;
@@ -1059,7 +1249,10 @@
             clearTimeout(timer);
             clearTimeout(retryTimer);
             clearTimeout(nativeTimer);
-            if (document.hidden) stopPositionTimer();
+            if (document.hidden) {
+                stopPositionTimer();
+                spectrum.cancel();
+            }
             else update(function () {
                 retries = 0;
                 refreshPending = true;
@@ -1086,6 +1279,7 @@
             clearTimeout(nativeTimer);
             clearTimeout(errorTimer);
             stopPositionTimer();
+            spectrum.cancel();
             document.removeEventListener('visibilitychange', visibility);
             document.removeEventListener('click', dismissOnClick, true);
             document.removeEventListener('scroll', scrollLists, true);

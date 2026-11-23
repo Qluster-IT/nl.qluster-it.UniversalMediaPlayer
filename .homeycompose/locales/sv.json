@@ -66,6 +66,10 @@
     "tvFrame": "The Frame",
     "tvVoice": "Röststyrning",
     "tvGamepad": "Stöd för spelkontroll",
+    "showSpectrum": "Visa spektrum",
+    "showArtwork": "Visa skivomslag",
+    "spectrumUnavailable": "Spektrum är inte tillgängligt för det här spåret",
+    "spectrumLoading": "Läser in spektrum …",
     "close": "Stäng",
     "stale": "Anslutningen har brutits. Visar senast kända status.",
     "loading": "Laddar...",
@@ -97,7 +101,7 @@
     "next": "Nästa",
     "repeat": "Upprepa spellistan",
     "startFlow": "Starta först en fil eller mapp via ett Flow.",
-    "noPlayers": "Lägg till en UPnP-spelare för att använda widgeten.",
+    "noPlayers": "Lägg till en mediaserver för att använda widgeten.",
     "retry": "Försök igen",
     "loadError": "Det gick inte att läsa in spelaren. Kontrollera anslutningen och försök igen.",
     "controlError": "Åtgärden misslyckades. Kontrollera spelaren och dess uppspelnings-Flows och försök igen.",
@@ -110,6 +114,10 @@
     "emptyFolder": "Inga spelbara filer i den här mappen.",
     "more": "Läs in fler",
     "pause": "Pausa",
-    "paused": "Pausad"
+    "paused": "Pausad",
+    "deviceInput": "Ingång",
+    "devicePower": "Ström",
+    "powerOn": "Slå på",
+    "powerOff": "Stäng av"
   }
 }

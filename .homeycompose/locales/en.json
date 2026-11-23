@@ -66,6 +66,10 @@
     "tvFrame": "The Frame",
     "tvVoice": "Voice control",
     "tvGamepad": "Gamepad support",
+    "showSpectrum": "Show spectrum",
+    "showArtwork": "Show album art",
+    "spectrumUnavailable": "Spectrum unavailable for this track",
+    "spectrumLoading": "Loading spectrum…",
     "close": "Close",
     "stale": "Connection lost. Showing the last known state.",
     "loading": "Loading...",
@@ -94,7 +98,7 @@
     "next": "Next",
     "repeat": "Repeat playlist",
     "startFlow": "Start a file or folder using a Flow first.",
-    "noPlayers": "Add a UPnP Player to use this widget.",
+    "noPlayers": "Add a Media Server to use this widget.",
     "retry": "Retry",
     "loadError": "Unable to load the player. Check the connection and try again.",
     "controlError": "The action failed. Check the player and its playback Flows, then retry.",
@@ -110,6 +114,10 @@
     "paused": "Paused",
     "volume": "Volume",
     "mute": "Mute",
-    "unmute": "Unmute"
+    "unmute": "Unmute",
+    "deviceInput": "Input",
+    "devicePower": "Power",
+    "powerOn": "Turn on",
+    "powerOff": "Turn off"
   }
 }

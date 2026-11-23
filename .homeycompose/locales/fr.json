@@ -66,6 +66,10 @@
     "tvFrame": "The Frame",
     "tvVoice": "Commande vocale",
     "tvGamepad": "Manette prise en charge",
+    "showSpectrum": "Afficher le spectre",
+    "showArtwork": "Afficher la pochette",
+    "spectrumUnavailable": "Spectre indisponible pour ce morceau",
+    "spectrumLoading": "Chargement du spectre…",
     "close": "Fermer",
     "stale": "Connexion perdue. Affichage du dernier état connu.",
     "loading": "Chargement...",
@@ -97,7 +101,7 @@
     "next": "Suivant",
     "repeat": "Répéter la liste",
     "startFlow": "Lancez d’abord un fichier ou un dossier avec un Flow.",
-    "noPlayers": "Ajoutez un lecteur UPnP pour utiliser ce widget.",
+    "noPlayers": "Ajoutez un serveur multimédia pour utiliser ce widget.",
     "retry": "Réessayer",
     "loadError": "Impossible de charger le lecteur. Vérifiez la connexion et réessayez.",
     "controlError": "L’action a échoué. Vérifiez le lecteur et ses Flows de lecture, puis réessayez.",
@@ -110,6 +114,10 @@
     "emptyFolder": "Aucun fichier lisible dans ce dossier.",
     "more": "Charger plus",
     "pause": "Pause",
-    "paused": "En pause"
+    "paused": "En pause",
+    "deviceInput": "Entrée",
+    "devicePower": "Alimentation",
+    "powerOn": "Allumer",
+    "powerOff": "Éteindre"
   }
 }

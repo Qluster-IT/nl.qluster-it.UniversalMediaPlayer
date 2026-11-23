@@ -66,6 +66,10 @@
     "tvFrame": "The Frame",
     "tvVoice": "Sprachsteuerung",
     "tvGamepad": "Gamepad-Unterstützung",
+    "showSpectrum": "Spektrum anzeigen",
+    "showArtwork": "Albumcover anzeigen",
+    "spectrumUnavailable": "Spektrum für diesen Titel nicht verfügbar",
+    "spectrumLoading": "Spektrum wird geladen …",
     "close": "Schließen",
     "stale": "Verbindung verloren. Der letzte bekannte Status wird angezeigt.",
     "loading": "Laden...",
@@ -97,7 +101,7 @@
     "next": "Weiter",
     "repeat": "Wiedergabeliste wiederholen",
     "startFlow": "Starte zuerst eine Datei oder einen Ordner über einen Flow.",
-    "noPlayers": "Füge einen UPnP-Player hinzu, um dieses Widget zu nutzen.",
+    "noPlayers": "Füge einen Medienserver hinzu, um dieses Widget zu nutzen.",
     "retry": "Erneut versuchen",
     "loadError": "Player konnte nicht geladen werden. Prüfe die Verbindung und versuche es erneut.",
     "controlError": "Aktion fehlgeschlagen. Prüfe den Player und seine Wiedergabe-Flows und versuche es erneut.",
@@ -110,6 +114,10 @@
     "emptyFolder": "Keine abspielbaren Dateien in diesem Ordner.",
     "more": "Mehr laden",
     "pause": "Pause",
-    "paused": "Pausiert"
+    "paused": "Pausiert",
+    "deviceInput": "Eingang",
+    "devicePower": "Ein/Aus",
+    "powerOn": "Einschalten",
+    "powerOff": "Ausschalten"
   }
 }

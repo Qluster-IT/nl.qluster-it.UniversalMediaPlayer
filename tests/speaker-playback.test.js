@@ -165,6 +165,15 @@ test('DLNA addresses survive restart and are checked against the advertised rend
     assert.equal((await restarted.selectForControl({id})).endpoint, `http://${host}/av`);
     await restarted.selectForControl({id});
     assert.equal(reads, 1);
+    // Frequent Playback Device reads reuse the remembered address without rescanning the network.
+    let scans = 0;
+    Object.assign(restarted, {pending: null, refresh: async () => { scans++; return []; },
+        discoveredAt: Date.now(), discoveryAttemptedAt: Date.now() - 60000});
+    await restarted.selectForControl({id});
+    assert.equal(scans, 0);
+    restarted.discoveredAt = Date.now() - 11 * 60000;
+    await restarted.selectForControl({id});
+    assert.equal(scans, 1);
     identity = 'new-device-at-same-address';
     const changed = start();
     const discovered = {id, host: '192.168.1.6', protocol: 'dlna'};
@@ -238,9 +247,11 @@ test('discovery collapses a bonded Sonos pair and excludes rooms with unverified
     loaded.filename = source;
     loaded.paths = module.paths;
     const escaped = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    // Room names can contain "&": escaped twice in the topology, and sometimes sent bare in a description.
     const topology = '<ZoneGroupState><ZoneGroups><ZoneGroup Coordinator="RINCON_MAIN">' +
-        '<ZoneGroupMember UUID="RINCON_MAIN" ChannelMapSet="RINCON_MAIN:LF;RINCON_SAT:RF">' +
+        '<ZoneGroupMember UUID="RINCON_MAIN" ZoneName="Tom &amp; Jerry" ChannelMapSet="RINCON_MAIN:LF;RINCON_SAT:RF">' +
         '<Satellite UUID="RINCON_SAT"/></ZoneGroupMember></ZoneGroup></ZoneGroups></ZoneGroupState>';
+    const names = {MAIN: 'Tom & Jerry', SAT: 'SAT', UNKNOWN: 'UNKNOWN'};
     const fetch = async url => {
         const host = new URL(url).hostname;
         if (url.endsWith('/topology')) {
@@ -250,7 +261,7 @@ test('discovery collapses a bonded Sonos pair and excludes rooms with unverified
         const id = {'192.168.1.2': 'MAIN', '192.168.1.3': 'SAT', '192.168.1.4': 'UNKNOWN'}[host];
         return {ok: true, text: async () => `<root><device>
             <deviceType>urn:schemas-upnp-org:device:ZonePlayer:1</deviceType>
-            <manufacturer>Sonos</manufacturer><friendlyName>${id}</friendlyName><UDN>uuid:RINCON_${id}</UDN>
+            <manufacturer>Sonos</manufacturer><friendlyName>${names[id]}</friendlyName><UDN>uuid:RINCON_${id}</UDN>
             <serviceList><service><serviceType>urn:schemas-upnp-org:service:AVTransport:1</serviceType>
             <controlURL>/av</controlURL></service><service>
             <serviceType>urn:schemas-upnp-org:service:ZoneGroupTopology:1</serviceType><controlURL>/topology</controlURL>
@@ -282,7 +293,7 @@ test('discovery collapses a bonded Sonos pair and excludes rooms with unverified
     const player = new loaded.exports((...args) => errors.push(args));
     const result = player.listSpeakers();
     t.mock.timers.tick(2500);
-    assert.deepEqual(await result, [{id: 'dlna:uuid:rincon_main', name: 'MAIN (Stereo)', description: 'Sonos'}]);
+    assert.deepEqual(await result, [{id: 'dlna:uuid:rincon_main', name: 'Tom & Jerry (Stereo)', description: 'Sonos'}]);
     const main = await player.select({id: 'dlna:uuid:rincon_sat'});
     assert.equal(main.id, 'dlna:uuid:rincon_main');
     assert.equal(main.directory.endpoint, 'http://192.168.1.2/queue');

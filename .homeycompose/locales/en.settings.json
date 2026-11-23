@@ -51,5 +51,12 @@
   "sonos_saved": "Sonos mode saved.",
   "sonos_save_error": "Could not save the Sonos mode.",
   "sonos_load_error": "Could not load the Sonos mode.",
-  "group_ip_help": "Reserve fixed IP addresses for your Sonos speakers in your router. With Play Separately, Homey can reuse known addresses instead of scanning the network, so announcements can start faster."
+  "group_ip_help": "Reserve fixed IP addresses for your Sonos speakers in your router. With Play Separately, Homey can reuse known addresses instead of scanning the network, so announcements can start faster.",
+  "group_auto_power": "Turn on and off automatically",
+  "group_auto_power_help": "For announcements: a TV that is off is switched on first and switched off again afterwards.",
+  "auto_power": "Automatic power",
+  "auto_power_all": "Turn on and off automatically for All speakers",
+  "auto_power_help": "For announcements only. A TV that is off is switched on first and switched off again afterwards. Saved groups and Playback Devices have their own setting.",
+  "auto_power_saved": "Automatic power saved.",
+  "auto_power_error": "Could not save automatic power."
 }

@@ -36,7 +36,7 @@
     "next": "Następny",
     "repeat": "Powtarzaj listę",
     "startFlow": "Najpierw uruchom plik lub folder za pomocą Flow.",
-    "noPlayers": "Dodaj odtwarzacz UPnP, aby używać tego widżetu.",
+    "noPlayers": "Dodaj serwer multimediów, aby używać tego widżetu.",
     "retry": "Spróbuj ponownie",
     "loadError": "Nie można wczytać odtwarzacza. Sprawdź połączenie i spróbuj ponownie.",
     "controlError": "Akcja nie powiodła się. Sprawdź odtwarzacz i jego Flow odtwarzania, a następnie spróbuj ponownie.",
@@ -110,7 +110,15 @@
     "tvFirmware": "Oprogramowanie układowe",
     "tvFrame": "The Frame",
     "tvVoice": "Sterowanie głosowe",
-    "tvGamepad": "Obsługa kontrolera gier"
+    "tvGamepad": "Obsługa kontrolera gier",
+    "showSpectrum": "Pokaż spektrum",
+    "showArtwork": "Pokaż okładkę",
+    "spectrumUnavailable": "Spektrum niedostępne dla tego utworu",
+    "spectrumLoading": "Wczytywanie spektrum…",
+    "deviceInput": "Wejście",
+    "devicePower": "Zasilanie",
+    "powerOn": "Włącz",
+    "powerOff": "Wyłącz"
   },
   "settings": {
     "settings_title": "Ustawienia Universal Media Player",
@@ -165,7 +173,14 @@
     "sonos_saved": "Zapisano tryb Sonos.",
     "sonos_save_error": "Nie udało się zapisać trybu Sonos.",
     "sonos_load_error": "Nie udało się wczytać trybu Sonos.",
-    "group_ip_help": "Zarezerwuj stałe adresy IP dla głośników Sonos w routerze. W trybie Odtwarzaj osobno Homey może użyć znanych adresów zamiast przeszukiwać sieć, dzięki czemu komunikaty mogą zacząć się szybciej."
+    "group_ip_help": "Zarezerwuj stałe adresy IP dla głośników Sonos w routerze. W trybie Odtwarzaj osobno Homey może użyć znanych adresów zamiast przeszukiwać sieć, dzięki czemu komunikaty mogą zacząć się szybciej.",
+    "group_auto_power": "Włączaj i wyłączaj automatycznie",
+    "group_auto_power_help": "Dla komunikatów: wyłączony telewizor jest najpierw włączany, a potem ponownie wyłączany.",
+    "auto_power": "Automatyczne zasilanie",
+    "auto_power_all": "Włączaj i wyłączaj automatycznie dla Wszystkich głośników",
+    "auto_power_help": "Tylko dla komunikatów. Wyłączony telewizor jest najpierw włączany, a potem ponownie wyłączany. Zapisane grupy i urządzenia odtwarzające mają własne ustawienie.",
+    "auto_power_saved": "Zapisano automatyczne zasilanie.",
+    "auto_power_error": "Nie udało się zapisać automatycznego zasilania."
   },
   "speakers": {
     "stereo": "Stereo",
@@ -194,5 +209,22 @@
   },
   "release": {
     "speaker_playback_notice": "Odtwarzaj bezpośrednio na głośnikach Sonos, Google Cast, zgodnych urządzeniach UPnP/DLNA lub w zapisanych grupach głośników. Steruj odtwarzaniem, przeglądaj bibliotekę i wybieraj głośnik w widżecie Odtwarzacz multimedialny na pulpicie. Instrukcję znajdziesz na wiki, a pomoc w temacie Universal Media Player na forum społeczności."
+  },
+  "speakerDevice": {
+    "unsupported": "Ten głośnik obecnie nie obsługuje tej czynności.",
+    "unreachable": "Głośnik jest niedostępny w sieci lokalnej.",
+    "tvPermission": "Zezwól na Universal Media Player w telewizorze i spróbuj ponownie.",
+    "tvUnreachable": "Nie można włączyć telewizora. Sprawdź, czy jest połączony z siecią.",
+    "tvOff": "Najpierw włącz telewizor.",
+    "inputs": {
+      "tv": "TV (HDMI ARC / optyczne)",
+      "line_in": "Wejście liniowe",
+      "queue": "Muzyka (kolejka Sonos)",
+      "samsung_tv": "TV",
+      "hdmi_1": "HDMI 1",
+      "hdmi_2": "HDMI 2",
+      "hdmi_3": "HDMI 3",
+      "hdmi_4": "HDMI 4"
+    }
   }
 }

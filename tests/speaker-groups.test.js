@@ -51,6 +51,15 @@ test('group validation rejects duplicate names, unknown speakers, groups and inv
     assert.deepEqual(groups.list(), [original]);
 });
 
+test('automatic power is stored per member only when switched on', async () => {
+    const {groups} = fixture();
+    const saved = await groups.save({name: 'TVs', members: [{id: 'cast:first', autoPower: true},
+        {id: 'dlna:uuid:second', autoPower: false}]});
+    assert.deepEqual(saved.members, [{id: 'cast:first', name: 'First', autoPower: true},
+        {id: 'dlna:uuid:second', name: 'Second'}]);
+    await assert.rejects(groups.save({name: 'Other', members: [{id: 'cast:first', autoPower: 'yes'}]}), /Automatic power/);
+});
+
 test('speaker volume respects adjustments, maximum and explicit silence', () => {
     assert.equal(memberVolume(50, {volumeOffset: 20, maxVolume: 60}), 60);
     assert.equal(memberVolume(5, {volumeOffset: -10}), 0);

@@ -66,6 +66,10 @@
     "tvFrame": "The Frame",
     "tvVoice": "Talestyring",
     "tvGamepad": "Støtte for spillkontroll",
+    "showSpectrum": "Vis spektrum",
+    "showArtwork": "Vis albumomslag",
+    "spectrumUnavailable": "Spektrum er ikke tilgjengelig for dette sporet",
+    "spectrumLoading": "Laster inn spektrum …",
     "close": "Lukk",
     "stale": "Forbindelsen er brutt. Viser sist kjente status.",
     "loading": "Laster...",
@@ -97,7 +101,7 @@
     "next": "Neste",
     "repeat": "Gjenta spilleliste",
     "startFlow": "Start først en fil eller mappe via en Flow.",
-    "noPlayers": "Legg til en UPnP-spiller for å bruke denne widgeten.",
+    "noPlayers": "Legg til en medieserver for å bruke denne widgeten.",
     "retry": "Prøv igjen",
     "loadError": "Kunne ikke laste spilleren. Kontroller tilkoblingen og prøv igjen.",
     "controlError": "Handlingen mislyktes. Kontroller spilleren og avspillings-Flowene, og prøv igjen.",
@@ -110,6 +114,10 @@
     "emptyFolder": "Ingen filer i denne mappen kan spilles av.",
     "more": "Last inn flere",
     "pause": "Pause",
-    "paused": "På pause"
+    "paused": "På pause",
+    "deviceInput": "Inngang",
+    "devicePower": "Av/på",
+    "powerOn": "Slå på",
+    "powerOff": "Slå av"
   }
 }

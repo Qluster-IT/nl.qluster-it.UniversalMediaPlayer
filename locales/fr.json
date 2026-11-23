@@ -36,7 +36,7 @@
     "next": "Suivant",
     "repeat": "Répéter la liste",
     "startFlow": "Lancez d’abord un fichier ou un dossier avec un Flow.",
-    "noPlayers": "Ajoutez un lecteur UPnP pour utiliser ce widget.",
+    "noPlayers": "Ajoutez un serveur multimédia pour utiliser ce widget.",
     "retry": "Réessayer",
     "loadError": "Impossible de charger le lecteur. Vérifiez la connexion et réessayez.",
     "controlError": "L’action a échoué. Vérifiez le lecteur et ses Flows de lecture, puis réessayez.",
@@ -110,7 +110,15 @@
     "tvFirmware": "Micrologiciel",
     "tvFrame": "The Frame",
     "tvVoice": "Commande vocale",
-    "tvGamepad": "Manette prise en charge"
+    "tvGamepad": "Manette prise en charge",
+    "showSpectrum": "Afficher le spectre",
+    "showArtwork": "Afficher la pochette",
+    "spectrumUnavailable": "Spectre indisponible pour ce morceau",
+    "spectrumLoading": "Chargement du spectre…",
+    "deviceInput": "Entrée",
+    "devicePower": "Alimentation",
+    "powerOn": "Allumer",
+    "powerOff": "Éteindre"
   },
   "settings": {
     "settings_title": "Paramètres d’Universal Media Player",
@@ -165,7 +173,14 @@
     "sonos_saved": "Mode Sonos enregistré.",
     "sonos_save_error": "Impossible d’enregistrer le mode Sonos.",
     "sonos_load_error": "Impossible de charger le mode Sonos.",
-    "group_ip_help": "Réservez des adresses IP fixes à vos enceintes Sonos dans votre routeur. Avec Lire séparément, Homey peut réutiliser les adresses connues au lieu de parcourir le réseau. Les annonces peuvent ainsi démarrer plus vite."
+    "group_ip_help": "Réservez des adresses IP fixes à vos enceintes Sonos dans votre routeur. Avec Lire séparément, Homey peut réutiliser les adresses connues au lieu de parcourir le réseau. Les annonces peuvent ainsi démarrer plus vite.",
+    "group_auto_power": "Allumer et éteindre automatiquement",
+    "group_auto_power_help": "Pour les annonces : un téléviseur éteint est d’abord allumé, puis éteint à nouveau.",
+    "auto_power": "Alimentation automatique",
+    "auto_power_all": "Allumer et éteindre automatiquement pour Tous les haut-parleurs",
+    "auto_power_help": "Pour les annonces uniquement. Un téléviseur éteint est d’abord allumé, puis éteint à nouveau. Les groupes enregistrés et les appareils de lecture ont leur propre réglage.",
+    "auto_power_saved": "Alimentation automatique enregistrée.",
+    "auto_power_error": "Impossible d’enregistrer l’alimentation automatique."
   },
   "speakers": {
     "stereo": "Stéréo",
@@ -194,5 +209,22 @@
   },
   "release": {
     "speaker_playback_notice": "Lancez la lecture directement sur Sonos, Google Cast, des enceintes UPnP/DLNA compatibles ou des groupes d’enceintes enregistrés. Contrôlez la lecture, parcourez la bibliothèque et choisissez une enceinte depuis le widget Lecteur multimédia du tableau de bord. Consultez le wiki pour le manuel et le sujet Universal Media Player sur le forum de la communauté pour obtenir de l’aide."
+  },
+  "speakerDevice": {
+    "unsupported": "Cette enceinte ne prend pas en charge cette action pour le moment.",
+    "unreachable": "L'enceinte est inaccessible sur le réseau local.",
+    "tvPermission": "Autorisez Universal Media Player sur le téléviseur, puis réessayez.",
+    "tvUnreachable": "Impossible d'allumer le téléviseur. Vérifiez qu'il est connecté au réseau.",
+    "tvOff": "Allumez d’abord le téléviseur.",
+    "inputs": {
+      "tv": "TV (HDMI ARC / optique)",
+      "line_in": "Entrée ligne",
+      "queue": "Musique (file Sonos)",
+      "samsung_tv": "TV",
+      "hdmi_1": "HDMI 1",
+      "hdmi_2": "HDMI 2",
+      "hdmi_3": "HDMI 3",
+      "hdmi_4": "HDMI 4"
+    }
   }
 }

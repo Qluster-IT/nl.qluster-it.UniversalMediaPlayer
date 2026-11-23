@@ -51,5 +51,12 @@
   "sonos_saved": "Modo de Sonos guardado.",
   "sonos_save_error": "No se pudo guardar el modo de Sonos.",
   "sonos_load_error": "No se pudo cargar el modo de Sonos.",
-  "group_ip_help": "Reserva direcciones IP fijas para tus altavoces Sonos en el router. Con Reproducir por separado, Homey puede reutilizar direcciones conocidas en lugar de buscar en la red, lo que puede acelerar los anuncios."
+  "group_ip_help": "Reserva direcciones IP fijas para tus altavoces Sonos en el router. Con Reproducir por separado, Homey puede reutilizar direcciones conocidas en lugar de buscar en la red, lo que puede acelerar los anuncios.",
+  "group_auto_power": "Encender y apagar automáticamente",
+  "group_auto_power_help": "Para avisos: un televisor apagado se enciende primero y después se vuelve a apagar.",
+  "auto_power": "Encendido automático",
+  "auto_power_all": "Encender y apagar automáticamente para Todos los altavoces",
+  "auto_power_help": "Solo para avisos. Un televisor apagado se enciende primero y después se vuelve a apagar. Los grupos guardados y los dispositivos de reproducción tienen su propio ajuste.",
+  "auto_power_saved": "Encendido automático guardado.",
+  "auto_power_error": "No se pudo guardar el encendido automático."
 }

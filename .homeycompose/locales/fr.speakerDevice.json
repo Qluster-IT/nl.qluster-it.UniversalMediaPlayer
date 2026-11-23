@@ -1,0 +1,17 @@
+{
+  "unsupported": "Cette enceinte ne prend pas en charge cette action pour le moment.",
+  "unreachable": "L'enceinte est inaccessible sur le réseau local.",
+  "tvPermission": "Autorisez Universal Media Player sur le téléviseur, puis réessayez.",
+  "tvUnreachable": "Impossible d'allumer le téléviseur. Vérifiez qu'il est connecté au réseau.",
+  "tvOff": "Allumez d’abord le téléviseur.",
+  "inputs": {
+    "tv": "TV (HDMI ARC / optique)",
+    "line_in": "Entrée ligne",
+    "queue": "Musique (file Sonos)",
+    "samsung_tv": "TV",
+    "hdmi_1": "HDMI 1",
+    "hdmi_2": "HDMI 2",
+    "hdmi_3": "HDMI 3",
+    "hdmi_4": "HDMI 4"
+  }
+}

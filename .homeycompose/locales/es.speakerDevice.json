@@ -1,0 +1,17 @@
+{
+  "unsupported": "Este altavoz no admite esta acción en este momento.",
+  "unreachable": "No se puede acceder al altavoz en la red local.",
+  "tvPermission": "Permite Universal Media Player en el televisor y vuelve a intentarlo.",
+  "tvUnreachable": "No se puede encender el televisor. Comprueba que esté conectado a la red.",
+  "tvOff": "Enciende primero el televisor.",
+  "inputs": {
+    "tv": "TV (HDMI ARC / óptica)",
+    "line_in": "Entrada de línea",
+    "queue": "Música (cola de Sonos)",
+    "samsung_tv": "TV",
+    "hdmi_1": "HDMI 1",
+    "hdmi_2": "HDMI 2",
+    "hdmi_3": "HDMI 3",
+    "hdmi_4": "HDMI 4"
+  }
+}

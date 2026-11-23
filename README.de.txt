@@ -2,6 +2,8 @@ Durchsuche und spiele Musik von einem UPnP-Server ab. Wähle die direkte Wiederg
 
 Spiele direkt auf Sonos, Google Cast und kompatiblen UPnP/DLNA-Lautsprechern oder gespeicherten Lautsprechergruppen ab. Steuere die Wiedergabe, durchsuche die Mediathek und wähle einen Lautsprecher im Mediaplayer-Widget auf dem Dashboard.
 
+Füge Lautsprecher und Fernseher als Wiedergabegeräte mit eigener Wiedergabe- und Lautstärkesteuerung hinzu. DLNA-Fernseher, darunter Samsung-Fernseher, können Musik aus deiner Mediathek abspielen. Samsung-Fernseher lassen sich auch über Homey ein- und ausschalten; The Frame wechselt dabei in den Kunstmodus.
+
 Wähle in einer Flow-Karte eine Datei oder einen Ordner aus und verknüpfe den Auslöser Wiedergabe-URL geändert mit der Aktion deines Lautsprechers zum Abspielen einer URL. Die App ermittelt die aktuelle URL anhand des gespeicherten Pfads. Verbinde bei der Wiedergabe über Flows den Auslöser für gestoppte Wiedergabe mit der Pause- oder Stoppaktion deines Lautsprechers.
 
 Community-Forum: https://community.homey.app/t/43450

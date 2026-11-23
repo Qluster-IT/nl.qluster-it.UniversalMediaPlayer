@@ -45,8 +45,11 @@ body.ump-widget { margin: 0; padding: 0; container-type: inline-size; background
 .media .widget-menu .hint { margin: 4px 8px; }
 .menu-description { display: block; color: var(--media-muted); font-size: 12px; font-weight: 400; }
 .summary { display: flex; gap: 12px; align-items: center; }
-.artwork { display: grid; place-items: center; flex: 0 0 76px; width: 76px; height: 76px; overflow: hidden; border-radius: 12px; background: var(--media-button); color: var(--media-muted); }
+.media .artwork { position: relative; display: grid; place-items: center; flex: 0 0 76px; width: 76px; height: 76px; padding: 0; overflow: hidden; border: 0; border-radius: 12px; background: var(--media-button); color: var(--media-muted); }
+.artwork canvas { display: block; width: 100%; height: 100%; color: var(--media-accent); }
+.spectrum-status { position: absolute; inset: auto 8px 8px; color: var(--media-muted); font-size: 12px; text-align: center; }
 .artwork img { width: 100%; height: 100%; object-fit: cover; }
+.media .artwork.artwork-static:disabled { opacity: 1; }
 .artwork > svg { width: 55%; height: 55%; fill: none; stroke: currentColor; stroke-width: 3; }
 .track-details { min-width: 0; flex: 1; }
 .media :is(h1, h2, p) { margin: 0; }
@@ -116,6 +119,8 @@ body.ump-widget { margin: 0; padding: 0; container-type: inline-size; background
 .media .sleep-toggle { display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 6px; min-width: 0; }
 .sleep-toggle span { min-width: 0; overflow-wrap: anywhere; }
 .sleep-toggle svg { flex: 0 0 18px; width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.device-controls .sleep-controls > :first-child { flex: 0 0 auto; min-width: 72px; }
+.media .device-controls select { flex: 1; min-width: 0; color: inherit; background-color: transparent; font: inherit; }
 .media .hint { margin-block-start: 12px; font-size: 12px; line-height: 1.4; }
 .hint { color: var(--media-muted); }
 .error-popup {
@@ -161,10 +166,10 @@ body.ump-widget { margin: 0; padding: 0; container-type: inline-size; background
 .media .track-info { display: block; width: 100%; padding: 0; border: 0; background: transparent; text-align: start; font: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .media .track-info:disabled { opacity: 1; }
 .library-tabs, .library-filter { display: flex; align-items: center; gap: 6px; }
-.library-tabs { flex-wrap: wrap; }
-.media .library-tabs > button { display: inline-flex; align-items: center; gap: 6px; min-width: 0; max-width: 100%; }
+.library-tabs { flex-wrap: nowrap; min-width: 0; }
+.media .library-tabs > button { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; min-width: 0; }
 .library-tabs > button svg { flex: 0 0 18px; width: 18px; height: 18px; }
-.library-tabs > button span { min-width: 0; overflow-wrap: anywhere; }
+.library-tabs > button span { white-space: nowrap; }
 .media .library-tabs > .config-button { justify-content: center; flex: 0 0 44px; padding: 0; margin-inline-start: auto; }
 .library-filter { margin-block: 6px; }
 .media .library-filter input { min-width: 0; width: 100%; min-height: 44px; padding: 8px; border: 1px solid var(--media-track); border-radius: 8px; color: var(--media-text); background: var(--media-surface); font: inherit; }
@@ -183,10 +188,10 @@ body.ump-widget { margin: 0; padding: 0; container-type: inline-size; background
   .media .library-tabs > button:not(.config-button) { padding-inline: 8px; }
 }
 @container (max-width: 320px) {
-  .media .library-tabs { flex-wrap: nowrap; }
-  .media .library-tabs > button { justify-content: center; flex: 0 1 44px; padding-inline: 4px; }
-  .library-tabs > button span { display: none; }
+  .media .library-tabs { gap: 4px; }
 }
+.media .library-tabs.icons-only > button { justify-content: center; flex: 0 1 44px; min-width: 30px; padding-inline: 2px; }
+.library-tabs.icons-only > button span { display: none; }
 .media :is(#media-library, #media-playlist) .library-list {
   --list-row-height: 48px;
   max-height: calc(var(--visible-rows) * var(--list-row-height) + 4px);

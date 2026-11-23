@@ -36,7 +36,7 @@
     "next": "Neste",
     "repeat": "Gjenta spilleliste",
     "startFlow": "Start først en fil eller mappe via en Flow.",
-    "noPlayers": "Legg til en UPnP-spiller for å bruke denne widgeten.",
+    "noPlayers": "Legg til en medieserver for å bruke denne widgeten.",
     "retry": "Prøv igjen",
     "loadError": "Kunne ikke laste spilleren. Kontroller tilkoblingen og prøv igjen.",
     "controlError": "Handlingen mislyktes. Kontroller spilleren og avspillings-Flowene, og prøv igjen.",
@@ -110,7 +110,15 @@
     "tvFirmware": "Fastvare",
     "tvFrame": "The Frame",
     "tvVoice": "Talestyring",
-    "tvGamepad": "Støtte for spillkontroll"
+    "tvGamepad": "Støtte for spillkontroll",
+    "showSpectrum": "Vis spektrum",
+    "showArtwork": "Vis albumomslag",
+    "spectrumUnavailable": "Spektrum er ikke tilgjengelig for dette sporet",
+    "spectrumLoading": "Laster inn spektrum …",
+    "deviceInput": "Inngang",
+    "devicePower": "Av/på",
+    "powerOn": "Slå på",
+    "powerOff": "Slå av"
   },
   "settings": {
     "settings_title": "Innstillinger for Universal Media Player",
@@ -165,7 +173,14 @@
     "sonos_saved": "Sonos-modus lagret.",
     "sonos_save_error": "Kunne ikke lagre Sonos-modus.",
     "sonos_load_error": "Kunne ikke laste Sonos-modus.",
-    "group_ip_help": "Reserver faste IP-adresser for Sonos-høyttalerne i ruteren. Med Spill av separat kan Homey bruke kjente adresser i stedet for å søke på nettverket, slik at kunngjøringer kan starte raskere."
+    "group_ip_help": "Reserver faste IP-adresser for Sonos-høyttalerne i ruteren. Med Spill av separat kan Homey bruke kjente adresser i stedet for å søke på nettverket, slik at kunngjøringer kan starte raskere.",
+    "group_auto_power": "Slå på og av automatisk",
+    "group_auto_power_help": "For kunngjøringer: en TV som er av, slås først på og deretter av igjen.",
+    "auto_power": "Automatisk av/på",
+    "auto_power_all": "Slå på og av automatisk for Alle høyttalere",
+    "auto_power_help": "Bare for kunngjøringer. En TV som er av, slås først på og deretter av igjen. Lagrede grupper og avspillingsenheter har sin egen innstilling.",
+    "auto_power_saved": "Automatisk av/på lagret.",
+    "auto_power_error": "Kunne ikke lagre automatisk av/på."
   },
   "speakers": {
     "stereo": "Stereo",
@@ -194,5 +209,22 @@
   },
   "release": {
     "speaker_playback_notice": "Spill av direkte på Sonos, Google Cast og kompatible UPnP/DLNA-høyttalere eller lagrede høyttalergrupper. Styr avspillingen, bla gjennom biblioteket og velg en høyttaler fra Mediespiller-widgeten på dashbordet. Se wikien for brukerhåndboken og emnet Universal Media Player på fellesskapsforumet for hjelp."
+  },
+  "speakerDevice": {
+    "unsupported": "Denne høyttaleren støtter ikke denne handlingen akkurat nå.",
+    "unreachable": "Høyttaleren kan ikke nås på det lokale nettverket.",
+    "tvPermission": "Tillat Universal Media Player på TV-en, og prøv igjen.",
+    "tvUnreachable": "TV-en kan ikke slås på. Kontroller at den er koblet til nettverket.",
+    "tvOff": "Slå på TV-en først.",
+    "inputs": {
+      "tv": "TV (HDMI ARC / optisk)",
+      "line_in": "Linjeinngang",
+      "queue": "Musikk (Sonos-kø)",
+      "samsung_tv": "TV",
+      "hdmi_1": "HDMI 1",
+      "hdmi_2": "HDMI 2",
+      "hdmi_3": "HDMI 3",
+      "hdmi_4": "HDMI 4"
+    }
   }
 }

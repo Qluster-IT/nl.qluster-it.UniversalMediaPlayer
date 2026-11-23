@@ -66,6 +66,10 @@
     "tvFrame": "The Frame",
     "tvVoice": "Control por voz",
     "tvGamepad": "Compatible con mandos",
+    "showSpectrum": "Mostrar espectro",
+    "showArtwork": "Mostrar portada",
+    "spectrumUnavailable": "Espectro no disponible para esta pista",
+    "spectrumLoading": "Cargando espectro…",
     "close": "Cerrar",
     "stale": "Conexión perdida. Se muestra el último estado conocido.",
     "loading": "Cargando...",
@@ -97,7 +101,7 @@
     "next": "Siguiente",
     "repeat": "Repetir lista",
     "startFlow": "Inicia primero un archivo o carpeta mediante un Flow.",
-    "noPlayers": "Añade un reproductor UPnP para usar este widget.",
+    "noPlayers": "Añade un servidor multimedia para usar este widget.",
     "retry": "Reintentar",
     "loadError": "No se puede cargar el reproductor. Comprueba la conexión e inténtalo de nuevo.",
     "controlError": "La acción ha fallado. Comprueba el reproductor y sus Flows de reproducción y vuelve a intentarlo.",
@@ -110,6 +114,10 @@
     "emptyFolder": "No hay archivos reproducibles en esta carpeta.",
     "more": "Cargar más",
     "pause": "Pausar",
-    "paused": "En pausa"
+    "paused": "En pausa",
+    "deviceInput": "Entrada",
+    "devicePower": "Encendido",
+    "powerOn": "Encender",
+    "powerOff": "Apagar"
   }
 }

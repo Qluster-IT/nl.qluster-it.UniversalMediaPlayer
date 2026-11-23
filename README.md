@@ -4,8 +4,8 @@ the app can find the file again if the server changes its ID.
 
 ## Playback setup
 
-When pairing or repairing a UPnP Player, select a **Default playback speaker** to
-play directly on Sonos, Google Cast or compatible UPnP/DLNA speakers. Save
+When pairing or repairing a Media Server (formerly UPnP Player), select a **Default playback speaker** to
+play directly on Sonos, Google Cast or compatible UPnP/DLNA speakers and TVs, such as Samsung TVs. Save
 speaker groups in the app settings to select several speakers together.
 Select **Use Flows only** to keep playback
 controlled by your existing Flows. Direct playback does not run the existing
@@ -17,7 +17,7 @@ Music playback does not resume a previously active Sonos queue.
 **Temporarily group Sonos rooms** is on by default and synchronizes direct playback
 across compatible selected Sonos rooms.
 
-Use **Play a notification sound** on an idle UPnP Player to play a UPnP file
+Use **Play a notification sound** on an idle Media Server to play a UPnP file
 of up to 60 seconds. Choose a speaker or group on the card, or leave it blank
 to use the player's target. **Continue** waits for confirmed playback;
 **Wait to finish** also waits for completion and any necessary restoration.
@@ -36,7 +36,7 @@ Play Separately reuse verified Sonos addresses and avoid repeat network scans.
 
 For Flow-controlled playback:
 
-1. Add a UPnP Player and select a file or folder in a Flow card.
+1. Add a Media Server and select a file or folder in a Flow card.
 2. Create a Flow with **Playback URL changed** as the trigger.
 3. Add your speaker's play-URL action and use the trigger's **URL** tag.
 
@@ -53,13 +53,53 @@ automatic folder advancement may be inaccurate.
 
 Thanks for Johan Bendz for the excellent images and icons!
 
+## Playback devices
+
+Add a **Playback Device** to give a Sonos, Google Cast or UPnP/DLNA speaker or TV its own Homey
+device. It shows what is playing and offers the controls that speaker supports, such as play/pause,
+stop, next/previous, shuffle, repeat, volume and mute; controls appear once the speaker supports them.
+TVs are added with the TV device class.
+When a Media Server plays on the device, the device controls that playlist. Paired devices use their
+Homey name in speaker lists and stay selectable as a playback target or widget source.
+
+Samsung TVs also get an on/off button. Off works like the remote's power button (a Frame switches to
+art mode, which shows as off); a TV that is fully off is switched on over the network (Wake-on-LAN).
+Some Frames don't always report whether they show art. When they don't, on/off presses the power button once, like the
+remote, and the button keeps its previous state.
+The first time, the TV asks to allow **Universal Media Player**; choose Allow on the TV.
+
+**Turn on and off automatically** (off by default) is for announcements. If the TV is off, UMP turns it
+on first, plays the announcement and turns it off again afterwards; a TV that was already on stays on.
+Music never turns a TV on: switch it on yourself. Set it in the device settings for an announcement
+to that device, per speaker in a saved group, or in the app settings (**Speakers**) for **All speakers**.
+The **All speakers (no TVs)** choices never turn anything on. A TV that doesn't respond is woken, but
+only turned off again if it was seen in standby while waking. UMP can't see someone watching TV or HDMI:
+if you start watching during an announcement that turned the TV on, it still turns off afterwards.
+
+Devices with selectable inputs get Homey's **Input** control, with only the inputs that device has.
+It works on the device, in Homey's standard input Flow cards and in the widget. Sonos soundbars
+(Arc, Beam, Ray, Playbar, Playbase, Amp) switch to **TV** (HDMI ARC or optical); Sonos models with
+a line-in (such as Five, Play:5, Port and Connect) switch to **Line-in**. **Music** switches back to the
+Sonos queue. TV audio is only played by the soundbar itself, so a grouped soundbar leaves its group;
+a line-in plays on the whole group. Samsung TVs switch to TV or HDMI 1–4 with remote keys while the
+TV is on. The TV doesn't report its current input: the widget doesn't show one, and the device shows
+the last input selected through Homey. Not every model has every HDMI input.
+An input can't be changed while a Media Server plays on the device. This only applies within one Homey:
+UMP on another Homey doesn't know about that playback and can still change the input.
+
 ## Dashboard widget
 
-Add **Media player** to a Homey dashboard, select a UPnP Player, and choose
+Add **Media player** to a Homey dashboard, select a Media Server, and choose
 Compact or Large. The widget shows the player, artwork, track, artist, album,
 and estimated playback time, with previous, play/pause, stop, next, shuffle, and playlist
 repeat controls. A read-only progress bar appears when the track duration is known.
 Compact uses tighter vertical spacing and shows elapsed and total time alongside the artwork.
+Click the artwork to show a spectrum of the playing track; click it again to return to the artwork.
+Each widget remembers this choice. The spectrum follows UMP playback: the widget analyses the
+same file through Homey without playing sound, so it uses extra network traffic. It isn't available
+for playback that UMP doesn't control. The Visualizer widget setting chooses No visualizer, Light
+(for older tablets), Normal or Detailed. Light uses fewer bars and less data; Detailed is smoother
+and suits fast devices.
 On narrow screens, Compact keeps open lists shorter; swipe within a list to see more entries.
 When available, the track number and total appear below the position bar, opposite the playback time.
 Play/Pause is blue, and active Shuffle, Repeat, and Library buttons are tinted.
@@ -92,9 +132,14 @@ those rooms. These controls are shown when the speaker exposes them.
 You can also open **Config → Group rooms** while using a UMP library: select an
 individual Sonos room as the playback target (or use it as the device default).
 Changing the live Sonos group does not change the selected source or target.
+While a Media Server plays to that Sonos group, its own widget can still add and remove rooms; the
+playback continues with the new group. Rooms playing for another Media Server on the same Homey stay locked.
+**Config** also shows **Input** and **Power** for the selected source or destination when the device
+supports them. Power and Samsung inputs require the TV to be added as a Playback Device.
 
 Speaker mode listens for playback updates on compatible Sonos and DLNA devices
-and still checks periodically if a notification is missed. Homey can serve
+and still checks periodically if a notification is missed. Update subscriptions
+automatically reconnect when Homey's local IP address changes. Homey can serve
 artwork hosted by the selected speaker when a dashboard cannot reach it directly.
 Compatible TVs show their model when available and expose media controls for
 DLNA playback. For supported Samsung TVs discovered on the local network, the
@@ -102,7 +147,7 @@ widget also reads power state, resolution and operating system without pairing.
 Select the TV as the source and tap its name to see available network type,
 firmware and supported features. A TV that stops responding is not assumed to be
 off. These readings do not identify the TV's current HDMI input, tuner channel,
-or streaming app, and do not provide Samsung remote controls.
+or streaming app. To switch a Samsung TV on or off, add it as a Playback Device.
 Some TVs report volume and mute but reject changes outside a DLNA session.
 Use the TV remote or select the soundbar as the source if it handles the audio.
 
@@ -272,6 +317,12 @@ check lazy loading and error paths too.
 
 - Play directly on Sonos, Google Cast and compatible UPnP/DLNA speakers or saved speaker groups.
 - Control playback, browse the library and choose a speaker from the Media player dashboard widget.
+- Add speakers and TVs as Playback Devices with their own playback and volume controls. Samsung TVs can also be switched on and off.
+- UPnP Player is now called Media Server.
+- Click the widget artwork to show a spectrum; choose No, Light, Normal or Detailed visualizer in the widget settings.
+- Switch inputs (TV, line-in, HDMI) of supported Sonos and Samsung devices and turn TVs on or off from the widget; inputs also work on the device and in Flows.
+- Announcements can turn TVs on and off automatically (off by default).
+- Add or remove Sonos rooms in the widget while UMP plays to that group.
 
 - **1.2.14** - Moved source code and issues to GitHub.
 - **1.2.13** - Fixed socket connection issues.

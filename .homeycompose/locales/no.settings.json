@@ -51,5 +51,12 @@
   "sonos_saved": "Sonos-modus lagret.",
   "sonos_save_error": "Kunne ikke lagre Sonos-modus.",
   "sonos_load_error": "Kunne ikke laste Sonos-modus.",
-  "group_ip_help": "Reserver faste IP-adresser for Sonos-høyttalerne i ruteren. Med Spill av separat kan Homey bruke kjente adresser i stedet for å søke på nettverket, slik at kunngjøringer kan starte raskere."
+  "group_ip_help": "Reserver faste IP-adresser for Sonos-høyttalerne i ruteren. Med Spill av separat kan Homey bruke kjente adresser i stedet for å søke på nettverket, slik at kunngjøringer kan starte raskere.",
+  "group_auto_power": "Slå på og av automatisk",
+  "group_auto_power_help": "For kunngjøringer: en TV som er av, slås først på og deretter av igjen.",
+  "auto_power": "Automatisk av/på",
+  "auto_power_all": "Slå på og av automatisk for Alle høyttalere",
+  "auto_power_help": "Bare for kunngjøringer. En TV som er av, slås først på og deretter av igjen. Lagrede grupper og avspillingsenheter har sin egen innstilling.",
+  "auto_power_saved": "Automatisk av/på lagret.",
+  "auto_power_error": "Kunne ikke lagre automatisk av/på."
 }

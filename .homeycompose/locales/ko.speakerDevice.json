@@ -1,0 +1,17 @@
+{
+  "unsupported": "이 스피커는 현재 이 작업을 지원하지 않습니다.",
+  "unreachable": "로컬 네트워크에서 스피커에 연결할 수 없습니다.",
+  "tvPermission": "TV에서 Universal Media Player를 허용한 후 다시 시도하세요.",
+  "tvUnreachable": "TV를 켤 수 없습니다. TV가 네트워크에 연결되어 있는지 확인하세요.",
+  "tvOff": "먼저 TV를 켜세요.",
+  "inputs": {
+    "tv": "TV (HDMI ARC / 광)",
+    "line_in": "라인 입력",
+    "queue": "음악 (Sonos 대기열)",
+    "samsung_tv": "TV",
+    "hdmi_1": "HDMI 1",
+    "hdmi_2": "HDMI 2",
+    "hdmi_3": "HDMI 3",
+    "hdmi_4": "HDMI 4"
+  }
+}

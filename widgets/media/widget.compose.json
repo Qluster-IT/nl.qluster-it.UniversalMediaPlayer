@@ -176,6 +176,51 @@
           }
         }
       ]
+    },
+    {
+      "id": "visualizer",
+      "type": "dropdown",
+      "title": {
+        "en": "Visualizer", "nl": "Visualisatie", "de": "Visualisierung", "fr": "Visualiseur",
+        "it": "Visualizzatore", "es": "Visualizador", "da": "Visualisering", "no": "Visualisering",
+        "sv": "Visualisering", "pl": "Wizualizacja", "ru": "Визуализация", "ko": "시각화", "ar": "المؤثرات المرئية"
+      },
+      "value": "normal",
+      "values": [
+        {
+          "id": "off",
+          "title": {
+            "en": "No visualizer", "nl": "Geen visualisatie", "de": "Keine Visualisierung", "fr": "Aucun visualiseur",
+            "it": "Nessun visualizzatore", "es": "Sin visualizador", "da": "Ingen visualisering", "no": "Ingen visualisering",
+            "sv": "Ingen visualisering", "pl": "Bez wizualizacji", "ru": "Без визуализации", "ko": "시각화 없음", "ar": "بدون مؤثرات مرئية"
+          }
+        },
+        {
+          "id": "light",
+          "title": {
+            "en": "Light (older tablets)", "nl": "Licht (oudere tablets)", "de": "Leicht (ältere Tablets)",
+            "fr": "Léger (anciennes tablettes)", "it": "Leggero (tablet meno recenti)", "es": "Ligero (tabletas antiguas)",
+            "da": "Let (ældre tablets)", "no": "Lett (eldre nettbrett)", "sv": "Lätt (äldre surfplattor)",
+            "pl": "Lekka (starsze tablety)", "ru": "Лёгкая (старые планшеты)", "ko": "가벼움 (구형 태블릿)", "ar": "خفيف (الأجهزة اللوحية القديمة)"
+          }
+        },
+        {
+          "id": "normal",
+          "title": {
+            "en": "Normal", "nl": "Normaal", "de": "Normal", "fr": "Normal", "it": "Normale", "es": "Normal",
+            "da": "Normal", "no": "Normal", "sv": "Normal", "pl": "Normalna", "ru": "Обычная", "ko": "보통", "ar": "عادي"
+          }
+        },
+        {
+          "id": "heavy",
+          "title": {
+            "en": "Detailed (fast devices)", "nl": "Gedetailleerd (snelle apparaten)", "de": "Detailliert (schnelle Geräte)",
+            "fr": "Détaillé (appareils rapides)", "it": "Dettagliato (dispositivi veloci)", "es": "Detallado (dispositivos rápidos)",
+            "da": "Detaljeret (hurtige enheder)", "no": "Detaljert (raske enheter)", "sv": "Detaljerad (snabba enheter)",
+            "pl": "Szczegółowa (szybkie urządzenia)", "ru": "Подробная (быстрые устройства)", "ko": "상세 (빠른 기기)", "ar": "مفصّل (الأجهزة السريعة)"
+          }
+        }
+      ]
     }
   ],
   "api": {
@@ -194,6 +239,10 @@
     "browse": {
       "method": "POST",
       "path": "/browse"
+    },
+    "audio": {
+      "method": "POST",
+      "path": "/audio"
     }
   }
 }

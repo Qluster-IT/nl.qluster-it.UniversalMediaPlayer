@@ -66,6 +66,10 @@
     "tvFrame": "The Frame",
     "tvVoice": "Comandi vocali",
     "tvGamepad": "Supporto gamepad",
+    "showSpectrum": "Mostra spettro",
+    "showArtwork": "Mostra copertina",
+    "spectrumUnavailable": "Spettro non disponibile per questo brano",
+    "spectrumLoading": "Caricamento spettro…",
     "close": "Chiudi",
     "stale": "Connessione persa. Viene mostrato l'ultimo stato noto.",
     "loading": "Caricamento...",
@@ -97,7 +101,7 @@
     "next": "Successivo",
     "repeat": "Ripeti la playlist",
     "startFlow": "Avvia prima un file o una cartella tramite un Flow.",
-    "noPlayers": "Aggiungi un lettore UPnP per usare questo widget.",
+    "noPlayers": "Aggiungi un server multimediale per usare questo widget.",
     "retry": "Riprova",
     "loadError": "Impossibile caricare il lettore. Controlla la connessione e riprova.",
     "controlError": "Azione non riuscita. Controlla il lettore e i suoi Flow di riproduzione, poi riprova.",
@@ -110,6 +114,10 @@
     "emptyFolder": "Nessun file riproducibile in questa cartella.",
     "more": "Carica altro",
     "pause": "Pausa",
-    "paused": "In pausa"
+    "paused": "In pausa",
+    "deviceInput": "Ingresso",
+    "devicePower": "Accensione",
+    "powerOn": "Accendi",
+    "powerOff": "Spegni"
   }
 }

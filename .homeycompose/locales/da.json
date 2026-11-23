@@ -66,6 +66,10 @@
     "tvFrame": "The Frame",
     "tvVoice": "Stemmestyring",
     "tvGamepad": "Understøtter spilcontroller",
+    "showSpectrum": "Vis spektrum",
+    "showArtwork": "Vis albumcover",
+    "spectrumUnavailable": "Spektrum er ikke tilgængeligt for dette nummer",
+    "spectrumLoading": "Indlæser spektrum …",
     "close": "Luk",
     "stale": "Forbindelsen er mistet. Viser den senest kendte status.",
     "loading": "Indlæser...",
@@ -97,7 +101,7 @@
     "next": "Næste",
     "repeat": "Gentag afspilningsliste",
     "startFlow": "Start først en fil eller mappe via et Flow.",
-    "noPlayers": "Tilføj en UPnP-afspiller for at bruge denne widget.",
+    "noPlayers": "Tilføj en medieserver for at bruge denne widget.",
     "retry": "Prøv igen",
     "loadError": "Afspilleren kunne ikke indlæses. Kontrollér forbindelsen, og prøv igen.",
     "controlError": "Handlingen mislykkedes. Kontrollér afspilleren og dens afspilnings-Flows, og prøv igen.",
@@ -110,6 +114,10 @@
     "emptyFolder": "Ingen filer i denne mappe kan afspilles.",
     "more": "Indlæs flere",
     "pause": "Pause",
-    "paused": "Sat på pause"
+    "paused": "Sat på pause",
+    "deviceInput": "Indgang",
+    "devicePower": "Tænd/sluk",
+    "powerOn": "Tænd",
+    "powerOff": "Sluk"
   }
 }

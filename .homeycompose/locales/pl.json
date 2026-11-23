@@ -66,6 +66,10 @@
     "tvFrame": "The Frame",
     "tvVoice": "Sterowanie głosowe",
     "tvGamepad": "Obsługa kontrolera gier",
+    "showSpectrum": "Pokaż spektrum",
+    "showArtwork": "Pokaż okładkę",
+    "spectrumUnavailable": "Spektrum niedostępne dla tego utworu",
+    "spectrumLoading": "Wczytywanie spektrum…",
     "close": "Zamknij",
     "stale": "Utracono połączenie. Wyświetlany jest ostatni znany stan.",
     "loading": "Ładowanie...",
@@ -97,7 +101,7 @@
     "next": "Następny",
     "repeat": "Powtarzaj listę",
     "startFlow": "Najpierw uruchom plik lub folder za pomocą Flow.",
-    "noPlayers": "Dodaj odtwarzacz UPnP, aby używać tego widżetu.",
+    "noPlayers": "Dodaj serwer multimediów, aby używać tego widżetu.",
     "retry": "Spróbuj ponownie",
     "loadError": "Nie można wczytać odtwarzacza. Sprawdź połączenie i spróbuj ponownie.",
     "controlError": "Akcja nie powiodła się. Sprawdź odtwarzacz i jego Flow odtwarzania, a następnie spróbuj ponownie.",
@@ -110,6 +114,10 @@
     "emptyFolder": "Brak plików do odtworzenia w tym folderze.",
     "more": "Wczytaj więcej",
     "pause": "Wstrzymaj",
-    "paused": "Wstrzymano"
+    "paused": "Wstrzymano",
+    "deviceInput": "Wejście",
+    "devicePower": "Zasilanie",
+    "powerOn": "Włącz",
+    "powerOff": "Wyłącz"
   }
 }

@@ -55,8 +55,9 @@ async function setup(t, rooms) {
                 return req.socket.destroy();
             }
             if (!action.startsWith('Get')) calls.push({target: target.id, action, args});
-            let values = {}, fault;
+            let values = {}, fault, reason;
             if (target.unsupported?.includes(action)) fault = 401;
+            else if (target.reject?.[action]) [fault, reason] = target.reject[action];
             else switch (action) {
                 case 'GetZoneGroupState':
                     values = {ZoneGroupState: renderTopology()};
@@ -137,7 +138,8 @@ async function setup(t, rooms) {
             const resultTags = target.microsoft ? Object.entries(values).map(([key, value]) =>
                 `<${key} xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="string">${encode(value)}</${key}>`).join('') : tags(values);
             res.end(`<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body>` +
-                (fault ? `<s:Fault><detail><UPnPError><errorCode>${fault}</errorCode></UPnPError></detail></s:Fault>` :
+                (fault ? `<s:Fault><detail><UPnPError><errorCode>${fault}</errorCode>` +
+                    (reason ? `<errorDescription>${encode(reason)}</errorDescription>` : '') + '</UPnPError></detail></s:Fault>' :
                     `<${action}Response>${resultTags}</${action}Response>`) + '</s:Body></s:Envelope>');
         } catch (error) {
             res.statusCode = 500;
@@ -158,6 +160,27 @@ async function setup(t, rooms) {
         new DirectSpeakerSession({device, playback: {select}});
     return {calls, speaker, controller, device, store};
 }
+
+test('a Windows SOAP reply with a corrupted header name is read again, but a write is never repeated', async t => {
+    const net = require('node:net');
+    const actions = [];
+    const server = net.createServer(socket => socket.once('data', data => {
+        const action = /#(\w+)"/.exec(String(data))[1];
+        actions.push(action);
+        const body = `<s:Envelope xmlns:s="urn:soap"><s:Body><u:${action}Response><CurrentVolume>22</CurrentVolume>` +
+            `</u:${action}Response></s:Body></s:Envelope>`;
+        const corrupt = actions.filter(name => name === action).length === 1 ? '\u0000\u00b4: \r\n' : '';
+        socket.end(`HTTP/1.1 200 OK\r\nContent-Length: ${body.length}\r\nContent-Type: text/xml\r\n${corrupt}` +
+            `Connection: close\r\n\r\n${body}`, 'latin1');
+    }));
+    await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+    t.after(() => new Promise(resolve => server.close(resolve)));
+    const {soap} = DirectSpeakerSession.controller;
+    const service = {endpoint: `http://127.0.0.1:${server.address().port}/control`, service: type('RenderingControl')};
+    assert.equal((await soap(service, 'GetVolume', {Channel: 'Master'})).CurrentVolume, '22');
+    await assert.rejects(soap(service, 'SetVolume', {Channel: 'Master', DesiredVolume: 30}), {code: 'HPE_INVALID_HEADER_TOKEN'});
+    assert.deepEqual(actions, ['GetVolume', 'GetVolume', 'SetVolume']);
+});
 
 test('typed Microsoft SOAP values retain usable transport, position and volume', async t => {
     const item = room('TYPED', {microsoft: true});
@@ -271,6 +294,28 @@ test('DLNA video metadata describes video rather than a music track', async t =>
     assert.match(item.metadata, /http-get:\*:video\/mp4:\*/);
 });
 
+test('DLNA metadata keeps the media server protocolInfo only when it matches the MIME type', async t => {
+    const item = room('PROFILE');
+    const {speaker, controller} = await setup(t, [item]);
+    const target = speaker(item, {protocol: 'dlna'});
+    const flags = 'http-get:*:audio/mpeg:DLNA.ORG_PN=MP3;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000';
+    assert.equal((await controller(target).start(target, {...file(1), contentType: 'audio/mpeg', protocolInfo: flags}, {restore: false})).ok, true);
+    assert.ok(item.metadata.includes(`protocolInfo="${flags}"`));
+    const mismatched = {...file(2), contentType: 'audio/flac', protocolInfo: flags};
+    assert.equal((await controller(target).start(target, mismatched, {restore: false})).ok, true);
+    assert.match(item.metadata, /protocolInfo="http-get:\*:audio\/flac:\*"/);
+});
+
+test('a renderer rejecting the track reports its UPnP code and reason without sending Play', async t => {
+    const item = room('REJECT', {reject: {SetAVTransportURI: [714, 'Illegal MIME-type']}});
+    const {speaker, controller, calls} = await setup(t, [item]);
+    const target = speaker(item, {protocol: 'dlna'});
+    const report = await controller(target).start(target, file(1), {restore: false});
+    assert.equal(report.ok, false);
+    assert.match(JSON.stringify(report.failures), /UPnP 714\): Illegal MIME-type/);
+    assert.equal(calls.some(call => call.action === 'Play'), false);
+});
+
 test('DLNA queue edits retain the current source and position without loading or seeking', async t => {
     const item = room('EDIT_QUEUE', {time: '0:00:02'});
     const {speaker, controller, calls} = await setup(t, [item]);
@@ -356,6 +401,33 @@ test('speaker-source controls use the owning UMP queue instead of competing with
     assert.equal(item.track, file(2).url);
     assert.equal((await session.stop()).ok, true);
     assert.equal((await mediaWidget.playlist({homey, body: {speaker: target.id, size: 50}})).unavailable, true);
+});
+
+test('widget spectrum audio proxies ranged chunks of only the current UMP track', async t => {
+    const media = Buffer.alloc(300 * 1024, 7);
+    const ranges = [];
+    const server = http.createServer((req, res) => {
+        ranges.push(req.headers.range);
+        const [, start, end] = /^bytes=(\d+)-(\d+)$/.exec(req.headers.range).map(Number);
+        const last = Math.min(end, media.length - 1);
+        res.writeHead(206, {'Content-Type': 'audio/mpeg', 'Content-Range': `bytes ${start}-${last}/${media.length}`});
+        res.end(media.subarray(start, last + 1));
+    });
+    await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+    t.after(() => server.close());
+    const current = {id: 7, url: `http://127.0.0.1:${server.address().port}/song.mp3`};
+    const player = {getData: () => ({id: 'ump'}), getAvailable: () => true, playlistManager: {currentFile: current}};
+    const homey = {__: key => key, app: {log() {}}, drivers: {getDriver: () => ({getDevices: () => [player]})}};
+    const first = await mediaWidget.audio({homey, body: {player: 'ump', item: '7', offset: 0}});
+    assert.deepEqual([first.type, first.total, first.next, Buffer.from(first.data, 'base64').length],
+        ['audio/mpeg', media.length, 256 * 1024, 256 * 1024]);
+    const last = await mediaWidget.audio({homey, body: {player: 'ump', item: '7', offset: first.next}});
+    assert.deepEqual([last.next, Buffer.from(last.data, 'base64').length], [null, media.length - 256 * 1024]);
+    await assert.rejects(mediaWidget.audio({homey, body: {player: 'ump', item: '8', offset: 0}}), /spectrumUnavailable/);
+    await assert.rejects(mediaWidget.audio({homey, body: {player: 'ump', item: '7', offset: 5}}), /invalidAction/);
+    await assert.rejects(mediaWidget.audio({homey, body: {speaker: 'dlna:uuid:foreign', item: '7', offset: 0}}),
+        /spectrumUnavailable/);
+    assert.deepEqual(ranges, ['bytes=0-262143', 'bytes=262144-524287']);
 });
 
 test('widget destinations preserve independent queues, source controls and ownership across restart', async t => {

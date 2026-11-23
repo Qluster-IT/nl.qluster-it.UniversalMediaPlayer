@@ -6,5 +6,6 @@ module.exports = {
     getState: widget.state,
     browse: widget.browse,
     playlist: widget.playlist,
-    control: widget.control
+    control: widget.control,
+    audio: widget.audio
 };

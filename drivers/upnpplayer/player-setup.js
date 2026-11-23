@@ -5,7 +5,7 @@ const {DEFAULT_TARGET, CURRENT_TARGET, updateTarget, listTargets, validateTarget
 module.exports = function registerPlayerSetup(driver, session, device) {
     const {homey} = driver;
     const manifest = require('../../app.json').drivers.find(item => item.id === 'upnpplayer');
-    if (!manifest || !Array.isArray(manifest.settings)) throw new Error('UPnP Player settings are unavailable.');
+    if (!manifest || !Array.isArray(manifest.settings)) throw new Error('Media Server settings are unavailable.');
     const language = homey.i18n.getLanguage();
     const label = value => typeof value === 'string' ? value : value?.[language] || value?.en || '';
     const flatten = fields => fields.flatMap(field => field.type === 'group' ? flatten(field.children) : [field]);

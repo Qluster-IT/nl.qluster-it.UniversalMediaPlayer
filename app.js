@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const {EventEmitter} = require('node:events');
 const SpeakerPlayback = require('./lib/speaker-playback');
 const {SpeakerGroups} = require('./lib/speaker-groups');
 const SpeakerEvents = require('./lib/speaker-events');
@@ -18,6 +19,11 @@ class UPnPPlayerApp extends Homey.App {
             this.homey.settings
         );
         this.widgetHomeyId = await this.homey.cloud.getHomeyId();
+        this.speakerUpdates = new EventEmitter();
+        this.speakerUpdates.setMaxListeners(0);
+        this.speakerPlayback.paired = () => this.homey.drivers.getDriver('playbackdevice').getDevices().map(device => ({
+            id: device.getData().id, name: device.getName(), protocol: device.getStoreValue('protocol')
+        }));
         this.speakerEvents = new SpeakerEvents(this.homey);
         this.speakerArtwork = new SpeakerArtwork(this.homey);
         this.homey.dashboards.getWidget('media').registerSettingAutocompleteListener('player', async query => {

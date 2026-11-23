@@ -1,0 +1,17 @@
+{
+  "unsupported": "Den här högtalaren stöder inte den här åtgärden just nu.",
+  "unreachable": "Högtalaren kan inte nås i det lokala nätverket.",
+  "tvPermission": "Tillåt Universal Media Player på tv:n och försök igen.",
+  "tvUnreachable": "Tv:n kan inte slås på. Kontrollera att den är ansluten till nätverket.",
+  "tvOff": "Slå på tv:n först.",
+  "inputs": {
+    "tv": "TV (HDMI ARC / optisk)",
+    "line_in": "Linjeingång",
+    "queue": "Musik (Sonos-kö)",
+    "samsung_tv": "TV",
+    "hdmi_1": "HDMI 1",
+    "hdmi_2": "HDMI 2",
+    "hdmi_3": "HDMI 3",
+    "hdmi_4": "HDMI 4"
+  }
+}

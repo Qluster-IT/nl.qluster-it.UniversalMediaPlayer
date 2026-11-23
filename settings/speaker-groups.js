@@ -62,7 +62,8 @@ function initSpeakerGroups(Homey) {
             saved.members.some(member => {
                 const current = draft.members.get(member.id);
                 return !current || (current.volumeOffset ?? 0) !== (member.volumeOffset ?? 0) ||
-                    (current.maxVolume ?? 100) !== (member.maxVolume ?? 100);
+                    (current.maxVolume ?? 100) !== (member.maxVolume ?? 100) ||
+                    Boolean(current.autoPower) !== Boolean(member.autoPower);
             });
     }
 
@@ -177,6 +178,25 @@ function initSpeakerGroups(Homey) {
                     updateValue();
                 };
             });
+            const power = document.createElement('label');
+            power.className = 'checkbox-label group-auto-power';
+            const powerBox = document.createElement('input');
+            powerBox.type = 'checkbox';
+            powerBox.className = 'hy-nostyle';
+            powerBox.checked = draft.members.get(speaker.id)?.autoPower === true;
+            powerBox.addEventListener('change', () => {
+                const member = draft.members.get(speaker.id);
+                if (!member) return;
+                if (powerBox.checked) member.autoPower = true;
+                else delete member.autoPower;
+                updateButtons();
+            });
+            const powerText = document.createElement('span');
+            powerText.textContent = translate('group_auto_power');
+            power.title = translate('group_auto_power_help');
+            power.append(powerBox, powerText);
+            fields.append(power);
+            resetSliders.push(() => { powerBox.checked = false; });
             row.append(label, fields);
             memberList.append(row);
         }
@@ -288,9 +308,10 @@ function initSpeakerGroups(Homey) {
                 selectGroup(null);
                 groupStatus.textContent = translate('group_deleted');
             } else {
-                const members = [...draft.members.values()].map(({id, volumeOffset, maxVolume}) => ({
+                const members = [...draft.members.values()].map(({id, volumeOffset, maxVolume, autoPower}) => ({
                     id, ...(volumeOffset === undefined ? {} : {volumeOffset}),
-                    ...(maxVolume === undefined ? {} : {maxVolume})
+                    ...(maxVolume === undefined ? {} : {maxVolume}),
+                    ...(autoPower === true ? {autoPower} : {})
                 }));
                 const saved = await call('api', 'POST', '/speaker-groups', {
                     id: draft.id, name: draft.name, members

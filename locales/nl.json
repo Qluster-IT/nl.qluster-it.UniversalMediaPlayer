@@ -36,7 +36,7 @@
     "next": "Volgende",
     "repeat": "Afspeellijst herhalen",
     "startFlow": "Start eerst een bestand of map via een Flow.",
-    "noPlayers": "Voeg een UPnP-speler toe om deze widget te gebruiken.",
+    "noPlayers": "Voeg een mediaserver toe om deze widget te gebruiken.",
     "retry": "Opnieuw proberen",
     "loadError": "Kan de speler niet laden. Controleer de verbinding en probeer het opnieuw.",
     "controlError": "De actie is mislukt. Controleer de speler en de afspeel-Flows en probeer het opnieuw.",
@@ -110,7 +110,15 @@
     "tvFirmware": "Firmware",
     "tvFrame": "The Frame",
     "tvVoice": "Spraakbediening",
-    "tvGamepad": "Gamepadondersteuning"
+    "tvGamepad": "Gamepadondersteuning",
+    "showSpectrum": "Spectrum tonen",
+    "showArtwork": "Albumhoes tonen",
+    "spectrumUnavailable": "Spectrum niet beschikbaar voor dit nummer",
+    "spectrumLoading": "Spectrum laden…",
+    "deviceInput": "Ingang",
+    "devicePower": "Aan/uit",
+    "powerOn": "Inschakelen",
+    "powerOff": "Uitschakelen"
   },
   "settings": {
     "settings_title": "Instellingen van Universal Media Player",
@@ -165,7 +173,14 @@
     "sonos_saved": "Sonos-modus opgeslagen.",
     "sonos_save_error": "Kan de Sonos-modus niet opslaan.",
     "sonos_load_error": "Kan de Sonos-modus niet laden.",
-    "group_ip_help": "Reserveer vaste IP-adressen voor je Sonos-luidsprekers in je router. Met Apart afspelen kan Homey bekende adressen hergebruiken in plaats van het netwerk te scannen, zodat aankondigingen sneller kunnen starten."
+    "group_ip_help": "Reserveer vaste IP-adressen voor je Sonos-luidsprekers in je router. Met Apart afspelen kan Homey bekende adressen hergebruiken in plaats van het netwerk te scannen, zodat aankondigingen sneller kunnen starten.",
+    "group_auto_power": "Automatisch in- en uitschakelen",
+    "group_auto_power_help": "Voor meldingen: een tv die uit staat wordt eerst ingeschakeld en daarna weer uitgeschakeld.",
+    "auto_power": "Automatisch aan/uit",
+    "auto_power_all": "Automatisch in- en uitschakelen voor Alle speakers",
+    "auto_power_help": "Alleen voor meldingen. Een tv die uit staat wordt eerst ingeschakeld en daarna weer uitgeschakeld. Opgeslagen groepen en afspeelapparaten hebben een eigen instelling.",
+    "auto_power_saved": "Automatisch aan/uit opgeslagen.",
+    "auto_power_error": "Automatisch aan/uit kon niet worden opgeslagen."
   },
   "speakers": {
     "stereo": "Stereo",
@@ -194,5 +209,22 @@
   },
   "release": {
     "speaker_playback_notice": "Speel direct af op Sonos, Google Cast en compatibele UPnP/DLNA-luidsprekers of opgeslagen luidsprekergroepen. Bedien het afspelen, blader door de bibliotheek en kies een luidspreker in de Mediaspeler-widget op je dashboard. Zie de wiki voor de handleiding en het Universal Media Player-topic op het Communityforum voor hulp."
+  },
+  "speakerDevice": {
+    "unsupported": "Deze speaker ondersteunt deze actie nu niet.",
+    "unreachable": "De speaker is niet bereikbaar op het lokale netwerk.",
+    "tvPermission": "Sta Universal Media Player toe op de tv en probeer het opnieuw.",
+    "tvUnreachable": "De tv kan niet worden ingeschakeld. Controleer of hij met het netwerk is verbonden.",
+    "tvOff": "Zet de tv eerst aan.",
+    "inputs": {
+      "tv": "Tv (HDMI ARC / optisch)",
+      "line_in": "Line-in",
+      "queue": "Muziek (Sonos-wachtrij)",
+      "samsung_tv": "Tv",
+      "hdmi_1": "HDMI 1",
+      "hdmi_2": "HDMI 2",
+      "hdmi_3": "HDMI 3",
+      "hdmi_4": "HDMI 4"
+    }
   }
 }

@@ -36,7 +36,7 @@
     "next": "Siguiente",
     "repeat": "Repetir lista",
     "startFlow": "Inicia primero un archivo o carpeta mediante un Flow.",
-    "noPlayers": "Añade un reproductor UPnP para usar este widget.",
+    "noPlayers": "Añade un servidor multimedia para usar este widget.",
     "retry": "Reintentar",
     "loadError": "No se puede cargar el reproductor. Comprueba la conexión e inténtalo de nuevo.",
     "controlError": "La acción ha fallado. Comprueba el reproductor y sus Flows de reproducción y vuelve a intentarlo.",
@@ -110,7 +110,15 @@
     "tvFirmware": "Firmware",
     "tvFrame": "The Frame",
     "tvVoice": "Control por voz",
-    "tvGamepad": "Compatible con mandos"
+    "tvGamepad": "Compatible con mandos",
+    "showSpectrum": "Mostrar espectro",
+    "showArtwork": "Mostrar portada",
+    "spectrumUnavailable": "Espectro no disponible para esta pista",
+    "spectrumLoading": "Cargando espectro…",
+    "deviceInput": "Entrada",
+    "devicePower": "Encendido",
+    "powerOn": "Encender",
+    "powerOff": "Apagar"
   },
   "settings": {
     "settings_title": "Ajustes de Universal Media Player",
@@ -165,7 +173,14 @@
     "sonos_saved": "Modo de Sonos guardado.",
     "sonos_save_error": "No se pudo guardar el modo de Sonos.",
     "sonos_load_error": "No se pudo cargar el modo de Sonos.",
-    "group_ip_help": "Reserva direcciones IP fijas para tus altavoces Sonos en el router. Con Reproducir por separado, Homey puede reutilizar direcciones conocidas en lugar de buscar en la red, lo que puede acelerar los anuncios."
+    "group_ip_help": "Reserva direcciones IP fijas para tus altavoces Sonos en el router. Con Reproducir por separado, Homey puede reutilizar direcciones conocidas en lugar de buscar en la red, lo que puede acelerar los anuncios.",
+    "group_auto_power": "Encender y apagar automáticamente",
+    "group_auto_power_help": "Para avisos: un televisor apagado se enciende primero y después se vuelve a apagar.",
+    "auto_power": "Encendido automático",
+    "auto_power_all": "Encender y apagar automáticamente para Todos los altavoces",
+    "auto_power_help": "Solo para avisos. Un televisor apagado se enciende primero y después se vuelve a apagar. Los grupos guardados y los dispositivos de reproducción tienen su propio ajuste.",
+    "auto_power_saved": "Encendido automático guardado.",
+    "auto_power_error": "No se pudo guardar el encendido automático."
   },
   "speakers": {
     "stereo": "Estéreo",
@@ -194,5 +209,22 @@
   },
   "release": {
     "speaker_playback_notice": "Reproduce directamente en Sonos, Google Cast, altavoces UPnP/DLNA compatibles o grupos de altavoces guardados. Controla la reproducción, explora la biblioteca y elige un altavoz desde el widget Reproductor multimedia del panel. Consulta la wiki para ver el manual y el tema Universal Media Player en el foro de la comunidad si necesitas ayuda."
+  },
+  "speakerDevice": {
+    "unsupported": "Este altavoz no admite esta acción en este momento.",
+    "unreachable": "No se puede acceder al altavoz en la red local.",
+    "tvPermission": "Permite Universal Media Player en el televisor y vuelve a intentarlo.",
+    "tvUnreachable": "No se puede encender el televisor. Comprueba que esté conectado a la red.",
+    "tvOff": "Enciende primero el televisor.",
+    "inputs": {
+      "tv": "TV (HDMI ARC / óptica)",
+      "line_in": "Entrada de línea",
+      "queue": "Música (cola de Sonos)",
+      "samsung_tv": "TV",
+      "hdmi_1": "HDMI 1",
+      "hdmi_2": "HDMI 2",
+      "hdmi_3": "HDMI 3",
+      "hdmi_4": "HDMI 4"
+    }
   }
 }
