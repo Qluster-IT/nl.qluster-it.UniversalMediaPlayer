@@ -6,5 +6,5 @@ Añade altavoces y televisores como Dispositivos de reproducción con sus propio
 
 Selecciona un archivo o carpeta en una tarjeta de Flow y conecta el disparador La URL de reproducción ha cambiado con la acción de tu altavoz que reproduce una URL. La aplicación busca la URL actual mediante la ruta guardada. Para reproducir mediante Flows, conecta el disparador de reproducción detenida con la acción de pausa o detención de tu altavoz.
 
-Consulta el tema en el foro de la comunidad para ver ejemplos y obtener información.
+Consulta el tema en el foro de la comunidad para obtener ayuda e información.
 Para consultar la wiki y el manual de usuario de Universal Media Player, selecciona "Visitar sitio web" en "Sitio web del desarrollador", en la página de esta aplicación en Homey App Store.

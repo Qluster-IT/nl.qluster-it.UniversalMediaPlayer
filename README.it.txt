@@ -6,5 +6,5 @@ Aggiungi altoparlanti e TV come Dispositivi di riproduzione con controlli propri
 
 Seleziona un file o una cartella in una scheda Flow, quindi collega il trigger URL di riproduzione cambiato all’azione del tuo altoparlante che riproduce un URL. L’app cerca l’URL attuale usando il percorso salvato. Per la riproduzione tramite Flow, collega il trigger di arresto della riproduzione all’azione di pausa o arresto dell’altoparlante.
 
-Consulta l’argomento nel forum della community per esempi e informazioni.
+Consulta l’argomento nel forum della community per assistenza e informazioni.
 Per il wiki e il manuale utente di Universal Media Player, seleziona "Visita il sito web" sotto "Sito web dello sviluppatore" nella pagina di questa app nell’Homey App Store.

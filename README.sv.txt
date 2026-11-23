@@ -6,5 +6,5 @@ Lägg till högtalare och tv-apparater som Uppspelningsenheter med egna kontroll
 
 Välj en fil eller mapp på ett Flow-kort och koppla utlösaren Uppspelnings-URL ändrad till högtalarens åtgärd för att spela upp en URL. Appen hittar den aktuella URL:en med hjälp av den sparade sökvägen. För uppspelning via Flows ansluter du utlösaren för stoppad uppspelning till högtalarens paus- eller stoppåtgärd.
 
-Se ämnet i communityforumet för exempel och information.
+Se ämnet i communityforumet för hjälp och information.
 För Universal Media Players wiki och användarmanual väljer du "Besök webbplatsen" under "Utvecklarens webbplats" på den här appens sida i Homey App Store.

@@ -6,5 +6,5 @@ Tilføj højttalere og tv som Afspilningsenheder med egne afspilnings- og lydsty
 
 Vælg en fil eller mappe i et Flow-kort, og forbind udløseren Afspilnings-URL ændret med højttalerens handling til afspilning af en URL. Appen slår den aktuelle URL op via den gemte sti. Ved afspilning via Flows skal du forbinde udløseren for stoppet afspilning med højttalerens pause- eller stophandling.
 
-Se emnet på fællesskabsforummet for eksempler og information.
+Se emnet på fællesskabsforummet for hjælp og information.
 For Universal Media Players wiki og brugervejledning skal du vælge "Besøg hjemmesiden" under "Udviklerens hjemmeside" på denne apps side i Homey App Store.

@@ -6,5 +6,5 @@ Füge Lautsprecher und Fernseher als Wiedergabegeräte mit eigener Wiedergabe- u
 
 Wähle in einer Flow-Karte eine Datei oder einen Ordner aus und verknüpfe den Auslöser Wiedergabe-URL geändert mit der Aktion deines Lautsprechers zum Abspielen einer URL. Die App ermittelt die aktuelle URL anhand des gespeicherten Pfads. Verbinde bei der Wiedergabe über Flows den Auslöser für gestoppte Wiedergabe mit der Pause- oder Stoppaktion deines Lautsprechers.
 
-Im Thema im Community-Forum findest du Beispiele und Informationen.
+Im Thema im Community-Forum findest du Hilfe und Informationen.
 Für das Universal Media Player-Wiki und Benutzerhandbuch wähle "Website besuchen" unter "Entwickler-Website" auf der Homey App Store-Seite dieser App.
