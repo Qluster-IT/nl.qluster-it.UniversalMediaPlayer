@@ -6,5 +6,5 @@ Dodawaj głośniki i telewizory jako Urządzenia odtwarzające z własnym sterow
 
 Wybierz plik lub folder na karcie Flow, a następnie połącz wyzwalacz Zmieniono adres URL odtwarzania z akcją głośnika odtwarzającą dźwięk z adresu URL. Aplikacja znajduje aktualny adres URL na podstawie zapisanej ścieżki. Przy odtwarzaniu za pomocą Flow połącz wyzwalacz zatrzymania odtwarzania z akcją wstrzymania lub zatrzymania na głośniku.
 
-Forum społeczności: https://community.homey.app/t/43450
-Wiki i instrukcję znajdziesz na stronie aplikacji w Homey App Store w sekcji Witryna dewelopera → Odwiedź witrynę.
+Zajrzyj do tematu na forum społeczności, aby znaleźć przykłady i informacje.
+Aby otworzyć wiki i instrukcję obsługi Universal Media Player, wybierz "Odwiedź witrynę" w sekcji "Witryna dewelopera" na stronie tej aplikacji w Homey App Store.

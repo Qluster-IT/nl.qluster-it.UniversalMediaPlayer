@@ -6,5 +6,5 @@ Ajoutez des enceintes et des téléviseurs comme Appareils de lecture avec leurs
 
 Sélectionnez un fichier ou un dossier dans une carte de Flow, puis reliez le déclencheur URL de lecture modifiée à l’action de votre enceinte qui lit une URL. L’application retrouve l’URL actuelle à partir du chemin enregistré. Pour la lecture via les Flows, associez le déclencheur d’arrêt de lecture à l’action de pause ou d’arrêt de votre enceinte.
 
-Forum de la communauté: https://community.homey.app/t/43450
-Pour consulter le wiki et le manuel, sélectionnez Visiter le site Web sous Site Web du développeur sur la page de l’application dans le Homey App Store.
+Consultez le sujet sur le forum communautaire pour trouver des exemples et des informations.
+Pour le wiki et le manuel d’utilisation de Universal Media Player, sélectionnez "Visiter le site Web" sous "Site Web du développeur" sur la page de cette application dans le Homey App Store.

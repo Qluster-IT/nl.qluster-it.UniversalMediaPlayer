@@ -6,5 +6,5 @@ Legg til høyttalere og TV-er som Avspillingsenheter med egne kontroller for avs
 
 Velg en fil eller mappe i et Flow-kort, og koble utløseren Avspillings-URL endret til høyttalerens handling for å spille av en URL. Appen finner den gjeldende URL-en ved hjelp av den lagrede stien. For avspilling via Flows kobler du utløseren for stoppet avspilling til høyttalerens pause- eller stopphandling.
 
-Fellesskapsforum: https://community.homey.app/t/43450
-Du finner wikien og brukerhåndboken under Utviklerens nettsted → Besøk nettstedet på appens side i Homey App Store.
+Se emnet i fellesskapsforumet for eksempler og informasjon.
+For Universal Media Players wiki og brukerhåndbok velger du "Besøk nettstedet" under "Utviklerens nettsted" på denne appens side i Homey App Store.
